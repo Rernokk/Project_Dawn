@@ -240,6 +240,10 @@ Prefab:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 1190573161159574, guid: 010f621919333884ab62e89fa4d67a4f, type: 2}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 010f621919333884ab62e89fa4d67a4f, type: 2}
   m_IsPrefabParent: 0
@@ -322,9 +326,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1686482718}
-  - component: {fileID: 1686482719}
   - component: {fileID: 1686482721}
   - component: {fileID: 1686482720}
+  - component: {fileID: 1686482719}
+  - component: {fileID: 1686482722}
+  - component: {fileID: 1686482723}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -361,8 +367,8 @@ MonoBehaviour:
   left: 97
   right: 100
   jump: 32
-  playerSpeed: 200
-  verticalJump: 7500
+  playerSpeed: 50
+  verticalJump: 30
   grounded: 1
 --- !u!50 &1686482720
 Rigidbody2D:
@@ -376,7 +382,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 20
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 10
   m_Material: {fileID: 6200000, guid: a8879218a2c9c2544af7f8a8b48a97e7, type: 2}
@@ -409,3 +415,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1686482722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1686482717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4344f80d3a239a40b981204ee7722b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  first: 323
+  second: 324
+  third: 101
+  fourth: 102
+--- !u!114 &1686482723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1686482717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda273058917e2a42b61ab624d516eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
