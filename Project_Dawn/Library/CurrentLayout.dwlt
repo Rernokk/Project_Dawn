@@ -111,7 +111,11 @@ MonoBehaviour:
   m_MinSize: {x: 917, y: 442}
   m_MaxSize: {x: 22012, y: 10021}
   vertical: 0
+<<<<<<< HEAD
   controlID: 161
+=======
+  controlID: 43
+>>>>>>> bfe11268e8e0af9ba9bf88476009647dd4c83742
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -135,7 +139,11 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
+<<<<<<< HEAD
   controlID: 10
+=======
+  controlID: 67
+>>>>>>> bfe11268e8e0af9ba9bf88476009647dd4c83742
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -209,7 +217,11 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 342}
   m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
+<<<<<<< HEAD
   controlID: 64
+=======
+  controlID: 44
+>>>>>>> bfe11268e8e0af9ba9bf88476009647dd4c83742
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -577,19 +589,33 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
+<<<<<<< HEAD
     - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
   - Assets/Scripts
+=======
+    - Assets/Physics Materials
+  m_ViewMode: 1
+  m_StartGridSize: 16
+  m_LastFolders:
+  - Assets/Physics Materials
+>>>>>>> bfe11268e8e0af9ba9bf88476009647dd4c83742
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\imadu\Desktop\Dawn\Project_Dawn\Project_Dawn
+  m_LastProjectPath: C:\Users\slyth\Documents\GitHub\Project_Dawn\Project_Dawn
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
     m_SelectedIDs: 54280000
     m_LastClickedID: 10324
     m_ExpandedIDs: 00000000fe26000000ca9a3bffffff7f
+=======
+    m_SelectedIDs: 36280000
+    m_LastClickedID: 10294
+    m_ExpandedIDs: 00000000f626000000ca9a3bffffff7f
+>>>>>>> bfe11268e8e0af9ba9bf88476009647dd4c83742
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -617,7 +643,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
     m_ExpandedIDs: 00000000fe260000
+=======
+    m_ExpandedIDs: 00000000f6260000
+>>>>>>> bfe11268e8e0af9ba9bf88476009647dd4c83742
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
