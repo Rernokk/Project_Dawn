@@ -55,6 +55,7 @@ public class Mage_Controller : MonoBehaviour {
         //Display Teleport
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            //Dooooooo stuff
             print(Input.mousePosition);
             RaycastHit2D info = Physics2D.Raycast(Input.mousePosition, Vector2.down);
             if (info.transform != null)
