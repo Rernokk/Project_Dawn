@@ -22,7 +22,9 @@ public class Player_Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey(left))
+        #region Movement
+        #region Left/Right
+        if (Input.GetKey(left))
         {
             rgd.AddForce(-transform.right * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
         }
@@ -30,7 +32,8 @@ public class Player_Controller : MonoBehaviour {
         {
             rgd.AddForce(transform.right * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
         }
-
+        #endregion
+        #region Jumping
         if (Input.GetKey(KeyCode.Space) && grounded)
         {
             rgd.velocity += new Vector2(0,1) * verticalJump;
@@ -46,6 +49,14 @@ public class Player_Controller : MonoBehaviour {
         {
             rgd.gravityScale = gravScale;
         }
+        #endregion
+        #endregion
+
+        #region Skills
+        //Teleport
+        //Dash
+        //Stealth
+        #endregion
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
