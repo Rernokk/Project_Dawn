@@ -33,15 +33,6 @@ public class Player_Controller : MonoBehaviour {
             rgd.velocity += new Vector2(0,1) * verticalJump;
             grounded = false;
         }
-
-        if (!grounded)
-        {
-            if (rgd.velocity.y == 0)
-            {
-                grounded = true;
-                rgd.gravityScale = gravScale;
-            }
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
