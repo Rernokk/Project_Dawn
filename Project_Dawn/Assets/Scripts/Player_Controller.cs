@@ -80,20 +80,32 @@ public class Player_Controller : MonoBehaviour {
         if (Input.GetKeyDown(teleport) && canTeleport)
         {
             Ray myRay = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.down);
-            RaycastHit2D hit = Physics2D.Raycast(myRay.origin, myRay.direction, 3f);
-            Debug.DrawRay(myRay.origin, (Vector3)hit.point - myRay.origin, Color.red, 5f);
-            if (hit.transform != null && hit.transform.tag == "Ground")
+            if (Mathf.Abs(transform.position.x - myRay.origin.x) <= teleportRange)
             {
-                Ray nextRay = new Ray(myRay.origin, transform.position - myRay.origin);
-                RaycastHit2D nextHit = Physics2D.Raycast(nextRay.origin, nextRay.direction);
-                if ((nextHit.transform == null) || (nextHit.transform != null && nextHit.transform.tag != "Unpassable"))
+                RaycastHit2D hit = Physics2D.Raycast(myRay.origin, myRay.direction);
+                if (hit.transform != null && hit.transform.tag == "Ground")
                 {
-                    myTemporaryTeleport = Instantiate(MyTelePrefab, (Vector3)hit.point - new Vector3(0, MyTelePrefab.GetComponent<BoxCollider2D>().bounds.extents.y, 0), Quaternion.identity);
+                    Ray nextRay = new Ray(myRay.origin, myRay.origin - transform.position);
+                    RaycastHit2D[] nextHit = Physics2D.RaycastAll(nextRay.origin, nextRay.direction, Mathf.Abs(nextRay.origin.x - transform.position.x));
+                    bool canTele = true;
+                    foreach (RaycastHit2D thisHit in nextHit)
+                    {
+                        if (thisHit.transform.tag == "Unpassable")
+                        {
+                            canTele = false;
+                            break;
+                        }
+                    }
+                    if ((nextHit.Length == 0) || (canTele))
+                    {
+                        myTemporaryTeleport = Instantiate(MyTelePrefab, (Vector3)hit.point - new Vector3(0, MyTelePrefab.GetComponent<BoxCollider2D>().bounds.extents.y, 0), Quaternion.identity);
+                    }
                 }
             }
         }
 
         //Teleporting
+        /*
         if (Input.GetKeyUp(teleport) && canTeleport)
         {
             if (myTemporaryTeleport != null)
@@ -102,16 +114,33 @@ public class Player_Controller : MonoBehaviour {
             }
             Ray myRay = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.down);
             RaycastHit2D hit = Physics2D.Raycast(myRay.origin, myRay.direction, 3f);
-            Debug.DrawRay(myRay.origin, (Vector3)hit.point - myRay.origin, Color.red, 5f);
+            //Debug.DrawRay(myRay.origin, (Vector3)hit.point - myRay.origin, Color.red, 5f);
             if (hit.transform != null && hit.transform.tag == "Ground")
             {
                 Ray nextRay = new Ray(myRay.origin, transform.position - myRay.origin);
-                RaycastHit2D nextHit = Physics2D.Raycast(nextRay.origin, nextRay.direction);
-                if ((nextHit.transform == null) || (nextHit.transform != null && nextHit.transform.tag != "Unpassable"))
+                RaycastHit2D[] nextHit = Physics2D.RaycastAll(nextRay.origin, nextRay.direction);
+                bool canTele = true;
+                foreach (RaycastHit2D thisHit in nextHit)
+                {
+                    if (thisHit.transform.tag == "Unpassable")
+                    {
+                        canTele = false;
+                        break;
+                    }
+                }
+                if ((nextHit.Length == 0) || (canTele))
                 {
                     transform.position = (Vector3)hit.point + new Vector3(0, myColl.bounds.extents.y, 0);
                     StartCoroutine(StartTeleportCD());
                 }
+            }
+        }*/
+        if(Input.GetKeyUp(teleport) && canTeleport)
+        {
+            if (myTemporaryTeleport != null)
+            {
+                transform.position = myTemporaryTeleport.transform.position;
+                Destroy(myTemporaryTeleport);
             }
         }
 
@@ -119,14 +148,37 @@ public class Player_Controller : MonoBehaviour {
         if (Input.GetKeyDown(dash) && canDash)
         {
             Ray dir = new Ray(transform.position + new Vector3(Mathf.Sign(direction.x) * (myColl.bounds.extents.x+.05f), 0, 0), direction * teleportRange);
-            RaycastHit2D hit = Physics2D.Raycast(dir.origin, dir.direction, teleportRange);
-            if (hit.transform == null || hit.transform.tag != "Unpassable")
+            RaycastHit2D[] hit = Physics2D.RaycastAll(dir.origin, dir.direction, teleportRange);
+            bool canDash = true;
+            Vector2 telePoint = new Vector2(-1000, -1000);
+            foreach (RaycastHit2D thisHit in hit)
+            {
+                if (thisHit.transform.tag == "Unpassable")
+                {
+                    canDash = false;
+                }
+            }
+
+            if (!canDash)
+            {
+                foreach (RaycastHit2D thisHit in hit)
+                {
+                    if (Vector2.Distance(thisHit.point, transform.position) < Vector2.Distance(telePoint, transform.position))
+                    {
+                        telePoint = thisHit.point + new Vector2((-Mathf.Sign(direction.x) * myColl.bounds.extents.x), 0);
+                    }
+                }
+            }
+            
+            if (hit.Length == 0 || canDash)
             {
                 transform.position += teleportRange * direction;
             } else
             {
-                transform.position = hit.point + new Vector2((-Mathf.Sign(direction.x) * myColl.bounds.extents.x), 0);
+                //transform.position = hit.point + new Vector2((-Mathf.Sign(direction.x) * myColl.bounds.extents.x), 0);
+                transform.position = telePoint;
             }
+            StartCoroutine(StartDashCD());
         }
 
         //Stealth
