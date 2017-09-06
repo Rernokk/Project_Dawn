@@ -42,9 +42,7 @@ public class Player_Controller : MonoBehaviour {
 
     [SerializeField]
     List<Monster> Aggro;
-
-    [HideInInspector]
-    public List<Monster> inExplosionRange;
+    Monster_List_Ref MonsterRef;
 
     void Start () {
         rgd = GetComponent<Rigidbody2D>();
@@ -56,7 +54,7 @@ public class Player_Controller : MonoBehaviour {
         FlameDirection = transform.Find("FlameAnchor").transform;
         FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
         myCam = transform.Find("Main Camera").transform;
-        inExplosionRange = new List<Monster>();
+        MonsterRef = GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>();
     }
 	
 	// Update is called once per frame
@@ -111,16 +109,13 @@ public class Player_Controller : MonoBehaviour {
                 CamShake[i] = myCam.position + new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 0);
             }
             //StartCoroutine(CameraShake(CamShake, myCamPos));
+            foreach (Monster m in MonsterRef.MonstersInRange(transform.position, explosionRange))
+            {
+                m.Damage(explosionDmg);
+            }
             transform.position = myTemporaryTeleport.transform.position;
             Destroy(myTemporaryTeleport);
             StartCoroutine(StartDashCD());
-            foreach(Monster m in inExplosionRange)
-            {
-                if (Vector3.Distance(transform.position, m.transform.position) < 5f)
-                {
-                    m.Damage(explosionDmg);
-                }
-            }
         }
         #endregion
         #region Stealth
