@@ -11,10 +11,10 @@ public class TargetDummy : Monster {
 	
 	// Update is called once per frame
 	void Update () {
-
+        base.Update();
 	}
 
-    public void Damage(int damageValue)
+    public void Damage(float damageValue)
     {
         base.Damage(damageValue);
         if (!Triggered)

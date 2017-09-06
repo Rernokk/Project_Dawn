@@ -914,7 +914,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 815952920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0.75}
+  m_LocalPosition: {x: 0, y: 0, z: 0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1685567239}
@@ -1032,7 +1032,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 512718853
+  randomSeed: 1822104806
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4354,7 +4354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 0
-  TotalHealth: 100
+  TotalHealth: 200
   MyHealthColor: {r: 1, g: 0, b: 0, a: 1}
   HealthRefMat: {fileID: 2100000, guid: 0bf470aa76059364595209189f171288, type: 2}
 --- !u!50 &978749223
@@ -4653,6 +4653,46 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1221471123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1221471124}
+  - component: {fileID: 1221471125}
+  m_Layer: 0
+  m_Name: Monster_Ref
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1221471124
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1221471123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 1.1875, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1221471125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1221471123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b73202cc7f230847b80522ddc326184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1523182635
 GameObject:
   m_ObjectHideFlags: 0
@@ -4953,7 +4993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1685567239
 Transform:
   m_ObjectHideFlags: 0
@@ -8336,7 +8376,10 @@ MonoBehaviour:
   playerSpeed: 75
   verticalJump: 40
   stealthDuration: 0.5
+  explosionRange: 5
   teleportRange: 8
+  flameDmg: 100
+  explosionDmg: 100
   dashCD: 1
   stealthCD: 1
   teleportCD: 1
@@ -8349,6 +8392,7 @@ MonoBehaviour:
     type: 2}
   direction: {x: 0, y: 0, z: 0}
   Aggro: []
+  inExplosionRange: []
 --- !u!50 &1686482720
 Rigidbody2D:
   serializedVersion: 4
@@ -8503,7 +8547,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2023051261}
   - component: {fileID: 2023051262}
-  m_Layer: 8
+  - component: {fileID: 2023051263}
+  m_Layer: 9
   m_Name: TriggerZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8548,3 +8593,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.674052, y: 1.5620818}
   m_EdgeRadius: 0
+--- !u!114 &2023051263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2023051260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8daed1c7f11874795adcd1a5f4a80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: []

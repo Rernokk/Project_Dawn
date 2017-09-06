@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4587698269736502}
   - component: {fileID: 61032320613826946}
   - component: {fileID: 114196373298748284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Teleport_Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 571167235653111936, guid: 0000000000000000d000000000000000, type: 0}

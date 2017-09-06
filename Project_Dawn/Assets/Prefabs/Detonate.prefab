@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4315549938468704}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Detonate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2571,7 +2571,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967039
+      m_Bits: 4294966527
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -5833,7 +5833,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967039
+      m_Bits: 4294966527
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5

@@ -8,8 +8,12 @@ public class Player_Controller : MonoBehaviour {
 
     //Regular values
     [SerializeField]
-    float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f;
+    float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f;
     public float teleportRange = 1f;
+
+    //Damage
+    [SerializeField]
+    float flameDmg = 100f, explosionDmg = 100f;
 
     //Cooldowns
     [SerializeField]
@@ -39,6 +43,9 @@ public class Player_Controller : MonoBehaviour {
     [SerializeField]
     List<Monster> Aggro;
 
+    [HideInInspector]
+    public List<Monster> inExplosionRange;
+
     void Start () {
         rgd = GetComponent<Rigidbody2D>();
         gravScale = rgd.gravityScale;
@@ -49,6 +56,7 @@ public class Player_Controller : MonoBehaviour {
         FlameDirection = transform.Find("FlameAnchor").transform;
         FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
         myCam = transform.Find("Main Camera").transform;
+        inExplosionRange = new List<Monster>();
     }
 	
 	// Update is called once per frame
@@ -102,10 +110,17 @@ public class Player_Controller : MonoBehaviour {
             {
                 CamShake[i] = myCam.position + new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 0);
             }
-            StartCoroutine(CameraShake(CamShake, myCamPos));
+            //StartCoroutine(CameraShake(CamShake, myCamPos));
             transform.position = myTemporaryTeleport.transform.position;
             Destroy(myTemporaryTeleport);
             StartCoroutine(StartDashCD());
+            foreach(Monster m in inExplosionRange)
+            {
+                if (Vector3.Distance(transform.position, m.transform.position) < 5f)
+                {
+                    m.Damage(explosionDmg);
+                }
+            }
         }
         #endregion
         #region Stealth
@@ -123,11 +138,11 @@ public class Player_Controller : MonoBehaviour {
         {
             //Tracking Mouse
             Vector3 lookPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            lookPos.z = transform.position.z;
+            lookPos.z = FlameDirection.transform.position.z;
             FlameDirection.LookAt(lookPos);
 
             //Finding Damageable Targets
-            FlameDirection.Find("TriggerZone").GetComponent<BoxCollider2D>();
+            FlameDirection.Find("TriggerZone").GetComponent<Flame_Script>().DamageTargets(flameDmg);
         }
         if (Input.GetKeyUp(flame))
         {
