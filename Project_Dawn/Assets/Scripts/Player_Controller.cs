@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour {
     [SerializeField]
-    KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space, dash = KeyCode.LeftShift, flame = KeyCode.Mouse1, stealth = KeyCode.F;
+    KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space, dash = KeyCode.LeftShift, flame = KeyCode.Mouse0, stealth = KeyCode.F, lightning = KeyCode.Mouse1;
 
     //Regular values
     [SerializeField]
-    float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f;
+    float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f;
     public float teleportRange = 1f;
 
     //Damage
     [SerializeField]
-    float flameDmg = 100f, explosionDmg = 100f;
+    float flameDmg = 100f, explosionDmg = 100f, lightningDmg;
 
     //Cooldowns
     [SerializeField]
-    float dashCD = 1f, stealthCD = 1f, teleportCD = 1f;
+    float dashCD = 1f, stealthCD = 1f, lightningCD = 1f;
     float gravScale = 1f;
 
     [SerializeField]
     bool grounded = true, isStealth = false;
-    bool canStealth = true, canTeleport = true, canDash = true;
+    bool canStealth = true, canTeleport = true, canDash = true, canBolt = true;
 
     [SerializeField]
     int TotalMana = 100;
@@ -144,6 +144,13 @@ public class Player_Controller : MonoBehaviour {
             FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
         }
         #endregion
+
+        #region Lightning
+        if (Input.GetKeyDown(lightning) && canBolt)
+        {
+            CastLightning();
+        }
+        #endregion
         #endregion
     }
 
@@ -172,6 +179,13 @@ public class Player_Controller : MonoBehaviour {
         canDash = true;
     }
 
+    IEnumerator StartLightningCD()
+    {
+        canBolt = false;
+        yield return new WaitForSeconds(lightningCD);
+        canBolt = true;
+    }
+
     IEnumerator CameraShake(Vector3[] Positions, Vector3 Origin)
     {
         foreach (Vector3 pos in Positions)
@@ -198,5 +212,17 @@ public class Player_Controller : MonoBehaviour {
     public void AddAggression(GameObject ctx)
     {
         Aggro.Add(ctx.GetComponent<Monster>());
+    }
+
+    void CastLightning()
+    {
+        StartCoroutine(StartLightningCD());
+        Vector3 targetPos = Vector3.zero;
+        RaycastHit2D info = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.down, 10f);
+        targetPos = info.point;
+        foreach(Monster m in MonsterRef.MonstersInRange(targetPos, lightningRange))
+        {
+            m.Damage(lightningDmg);
+        }
     }
 }

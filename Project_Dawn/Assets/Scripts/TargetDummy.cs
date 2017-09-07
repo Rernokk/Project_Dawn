@@ -12,7 +12,11 @@ public class TargetDummy : Monster {
 	// Update is called once per frame
 	void Update () {
         base.Update();
-	}
+        if (Health < TotalHealth)
+        {
+            Heal(10 * Time.deltaTime);
+        }
+    }
 
     public void Damage(float damageValue)
     {
@@ -20,10 +24,6 @@ public class TargetDummy : Monster {
         if (!Triggered)
         {
             Aggro();
-        }
-        if (Health <= 0)
-        {
-            Destroy(gameObject);
         }
     }
 

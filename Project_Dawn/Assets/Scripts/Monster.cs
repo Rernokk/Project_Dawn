@@ -36,6 +36,22 @@ public abstract class Monster : MonoBehaviour {
     {
         Health -= damageValue;
         myHealthMaterial.SetFloat("_Value", Health / TotalHealth);
+
+        if (Health <= 0)
+        {
+            GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>().CullMonster(this);
+            Destroy(gameObject);
+        }
+    }
+
+    public void Heal(float healValue)
+    {
+        Health += healValue;
+        if (Health > TotalHealth)
+        {
+            Health = TotalHealth;
+        }
+        myHealthMaterial.SetFloat("_Value", Health / TotalHealth);
     }
     
     protected void OnTriggerEnter2D(Collider2D collision)
@@ -59,11 +75,6 @@ public abstract class Monster : MonoBehaviour {
         if (burning)
         {
             Damage(dotDmg * Time.deltaTime);
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            playerController.inExplosionRange.Add(this);
         }
     }
 

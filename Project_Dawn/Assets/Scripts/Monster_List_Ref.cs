@@ -6,7 +6,7 @@ public class Monster_List_Ref : MonoBehaviour {
     [SerializeField]
     List<Monster> MonstersInMap;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         MonstersInMap = new List<Monster>();
 	}
 
