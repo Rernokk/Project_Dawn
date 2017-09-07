@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Unpassable
+  - Wall
   layers:
   - Default
   - TransparentFX

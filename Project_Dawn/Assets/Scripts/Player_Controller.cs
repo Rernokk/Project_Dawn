@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_Controller : MonoBehaviour {
     [SerializeField]
@@ -25,8 +26,8 @@ public class Player_Controller : MonoBehaviour {
     bool canStealth = true, canTeleport = true, canDash = true, canBolt = true;
 
     [SerializeField]
-    int TotalMana = 100;
-    int currentMana;
+    float TotalMana = 100, TotalHealth;
+    float currentMana, currentHealth;
 
     [SerializeField]
     GameObject MyTelePrefab, MyDetonatePrefab;
@@ -159,6 +160,15 @@ public class Player_Controller : MonoBehaviour {
         if (collision.transform.tag == "Ground")
         {
             grounded = true;
+        }
+    }
+
+    public void Damage(float Damage)
+    {
+        currentHealth -= Damage;
+        if (currentHealth < 0)
+        {
+            SceneManager.LoadScene("Playground");
         }
     }
 

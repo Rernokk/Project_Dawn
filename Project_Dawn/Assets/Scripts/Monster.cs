@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public abstract class Monster : MonoBehaviour {
     protected GameObject player;
     protected Player_Controller playerController;
+    [SerializeField]
     protected bool Triggered = false, burning = false;
 
     [SerializeField]
@@ -16,6 +17,7 @@ public abstract class Monster : MonoBehaviour {
 
     protected Material myHealthMaterial;
     protected GameObject myHealthBar;
+    protected Vector3 direction;
 
     float dotDmg = 0;
     // Use this for initialization
@@ -29,6 +31,7 @@ public abstract class Monster : MonoBehaviour {
         myHealthMaterial.SetFloat("_Value", Health/TotalHealth);
         myHealthBar.GetComponent<Image>().material = myHealthMaterial;
         GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>().AddMonsterToList(this);
+        direction = transform.right * Mathf.Sign((player.transform.position - transform.position).x);
     }
 	
     protected abstract void Aggro();
@@ -36,7 +39,6 @@ public abstract class Monster : MonoBehaviour {
     {
         Health -= damageValue;
         myHealthMaterial.SetFloat("_Value", Health / TotalHealth);
-
         if (Health <= 0)
         {
             GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>().CullMonster(this);
