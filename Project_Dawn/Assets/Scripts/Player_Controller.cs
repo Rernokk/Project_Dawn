@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player_Controller : MonoBehaviour {
+    #region KeyCodes
     [SerializeField]
     KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space, dash = KeyCode.LeftShift, flame = KeyCode.Mouse0, stealth = KeyCode.F, lightning = KeyCode.Mouse1;
-
+    #endregion
+    #region Floats
     //Regular values
     [SerializeField]
     float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f;
@@ -22,17 +24,21 @@ public class Player_Controller : MonoBehaviour {
     float gravScale = 1f;
 
     [SerializeField]
-    bool grounded = true, isStealth = false;
-    bool canStealth = true, canTeleport = true, canDash = true, canBolt = true;
-
-    [SerializeField]
     float TotalMana = 100, TotalHealth;
     float currentMana, currentHealth;
 
+    #endregion
+    #region Bools
+    [SerializeField]
+    bool grounded = true, isStealth = false;
+    bool canStealth = true, canTeleport = true, canDash = true, canBolt = true;
+    #endregion
+    #region GameObjects
     [SerializeField]
     GameObject MyTelePrefab, MyDetonatePrefab;
     GameObject myTemporaryTeleport;
-
+    #endregion
+    #region Misc
     Rigidbody2D rgd;
 
     [HideInInspector]
@@ -44,8 +50,10 @@ public class Player_Controller : MonoBehaviour {
     [SerializeField]
     List<Monster> Aggro;
     Monster_List_Ref MonsterRef;
-
+    Equipment myGear;
+    #endregion
     void Start () {
+        #region Setup
         rgd = GetComponent<Rigidbody2D>();
         gravScale = rgd.gravityScale;
         direction = transform.right;
@@ -56,10 +64,15 @@ public class Player_Controller : MonoBehaviour {
         FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
         myCam = transform.Find("Main Camera").transform;
         MonsterRef = GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>();
+        #endregion
+        #region Example for Equipment
+        myGear = new Equipment(new Helmet("Helm of Mystery", 10, 5), new Shoulders("Shoulders of Stuff", 15, 28), new Torso("Torso of Existing", 12, 5),
+            new Gloves("Gloves of Bullshittery", 128, 256), new Legs("Legs of Also Existing", 1, 1), new Boots("Shoes", 1, 1));
+
+        myGear = new Equipment();
+        #endregion
     }
-	
-	// Update is called once per frame
-	void Update () {
+    void Update () {
         #region Movement
         #region Left/Right
         if (Input.GetKey(left))
@@ -91,7 +104,6 @@ public class Player_Controller : MonoBehaviour {
         }
         #endregion
         #endregion
-
         #region Skills
         #region Dash
         //TODO: Interact with walls correctly. Possibly act as a "taunt" to monsters aggro'd within range.
@@ -154,7 +166,6 @@ public class Player_Controller : MonoBehaviour {
         #endregion
         #endregion
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Ground")
@@ -162,7 +173,6 @@ public class Player_Controller : MonoBehaviour {
             grounded = true;
         }
     }
-
     public void Damage(float Damage)
     {
         currentHealth -= Damage;
@@ -171,7 +181,6 @@ public class Player_Controller : MonoBehaviour {
             SceneManager.LoadScene("Playground");
         }
     }
-
     IEnumerator StartStealthCD()
     {
         canStealth = false;
@@ -181,21 +190,18 @@ public class Player_Controller : MonoBehaviour {
         yield return new WaitForSeconds(stealthCD - stealthDuration);
         canStealth = true;
     }
-
     IEnumerator StartDashCD()
     {
         canDash = false;
         yield return new WaitForSeconds(dashCD);
         canDash = true;
     }
-
     IEnumerator StartLightningCD()
     {
         canBolt = false;
         yield return new WaitForSeconds(lightningCD);
         canBolt = true;
     }
-
     IEnumerator CameraShake(Vector3[] Positions, Vector3 Origin)
     {
         foreach (Vector3 pos in Positions)
@@ -223,7 +229,6 @@ public class Player_Controller : MonoBehaviour {
     {
         Aggro.Add(ctx.GetComponent<Monster>());
     }
-
     void CastLightning()
     {
         StartCoroutine(StartLightningCD());
