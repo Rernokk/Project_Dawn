@@ -102,17 +102,14 @@ public class Equipment
         return myHelmet.ToString() + "\n\n" + myShoulders.ToString() + "\n\n" + myTorso.ToString()
             + "\n\n" + myGloves.ToString() + "\n\n" + myLegs.ToString() + "\n\n" + myBoots.ToString() + "\n\n" + "Power: " + GetTotalPower() + "\n" + "Defense: " + GetTotalDefense() + "\n";
     }
-
     public int GetTotalPower()
     {
         return myHelmet.Power + myShoulders.Power + myTorso.Power + myGloves.Power + myLegs.Power + myBoots.Power;
     }
-
     public int GetTotalDefense()
     {
         return myHelmet.Defense + myShoulders.Defense + myTorso.Defense + myGloves.Defense + myLegs.Defense + myBoots.Defense;
     }
-
     public Item SwapItem(Item slot)
     {
         Item oldItem = null;
@@ -123,23 +120,28 @@ public class Equipment
         }
         else if (slot.GetType().Equals(myShoulders.GetType()))
         {
-
+            oldItem = myShoulders;
+            myShoulders = (Shoulders) slot;
         }
         else if (slot.GetType().Equals(myTorso.GetType()))
         {
-
+            oldItem = myTorso;
+            myTorso = (Torso) slot;
         }
         else if (slot.GetType().Equals(myGloves.GetType()))
         {
-
+            oldItem = myGloves;
+            myGloves = (Gloves) slot;
         }
         else if (slot.GetType().Equals(myLegs.GetType()))
         {
-
+            oldItem = myLegs;
+            myLegs = (Legs) slot;
         }
         else if (slot.GetType().Equals(myBoots.GetType()))
         {
-
+            oldItem = myBoots;
+            myBoots = (Boots) slot;
         }
         return oldItem;
     }
