@@ -29,7 +29,7 @@ public class Flame_Chucker : Monster {
             Aggro();
         } else
         {
-            currentProjectile.GetComponent<Rigidbody2D>().AddForce((transform.position - player.transform.position).normalized * 20f * Time.deltaTime, ForceMode2D.Impulse);
+            currentProjectile.GetComponent<Rigidbody2D>().AddForce((player.transform.position - transform.position).normalized * 20f * Time.deltaTime, ForceMode2D.Impulse);
         }
     }
 

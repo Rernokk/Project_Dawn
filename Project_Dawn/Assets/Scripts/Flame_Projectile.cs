@@ -17,8 +17,9 @@ public class Flame_Projectile : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
+        print(collision.gameObject.transform.name);
         if (collision.transform.tag == "Player")
         {
             collision.transform.GetComponent<Player_Controller>().Damage(25);

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Player_Controller : MonoBehaviour {
     #region KeyCodes
-    [SerializeField]
     KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space, dash = KeyCode.LeftShift, flame = KeyCode.Mouse0, stealth = KeyCode.F, lightning = KeyCode.Mouse1;
     #endregion
     #region Floats
@@ -14,18 +13,37 @@ public class Player_Controller : MonoBehaviour {
     float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f;
     public float teleportRange = 1f;
 
-    //Damage
+    //Damage Ratios
     [SerializeField]
-    float flameDmg = 100f, explosionDmg = 100f, lightningDmg;
+    float flameRatio = 8.28f, explosionRatio = 12f, lightningRatio = 15f;
 
     //Cooldowns
-    [SerializeField]
     float dashCD = 1f, stealthCD = 1f, lightningCD = 1f;
     float gravScale = 1f;
 
     [SerializeField]
-    float TotalMana = 100, TotalHealth;
+    float TotalMana = 100, TotalHealth = 100;
+
+    [SerializeField]
     float currentMana, currentHealth;
+
+    public float HealthPercent
+    {
+        get
+        {
+            return currentHealth / TotalHealth;
+        }
+    }
+    
+    public float ManaPercent
+    {
+        get
+        {
+            return currentMana / TotalMana;
+        }
+    }
+
+    int Power, Defense;
 
     #endregion
     #region Bools
@@ -35,7 +53,7 @@ public class Player_Controller : MonoBehaviour {
     #endregion
     #region GameObjects
     [SerializeField]
-    GameObject MyTelePrefab, MyDetonatePrefab;
+    GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, LightningDetonate;
     GameObject myTemporaryTeleport;
     #endregion
     #region Misc
@@ -50,6 +68,9 @@ public class Player_Controller : MonoBehaviour {
     [SerializeField]
     List<Monster> Aggro;
     Monster_List_Ref MonsterRef;
+    Player_UI_Controller uiController;
+
+    [SerializeField]
     Equipment myGear;
     #endregion
     void Start () {
@@ -59,17 +80,19 @@ public class Player_Controller : MonoBehaviour {
         direction = transform.right;
         myColl = GetComponent<BoxCollider2D>();
         currentMana = TotalMana;
+        currentHealth = TotalHealth;
         Aggro = new List<Monster>();
         FlameDirection = transform.Find("FlameAnchor").transform;
         FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
         myCam = transform.Find("Main Camera").transform;
         MonsterRef = GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>();
+        uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
         #endregion
         #region Example for Equipment
         myGear = new Equipment(new Helmet("Helm of Mystery", 10, 5), new Shoulders("Shoulders of Stuff", 15, 28), new Torso("Torso of Existing", 12, 5),
-            new Gloves("Gloves of Bullshittery", 128, 256), new Legs("Legs of Also Existing", 1, 1), new Boots("Shoes", 1, 1));
-
-        myGear = new Equipment();
+            new Gloves("Gloves of Grabbing", 128, 256), new Legs("Legs of Also Existing", 1, 1), new Boots("Shoes", 1, 1));
+        Power = myGear.GetTotalPower();
+        Defense = myGear.GetTotalDefense();
         #endregion
     }
     void Update () {
@@ -124,7 +147,7 @@ public class Player_Controller : MonoBehaviour {
             //StartCoroutine(CameraShake(CamShake, myCamPos));
             foreach (Monster m in MonsterRef.MonstersInRange(transform.position, explosionRange))
             {
-                m.Damage(explosionDmg);
+                m.Damage(explosionRatio * Power);
             }
             transform.position = myTemporaryTeleport.transform.position;
             Destroy(myTemporaryTeleport);
@@ -150,14 +173,13 @@ public class Player_Controller : MonoBehaviour {
             FlameDirection.LookAt(lookPos);
 
             //Finding Damageable Targets
-            FlameDirection.Find("TriggerZone").GetComponent<Flame_Script>().DamageTargets(flameDmg);
+            FlameDirection.Find("TriggerZone").GetComponent<Flame_Script>().DamageTargets(flameRatio * Power);
         }
         if (Input.GetKeyUp(flame))
         {
             FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
         }
         #endregion
-
         #region Lightning
         if (Input.GetKeyDown(lightning) && canBolt)
         {
@@ -176,6 +198,7 @@ public class Player_Controller : MonoBehaviour {
     public void Damage(float Damage)
     {
         currentHealth -= Damage;
+        uiController.UpdateHealthValue();
         if (currentHealth < 0)
         {
             SceneManager.LoadScene("Playground");
@@ -234,10 +257,12 @@ public class Player_Controller : MonoBehaviour {
         StartCoroutine(StartLightningCD());
         Vector3 targetPos = Vector3.zero;
         RaycastHit2D info = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.down, 10f);
+        GameObject temp = Instantiate(LightningChain, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+        temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, 0);
         targetPos = info.point;
         foreach(Monster m in MonsterRef.MonstersInRange(targetPos, lightningRange))
         {
-            m.Damage(lightningDmg);
+            m.Damage(lightningRatio * Power);
         }
     }
 }

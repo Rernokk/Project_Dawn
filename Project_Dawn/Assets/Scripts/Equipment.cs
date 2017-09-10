@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Item
 {
     public string myName;
@@ -32,6 +34,7 @@ public class Item
     #endregion
 }
 
+[Serializable]
 public class Helmet : Item
 {
     public Helmet()
@@ -42,6 +45,7 @@ public class Helmet : Item
     public Helmet(string name, int pow, int def) : base(name, pow, def) { }
 }
 
+[Serializable]
 public class Shoulders : Item
 {
     public Shoulders()
@@ -52,6 +56,7 @@ public class Shoulders : Item
     public Shoulders(string name, int pow, int def) : base(name, pow, def) { }
 }
 
+[Serializable]
 public class Torso : Item
 {
     public Torso()
@@ -61,6 +66,7 @@ public class Torso : Item
     public Torso(string name, int pow, int def) : base(name, pow, def) { }
 }
 
+[Serializable]
 public class Legs : Item
 {
     public Legs()
@@ -70,6 +76,7 @@ public class Legs : Item
     public Legs(string name, int pow, int def) : base(name, pow, def) { }
 }
 
+[Serializable]
 public class Boots : Item
 {
     public Boots()
@@ -79,6 +86,7 @@ public class Boots : Item
     public Boots(string name, int pow, int def) : base(name, pow, def) { }
 }
 
+[Serializable]
 public class Gloves : Item
 {
     public Gloves ()
@@ -88,6 +96,7 @@ public class Gloves : Item
     public Gloves(string name, int pow, int def) : base(name, pow, def) { }
 }
 
+[Serializable]
 public class Equipment
 {
     public Helmet myHelmet;

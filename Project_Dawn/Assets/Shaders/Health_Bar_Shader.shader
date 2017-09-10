@@ -5,6 +5,7 @@
 		_MainTex ("Texture", 2D) = "white" {}
 		_Color ("Color", Color) = (1,1,1,1)
 		_Value ("Health Value", Range(0,1)) = .5
+		_Direction ("Direction", Int) = 0
 	}
 	SubShader
 	{
@@ -44,12 +45,19 @@
 			sampler2D _MainTex;
 			fixed4 _Color;
 			fixed _Value;
+			fixed _Direction;
 
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv) * _Color;
-				if (i.uv.x > _Value){
-					col.a = .2f;
+				if (_Direction == 0){
+					if (i.uv.x > _Value){
+						col.a = .2f;
+					}
+				} else {
+					if (i.uv.y > _Value){
+						col.a = .2f;
+					}
 				}
 				return col;
 			}
