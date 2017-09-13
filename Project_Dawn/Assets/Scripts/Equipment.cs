@@ -9,6 +9,7 @@ public class Item
     public string myName;
     public int Power;
     public int Defense;
+    public string itemSlot;
 
     protected void CreateEmpty()
     {
@@ -40,9 +41,13 @@ public class Helmet : Item
     public Helmet()
     {
         CreateEmpty();
+        itemSlot = "Helmet";
     }
 
-    public Helmet(string name, int pow, int def) : base(name, pow, def) { }
+    public Helmet(string name, int pow, int def) : base(name, pow, def)
+    {
+        itemSlot = "Helmet";
+    }
 }
 
 [Serializable]
@@ -51,9 +56,13 @@ public class Shoulders : Item
     public Shoulders()
     {
         CreateEmpty();
+        itemSlot = "Shoulders";
     }
 
-    public Shoulders(string name, int pow, int def) : base(name, pow, def) { }
+    public Shoulders(string name, int pow, int def) : base(name, pow, def)
+    {
+        itemSlot = "Shoulders";
+    }
 }
 
 [Serializable]
@@ -62,8 +71,12 @@ public class Torso : Item
     public Torso()
     {
         CreateEmpty();
+        itemSlot = "Torso";
     }
-    public Torso(string name, int pow, int def) : base(name, pow, def) { }
+    public Torso(string name, int pow, int def) : base(name, pow, def)
+    {
+        itemSlot = "Torso";
+    }
 }
 
 [Serializable]
@@ -72,8 +85,12 @@ public class Legs : Item
     public Legs()
     {
         CreateEmpty();
+        itemSlot = "Legs";
     }
-    public Legs(string name, int pow, int def) : base(name, pow, def) { }
+    public Legs(string name, int pow, int def) : base(name, pow, def)
+    {
+        itemSlot = "Legs";
+    }
 }
 
 [Serializable]
@@ -82,8 +99,12 @@ public class Boots : Item
     public Boots()
     {
         CreateEmpty();
+        itemSlot = "Boots";
     }
-    public Boots(string name, int pow, int def) : base(name, pow, def) { }
+    public Boots(string name, int pow, int def) : base(name, pow, def)
+    {
+        itemSlot = "Boots";
+    }
 }
 
 [Serializable]
@@ -92,8 +113,12 @@ public class Gloves : Item
     public Gloves ()
     {
         CreateEmpty();
+        itemSlot = "Gloves";
     }
-    public Gloves(string name, int pow, int def) : base(name, pow, def) { }
+    public Gloves(string name, int pow, int def) : base(name, pow, def)
+    {
+        itemSlot = "Gloves";
+    }
 }
 
 [Serializable]
@@ -119,6 +144,7 @@ public class Equipment
     {
         return myHelmet.Defense + myShoulders.Defense + myTorso.Defense + myGloves.Defense + myLegs.Defense + myBoots.Defense;
     }
+
     public Item SwapItem(Item slot)
     {
         Item oldItem = null;

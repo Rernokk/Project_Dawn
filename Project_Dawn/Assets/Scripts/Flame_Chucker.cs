@@ -9,7 +9,7 @@ public class Flame_Chucker : Monster {
 
     [SerializeField]
     GameObject currentProjectile;
-
+    bool canCreate = true;
     // Use this for initialization
     void Start () {
         base.Start();
@@ -18,10 +18,11 @@ public class Flame_Chucker : Monster {
 	// Update is called once per frame
 	void Update () {
         base.Update();
-        if (currentProjectile == null)
+        if (currentProjectile == null && canCreate)
         {
             currentProjectile = Instantiate(fireProjectile, transform.position + direction * 1f + transform.up * .5f, Quaternion.identity);
             currentProjectile.transform.parent = transform;
+            StartCoroutine(StartFiringCD());
         }
 
         if (!Triggered)
@@ -31,6 +32,13 @@ public class Flame_Chucker : Monster {
         {
             currentProjectile.GetComponent<Rigidbody2D>().AddForce((player.transform.position - transform.position).normalized * 20f * Time.deltaTime, ForceMode2D.Impulse);
         }
+    }
+
+    IEnumerator StartFiringCD()
+    {
+        canCreate = false;
+        yield return new WaitForSeconds(3f);
+        canCreate = true;
     }
 
     protected override void Aggro()
@@ -64,7 +72,10 @@ public class Flame_Chucker : Monster {
         {
             Aggro();
         }
-
+        if (Health <= 0)
+        {
+            Destroy(currentProjectile);
+        }
         base.Damage(damageValue);
     }
 }

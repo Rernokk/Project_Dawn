@@ -12,11 +12,11 @@ public class Flame_Script : MonoBehaviour {
 
     public void DamageTargets(float dmg)
     {
-        foreach (Monster target in targets)
+        for (int i = 0; i < targets.Count; i++)
         {
-            Monster thisMonster = target.GetComponent<Monster>();
-            thisMonster.Damage(dmg*Time.deltaTime);
-            target.StartCoroutine(thisMonster.DoT(dmg/20));
+            Monster tar = targets[i].GetComponent<Monster>();
+            tar.Damage(dmg * Time.deltaTime);
+            tar.StartCoroutine(tar.DoT(dmg / 20));
         }
     }
 }
