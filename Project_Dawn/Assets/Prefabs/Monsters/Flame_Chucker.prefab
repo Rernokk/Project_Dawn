@@ -201,12 +201,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974a5ded33ff09043a39ffd4fe3f7b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Triggered: 0
+  burning: 0
   Health: 0
   TotalHealth: 500
   MyHealthColor: {r: 1, g: 0, b: 0, a: 1}
   HealthRefMat: {fileID: 2100000, guid: 0bf470aa76059364595209189f171288, type: 2}
   fireProjectile: {fileID: 1501704653051306, guid: 50f443af6e625fe40b2d5460fb4cefc9,
     type: 2}
+  currentProjectile: {fileID: 0}
 --- !u!114 &114983502793593550
 MonoBehaviour:
   m_ObjectHideFlags: 1
