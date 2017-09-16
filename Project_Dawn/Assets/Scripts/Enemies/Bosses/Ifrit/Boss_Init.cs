@@ -27,5 +27,15 @@ public class Boss_Init : MonoBehaviour {
         Cage.gameObject.SetActive(true);
         TriggerZone.gameObject.SetActive(false);
         Player.transform.Find("Main Camera").gameObject.SetActive(false);
+        GameObject.Find("PlayerUI").GetComponent<Canvas>().worldCamera = transform.Find("BossCamera").GetComponent<Camera>();
+    }
+
+    public void ResetVariables() {
+        BossCamera.gameObject.SetActive(false);
+        Cage.gameObject.SetActive(false);
+        TriggerZone.gameObject.SetActive(false);
+        Player.transform.Find("Main Camera").gameObject.SetActive(true);
+        GameObject.Find("PlayerUI").GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        print("Reset Variables");
     }
 }

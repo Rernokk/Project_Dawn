@@ -9,7 +9,7 @@ public class Detect_Player : MonoBehaviour {
         parent = transform.parent;
 	}
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
         {

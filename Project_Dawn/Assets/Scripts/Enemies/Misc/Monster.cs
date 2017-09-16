@@ -35,7 +35,7 @@ public abstract class Monster : MonoBehaviour {
     }
 	
     protected abstract void Aggro();
-    public void Damage (float damageValue)
+    public virtual void Damage (float damageValue)
     {
         Health -= damageValue;
         myHealthMaterial.SetFloat("_Value", Health / TotalHealth);
