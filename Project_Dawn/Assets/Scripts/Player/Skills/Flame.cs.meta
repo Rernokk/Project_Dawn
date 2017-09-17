@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8d40d83bd7c42034bbafcc91de7e6dae
+timeCreated: 1505639049
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - castPrefab: {fileID: 1743289007347700, guid: b841d218f983d63428088acc691c81fa,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

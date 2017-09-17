@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4317366412655836}
   - component: {fileID: 198314801187332242}
   - component: {fileID: 199330268942904326}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Splash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4989501214831982}
   - component: {fileID: 198643238064372448}
   - component: {fileID: 199300903780915660}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Chain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4626003994440338}
   - component: {fileID: 198028752931479618}
   - component: {fileID: 199533213059937862}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4333153671096894}
   - component: {fileID: 114264268805707384}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lightning_FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 198442749032057244}
   - component: {fileID: 114880843642420930}
   - component: {fileID: 199862465937648236}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

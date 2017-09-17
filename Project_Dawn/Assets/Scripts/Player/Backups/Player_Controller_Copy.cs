@@ -4,19 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Player_Controller : MonoBehaviour
+public class Player_Controller_Copy : MonoBehaviour
 {
     #region KeyCodes
-    KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space,
-        shift = KeyCode.LeftShift, lmb = KeyCode.Mouse0, stealth = KeyCode.F, rmb = KeyCode.Mouse1,
-        one = KeyCode.Alpha1, two = KeyCode.Alpha2, three = KeyCode.Alpha3, four = KeyCode.Alpha4;
+    KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space, dash = KeyCode.LeftShift, flame = KeyCode.Mouse0, stealth = KeyCode.F, lightning = KeyCode.Mouse1;
     #endregion
     #region Floats
-    public int Power, Defense;
     //Regular values
     [SerializeField]
     float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f;
-    float teleportRange = 1f;
+    public float teleportRange = 1f;
 
     //Damage Ratios
     [SerializeField]
@@ -48,6 +45,7 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    public int Power, Defense;
 
     #endregion
     #region Bools
@@ -62,9 +60,6 @@ public class Player_Controller : MonoBehaviour
     GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, LightningDetonate;
     GameObject myTemporaryTeleport;
 
-    //Skill Prefabs
-    [SerializeField]
-    GameObject flamePrefab;
     GameObject myInventoryUI;
     #endregion
     #region Misc
@@ -84,9 +79,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField]
     Equipment myGear;
     public List<Item> myInventory;
-    Skill lmbSkill, rmbSkill;
     #endregion
-
     void Start()
     {
         #region Setup
@@ -97,17 +90,18 @@ public class Player_Controller : MonoBehaviour
         currentMana = TotalMana;
         currentHealth = TotalHealth;
         Aggro = new List<Monster>();
-        //FlameDirection = transform.Find("FlameAnchor").transform;
-        //FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
+        FlameDirection = transform.Find("FlameAnchor").transform;
+        FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
         myCam = transform.Find("Main Camera").transform;
         MonsterRef = GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>();
         uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
         #endregion
         #region Example for Equipment
-        myGear = new Equipment(new Helmet("Helm of Mystery", 1, 1), new Shoulders("Shoulders of Stuff", 1, 1), new Torso("Torso of Existing", 1, 1),
-            new Gloves("Gloves of Grabbing", 1, 1), new Legs("Legs of Also Existing", 1, 1), new Boots("Shoes", 1, 1));
+        myGear = new Equipment(new Helmet("Helm of Mystery", 1, 1), new Shoulders("Shoulders of Stuff", 1, 1), new Torso("Torso of Existing", 1,1),
+            new Gloves("Gloves of Grabbing", 1,1), new Legs("Legs of Also Existing", 1, 1), new Boots("Shoes", 1, 1));
         UpdateStats();
         #endregion
+
         #region UI Setup
         myInventoryUI = uiController.transform.Find("Inventory").gameObject;
         myInventory = new List<Item>();
@@ -129,19 +123,6 @@ public class Player_Controller : MonoBehaviour
         myInventory.Add(new Boots("Hellgate Sabatons", 25, 10));
         myInventory.Add(new Boots("Netherspawn Sabatons", 25, 10));
         myInventory.Add(new Boots("Demonguard Sabatons", 25, 10));
-        #endregion
-        #region Flame
-        lmbSkill = new Flame();
-        (lmbSkill as Flame).myPrefab = flamePrefab;
-        #endregion
-
-        #region Lightning Strike
-        rmbSkill = new LightningStrike();
-        (rmbSkill as LightningStrike).myPrefab = LightningChain;
-        (rmbSkill as LightningStrike).cooldown = lightningCD;
-        (rmbSkill as LightningStrike).range = lightningRange;
-        (rmbSkill as LightningStrike).MonsterRef = MonsterRef;
-        (rmbSkill as LightningStrike).Init(lightningRatio);
         #endregion
     }
     void Update()
@@ -182,12 +163,12 @@ public class Player_Controller : MonoBehaviour
             #region Skills
             #region Dash
             //TODO: Interact with walls correctly. Possibly act as a "taunt" to monsters aggro'd within range.
-            if (Input.GetKeyDown(shift) && canDash)
+            if (Input.GetKeyDown(dash) && canDash)
             {
                 myTemporaryTeleport = Instantiate(MyTelePrefab, transform.position + direction * teleportRange, Quaternion.identity);
             }
 
-            if (Input.GetKeyUp(shift) && canDash && myTemporaryTeleport != null)
+            if (Input.GetKeyUp(dash) && canDash && myTemporaryTeleport != null)
             {
                 Destroy(Instantiate(MyDetonatePrefab, transform.position, Quaternion.identity), 3f);
                 Vector3 myCamPos = new Vector3(myCam.localPosition.x, myCam.localPosition.y, myCam.localPosition.z);
@@ -213,22 +194,29 @@ public class Player_Controller : MonoBehaviour
             }
             #endregion
             #region Flame
-            if (Input.GetKeyDown(lmb)) {
-                lmbSkill.Init(flameRatio);
+            if (Input.GetKeyDown(flame))
+            {
+                FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Play(true);
             }
+            if (Input.GetKey(flame))
+            {
+                //Tracking Mouse
+                Vector3 lookPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                lookPos.z = FlameDirection.transform.position.z;
+                FlameDirection.LookAt(lookPos);
 
-            if (Input.GetKey(lmb)) {
-                lmbSkill.Cast(Power);
+                //Finding Damageable Targets
+                FlameDirection.Find("TriggerZone").GetComponent<Flame_Script>().DamageTargets(flameRatio * Power);
             }
-
-            if (Input.GetKeyUp(lmb)) {
-                Destroy(transform.Find("FlameAnchor(Clone)").gameObject);
+            if (Input.GetKeyUp(flame))
+            {
+                FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
             }
             #endregion
             #region Lightning
-            if (Input.GetKeyDown(rmb))
+            if (Input.GetKeyDown(lightning) && canBolt)
             {
-                rmbSkill.Cast(Power);
+                CastLightning();
             }
             #endregion
             #endregion
@@ -277,7 +265,12 @@ public class Player_Controller : MonoBehaviour
         yield return new WaitForSeconds(dashCD);
         canDash = true;
     }
-
+    IEnumerator StartLightningCD()
+    {
+        canBolt = false;
+        yield return new WaitForSeconds(lightningCD);
+        canBolt = true;
+    }
     IEnumerator CameraShake(Vector3[] Positions, Vector3 Origin)
     {
         foreach (Vector3 pos in Positions)
@@ -307,6 +300,16 @@ public class Player_Controller : MonoBehaviour
     }
     void CastLightning()
     {
+        StartCoroutine(StartLightningCD());
+        Vector3 targetPos = Vector3.zero;
+        RaycastHit2D info = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.down, 10f);
+        GameObject temp = Instantiate(LightningChain, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+        temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, 0);
+        targetPos = info.point;
+        foreach (Monster m in MonsterRef.MonstersInRange(targetPos, lightningRange))
+        {
+            m.Damage(lightningRatio * Power);
+        }
     }
     public Item UpdateGear(Item newItem)
     {

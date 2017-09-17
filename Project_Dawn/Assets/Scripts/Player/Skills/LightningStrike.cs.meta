@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cb548023a8e9a814fbf5fd5d838e0eec
+timeCreated: 1505641135
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - MonsterRef: {instanceID: 0}
+  - myPrefab: {fileID: 1730512078321140, guid: 5bf4fba8d58e57a43bb3d94a966a1eb9, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
