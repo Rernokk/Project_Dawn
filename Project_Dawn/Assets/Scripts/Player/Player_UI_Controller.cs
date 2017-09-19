@@ -10,7 +10,7 @@ public class Player_UI_Controller : MonoBehaviour {
 
     [SerializeField]
     Material healthRefMat;
-    Transform inventoryUI;
+    Transform inventoryUI, InstructionsUI;
     Transform firstRow, secondRow, thirdRow;
 
     [SerializeField]
@@ -19,7 +19,8 @@ public class Player_UI_Controller : MonoBehaviour {
     void Start () {
         playerDetails = GameObject.Find("Player").GetComponent<Player_Controller>();
         healthUI = transform.Find("HealthBar").GetComponent<Image>();
-        inventoryUI = transform.Find("Inventory/Inventory_Controller").transform;
+        InstructionsUI = transform.Find("Instructions");
+        inventoryUI = transform.Find("Inventory/Inventory_Controller");
         firstRow = inventoryUI.Find("Top_Item");
         secondRow = inventoryUI.Find("Middle_Item");
         thirdRow = inventoryUI.Find("Bottom_Item");

@@ -28,6 +28,7 @@ public class Boss_Init : MonoBehaviour {
         TriggerZone.gameObject.SetActive(false);
         Player.transform.Find("Main Camera").gameObject.SetActive(false);
         GameObject.Find("PlayerUI").GetComponent<Canvas>().worldCamera = transform.Find("BossCamera").GetComponent<Camera>();
+        GameObject.Find("Ifrit").GetComponent<Ifrit_FSM>().myState = Ifrit_FSM.State.IDLE;
     }
 
     public void ResetVariables() {

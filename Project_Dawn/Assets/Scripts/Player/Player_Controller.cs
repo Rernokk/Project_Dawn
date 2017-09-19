@@ -16,7 +16,9 @@ public class Player_Controller : MonoBehaviour
     //Regular values
     [SerializeField]
     float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f;
-    float teleportRange = 1f;
+    
+    [HideInInspector]
+    public float teleportRange = 1f;
 
     //Damage Ratios
     [SerializeField]
@@ -51,11 +53,11 @@ public class Player_Controller : MonoBehaviour
 
     #endregion
     #region Bools
-    [SerializeField]
     bool grounded = true, isStealth = false;
     bool canStealth = true, canTeleport = true, canDash = true, canBolt = true;
-    [SerializeField]
     bool isInUI = false;
+    public bool stunned = false, immobile = false;
+    bool cont = false;
     #endregion
     #region GameObjects
     [SerializeField]
@@ -75,6 +77,7 @@ public class Player_Controller : MonoBehaviour
     BoxCollider2D myColl;
     Transform FlameDirection;
     Transform myCam;
+    Transform Instructions;
 
     [SerializeField]
     List<Monster> Aggro;
@@ -102,6 +105,8 @@ public class Player_Controller : MonoBehaviour
         myCam = transform.Find("Main Camera").transform;
         MonsterRef = GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>();
         uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
+        Instructions = GameObject.Find("Instructions").transform;
+        Instructions.gameObject.SetActive(false);
         #endregion
         #region Example for Equipment
         myGear = new Equipment(new Helmet("Helm of Mystery", 1, 1), new Shoulders("Shoulders of Stuff", 1, 1), new Torso("Torso of Existing", 1, 1),
@@ -138,7 +143,7 @@ public class Player_Controller : MonoBehaviour
         #region Lightning Strike
         rmbSkill = new LightningStrike();
         (rmbSkill as LightningStrike).myPrefab = LightningChain;
-        (rmbSkill as LightningStrike).cooldown = lightningCD;
+        (rmbSkill as LightningStrike).CD = lightningCD;
         (rmbSkill as LightningStrike).range = lightningRange;
         (rmbSkill as LightningStrike).MonsterRef = MonsterRef;
         (rmbSkill as LightningStrike).Init(lightningRatio);
@@ -146,38 +151,41 @@ public class Player_Controller : MonoBehaviour
     }
     void Update()
     {
-        if (!isInUI)
+        if (!isInUI && !stunned)
         {
             #region Movement
-            #region Left/Right
-            if (Input.GetKey(left))
+            if (!immobile)
             {
-                direction = -transform.right;
-                rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
-            }
-            if (Input.GetKey(right))
-            {
-                direction = transform.right;
-                rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
-            }
-            #endregion
-            #region Jumping
-            if (Input.GetKey(KeyCode.Space) && grounded)
-            {
-                rgd.velocity += new Vector2(0, 1) * verticalJump;
-                grounded = false;
-            }
+                #region Left/Right
+                if (Input.GetKey(left))
+                {
+                    direction = -transform.right;
+                    rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+                }
+                if (Input.GetKey(right))
+                {
+                    direction = transform.right;
+                    rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+                }
+                #endregion
+                #region Jumping
+                if (Input.GetKey(KeyCode.Space) && grounded)
+                {
+                    rgd.velocity += new Vector2(0, 1) * verticalJump;
+                    grounded = false;
+                }
 
-            if (rgd.velocity.y < 0 && rgd.gravityScale == gravScale)
-            {
-                rgd.gravityScale *= 1.5f;
-            }
+                if (rgd.velocity.y < 0 && rgd.gravityScale == gravScale)
+                {
+                    rgd.gravityScale *= 1.5f;
+                }
 
-            if (rgd.velocity.y >= 0 && rgd.gravityScale != gravScale)
-            {
-                rgd.gravityScale = gravScale;
+                if (rgd.velocity.y >= 0 && rgd.gravityScale != gravScale)
+                {
+                    rgd.gravityScale = gravScale;
+                }
+                #endregion
             }
-            #endregion
             #endregion
             #region Skills
             #region Dash
@@ -221,28 +229,54 @@ public class Player_Controller : MonoBehaviour
                 lmbSkill.Cast(Power);
             }
 
-            if (Input.GetKeyUp(lmb)) {
+            if (Input.GetKeyUp(lmb))
+            {
                 Destroy(transform.Find("FlameAnchor(Clone)").gameObject);
+                immobile = false;
             }
             #endregion
             #region Lightning
-            if (Input.GetKeyDown(rmb))
+            if (Input.GetKeyDown(rmb) && Vector2.Distance(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 8f)
             {
                 rmbSkill.Cast(Power);
             }
             #endregion
             #endregion
+            if (Input.anyKeyDown && currentHealth <= 0) {
+                cont = true;
+            }
+        }
+
+        if (currentHealth < TotalHealth) {
+            currentHealth += 5 * Time.deltaTime;
+            if (currentHealth > TotalHealth) {
+                currentHealth = TotalHealth;
+            }
         }
 
         #region UI Controls
         if (Input.GetKeyDown(KeyCode.I))
         {
+            if (Instructions.gameObject.activeSelf) {
+                Instructions.gameObject.SetActive(false);
+            }
             myInventoryUI.SetActive(!myInventoryUI.activeSelf);
             isInUI = myInventoryUI.activeSelf;
             if (isInUI)
             {
                 uiController.GetComponent<Player_UI_Controller>().UpdateStats();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (myInventoryUI.activeSelf) {
+                myInventoryUI.SetActive(false);
+                uiController.GetComponent<Player_UI_Controller>().UpdateStats();
+            }
+
+            Instructions.gameObject.SetActive(!Instructions.gameObject.activeSelf);
+            isInUI = Instructions.gameObject.activeSelf;
+
         }
         #endregion
     }
@@ -259,7 +293,8 @@ public class Player_Controller : MonoBehaviour
         uiController.UpdateHealthValue();
         if (currentHealth <= 0)
         {
-            SceneManager.LoadScene("Playground");
+            GameObject.Find("BossRank").GetComponent<Boss_Ranking>().YouFailed();
+            StartCoroutine(WaitForInputScreen());
         }
     }
     IEnumerator StartStealthCD()
@@ -301,13 +336,19 @@ public class Player_Controller : MonoBehaviour
             yield return null;
         }
     }
+
+    IEnumerator WaitForInputScreen() {
+        while (!cont) {
+            yield return null;
+        }
+        SceneManager.LoadScene("Playground");
+    }
+
     public void AddAggression(GameObject ctx)
     {
         Aggro.Add(ctx.GetComponent<Monster>());
     }
-    void CastLightning()
-    {
-    }
+
     public Item UpdateGear(Item newItem)
     {
         myInventory.Remove(newItem);

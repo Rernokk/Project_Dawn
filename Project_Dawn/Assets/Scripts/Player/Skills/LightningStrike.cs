@@ -7,23 +7,30 @@ public class LightningStrike : Skill
 {
     public Monster_List_Ref MonsterRef;
     public GameObject myPrefab;
-    public float cooldown = 1f, range = 1f;
-    bool canBolt = true;
+    public float range = 1f;
+
+    public float CD
+    {
+        get
+        {
+            return cooldown;
+
+        }
+
+        set
+        {
+            cooldown = value;
+        }
+    }
+
     public override void Init(float ratio = 1)
     {
         base.Init(ratio);
     }
 
-    IEnumerator SkillCD()
-    {
-        canBolt = false;
-        yield return new WaitForSeconds(cooldown);
-        canBolt = true;
-    }
-
     public override void Cast(int damage = 0)
     {
-        if (canBolt)
+        if (cooled)
         {
             //Cooldown Trigger Error
             //StartCoroutine(SkillCD());
@@ -32,10 +39,12 @@ public class LightningStrike : Skill
             GameObject temp = Instantiate(myPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
             temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, 0);
             targetPos = info.point;
-            foreach (Monster m in MonsterRef.MonstersInRange(targetPos, range))
+            List<Monster> mob = MonsterRef.MonstersInRange(targetPos, range);
+            foreach (Monster m in mob)
             {
                 m.Damage(skillRatio * damage);
             }
+            mob.Clear();
         }
     }
 
