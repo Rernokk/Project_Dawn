@@ -53,6 +53,7 @@ public class Boss_Ranking : MonoBehaviour
     IEnumerator countDown() {
         yield return new WaitForSeconds(5f);
         renderer.color = Color.clear;
+        transform.Find("BossTimer").GetComponent<Text>().color = Color.clear;
     }
 
     public void YouFailed() {

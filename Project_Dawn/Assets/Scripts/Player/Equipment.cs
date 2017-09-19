@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Item
+public class Item : IComparable<Item>
 {
     public string myName;
     public int Power;
@@ -21,6 +21,18 @@ public class Item
     {
         return myName + "\n" + "Power: " + Power.ToString() + "\n" + "Defense: " + Defense.ToString();
     }
+
+    public int CompareTo(Item other)
+    {
+        if (other.Power < Power){
+            return 0;
+        } else if (other.Power == Power){
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
     #region Constructors
     protected Item()
     {

@@ -128,12 +128,14 @@ public class Player_Controller : MonoBehaviour
         myInventory.Add(new Gloves("Hellgate Gauntlets", 25, 10));
         myInventory.Add(new Gloves("Netherspawn Gauntlets", 25, 10));
         myInventory.Add(new Gloves("Demonguard Gauntlets", 25, 10));
-        myInventory.Add(new Legs("Hellgate Greaves", 25, 10));
+        //myInventory.Add(new Legs("Hellgate Greaves", 25, 10));
         myInventory.Add(new Legs("Netherspawn Greaves", 25, 10));
         myInventory.Add(new Legs("Demonguard Greaves", 25, 10));
         myInventory.Add(new Boots("Hellgate Sabatons", 25, 10));
         myInventory.Add(new Boots("Netherspawn Sabatons", 25, 10));
         myInventory.Add(new Boots("Demonguard Sabatons", 25, 10));
+        myInventory.Add(new Boots("Slayer Sabatons", 225, 10));
+        uiController.GetComponent<Player_UI_Controller>().Populate("Helmet");
         #endregion
         #region Flame
         lmbSkill = new Flame();
@@ -265,6 +267,7 @@ public class Player_Controller : MonoBehaviour
             if (isInUI)
             {
                 uiController.GetComponent<Player_UI_Controller>().UpdateStats();
+                uiController.GetComponent<Player_UI_Controller>().Populate("Helmet");
             }
         }
 

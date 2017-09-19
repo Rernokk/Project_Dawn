@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Equipment_Item_Slot : MonoBehaviour {
+public class Equipment_Item_Slot : MonoBehaviour
+{
     public Item myItem;
     Player_Controller player;
     Player_UI_Controller uiCtrl;
@@ -15,7 +16,8 @@ public class Equipment_Item_Slot : MonoBehaviour {
     {
         player = GameObject.Find("Player").GetComponent<Player_Controller>();
         uiCtrl = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
-        if (ChangeText) { 
+        if (ChangeText)
+        {
             transform.Find("myText").GetComponent<Text>().text = myItem.myName;
         }
     }
@@ -32,6 +34,13 @@ public class Equipment_Item_Slot : MonoBehaviour {
 
     public void FetchList()
     {
+        uiCtrl.startVal = 0;
         uiCtrl.Populate(myType);
+    }
+
+    public void ShiftList(int val)
+    {
+        uiCtrl.startVal += val;
+        uiCtrl.Populate(uiCtrl.currentType);
     }
 }
