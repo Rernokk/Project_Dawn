@@ -11,25 +11,33 @@ public class Player_UI_Controller : MonoBehaviour
 
     [SerializeField]
     Material healthRefMat;
-    Transform inventoryUI, InstructionsUI;
+    CanvasGroup inventoryCanvas, instructionsCanvas;
     Transform firstRow, secondRow, thirdRow;
+    Dictionary<string, CanvasGroup> uiTable;
+    List<Item> inventoryList = new List<Item>();
 
-    [SerializeField]
-    List<Item> myList = new List<Item>();
-
+    [HideInInspector]
     public int startVal = 0;
+    [HideInInspector]
     public string currentType = "None";
     Button nextPage, prevPage;
     // Use this for initialization
     void Start()
     {
+        uiTable = new Dictionary<string, CanvasGroup>();
         playerDetails = GameObject.Find("Player").GetComponent<Player_Controller>();
-        healthUI = transform.Find("HealthBar").GetComponent<Image>();
-        InstructionsUI = transform.Find("Instructions");
-        inventoryUI = transform.Find("Inventory/Inventory_Controller");
-        firstRow = inventoryUI.Find("Top_Item");
-        secondRow = inventoryUI.Find("Middle_Item");
-        thirdRow = inventoryUI.Find("Bottom_Item");
+        healthUI = transform.Find("Player_HUD/HealthBar").GetComponent<Image>();
+        instructionsCanvas = transform.Find("Instructions").GetComponent<CanvasGroup>();
+        inventoryCanvas = transform.Find("Inventory").GetComponent<CanvasGroup>();
+
+        uiTable.Add("Inventory", transform.Find("Inventory").GetComponent<CanvasGroup>());
+        uiTable.Add("Instructions", transform.Find("Instructions").GetComponent<CanvasGroup>());
+        uiTable.Add("HUD", transform.Find("Player_HUD").GetComponent<CanvasGroup>());
+        uiTable.Add("Skills", transform.Find("Skill_Tree").GetComponent<CanvasGroup>());
+
+        firstRow = inventoryCanvas.transform.Find("Inventory_Controller/Top_Item");
+        secondRow = inventoryCanvas.transform.Find("Inventory_Controller/Middle_Item");
+        thirdRow = inventoryCanvas.transform.Find("Inventory_Controller/Bottom_Item");
         healthUI.material = new Material(healthRefMat);
         UpdateHealthValue();
         UpdateStats();
@@ -53,14 +61,14 @@ public class Player_UI_Controller : MonoBehaviour
     {
         currentType = item;
         //Reset
-        myList.Clear();
+        inventoryList.Clear();
         //Populate list by Item Type
         IEnumerable<Item> q = from thisItem in playerDetails.myInventory where thisItem.itemSlot == item select thisItem;
         foreach (Item i in q)
         {
-            myList.Add(i);
+            inventoryList.Add(i);
         }
-        myList.Sort();
+        inventoryList.Sort();
 
         //Updating UI Controls appropriately for navigation.
         if (startVal == 0)
@@ -68,7 +76,7 @@ public class Player_UI_Controller : MonoBehaviour
             prevPage.interactable = false;
             nextPage.interactable = true;
         }
-        else if (startVal == myList.Count - 2)
+        else if (startVal == inventoryList.Count - 2)
         {
             nextPage.interactable = false;
             prevPage.interactable = true;
@@ -79,19 +87,19 @@ public class Player_UI_Controller : MonoBehaviour
             prevPage.interactable = true;
         }
 
-        if (myList.Count < 3)
+        if (inventoryList.Count < 3)
         {
             nextPage.interactable = false;
             prevPage.interactable = false;
         }
 
         //Changing and displaying appropriately.
-        if (myList.Count > startVal)
+        if (inventoryList.Count > startVal)
         {
-            firstRow.Find("myText").GetComponent<Text>().text = myList[startVal].myName;
-            firstRow.Find("power").GetComponent<Text>().text = myList[startVal].Power.ToString();
-            firstRow.Find("power/defense").GetComponent<Text>().text = myList[startVal].Defense.ToString();
-            firstRow.GetComponent<Equipment_Item_Slot>().myItem = myList[startVal];
+            firstRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal].myName;
+            firstRow.Find("power").GetComponent<Text>().text = inventoryList[startVal].Power.ToString();
+            firstRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal].Defense.ToString();
+            firstRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal];
         }
         else
         {
@@ -106,12 +114,12 @@ public class Player_UI_Controller : MonoBehaviour
             thirdRow.Find("power/defense").GetComponent<Text>().text = "";
         }
 
-        if (myList.Count > startVal + 1)
+        if (inventoryList.Count > startVal + 1)
         {
-            secondRow.Find("myText").GetComponent<Text>().text = myList[startVal + 1].myName;
-            secondRow.Find("power").GetComponent<Text>().text = myList[startVal + 1].Power.ToString();
-            secondRow.Find("power/defense").GetComponent<Text>().text = myList[startVal + 1].Defense.ToString();
-            secondRow.GetComponent<Equipment_Item_Slot>().myItem = myList[startVal + 1];
+            secondRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal + 1].myName;
+            secondRow.Find("power").GetComponent<Text>().text = inventoryList[startVal + 1].Power.ToString();
+            secondRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal + 1].Defense.ToString();
+            secondRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal + 1];
         }
         else
         {
@@ -123,12 +131,12 @@ public class Player_UI_Controller : MonoBehaviour
             thirdRow.Find("power/defense").GetComponent<Text>().text = "";
         }
 
-        if (myList.Count > startVal + 2)
+        if (inventoryList.Count > startVal + 2)
         {
-            thirdRow.Find("myText").GetComponent<Text>().text = myList[startVal + 2].myName;
-            thirdRow.Find("power").GetComponent<Text>().text = myList[startVal + 2].Power.ToString();
-            thirdRow.Find("power/defense").GetComponent<Text>().text = myList[startVal + 2].Defense.ToString();
-            thirdRow.GetComponent<Equipment_Item_Slot>().myItem = myList[startVal + 2];
+            thirdRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal + 2].myName;
+            thirdRow.Find("power").GetComponent<Text>().text = inventoryList[startVal + 2].Power.ToString();
+            thirdRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal + 2].Defense.ToString();
+            thirdRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal + 2];
         }
         else
         {
@@ -175,5 +183,34 @@ public class Player_UI_Controller : MonoBehaviour
         {
             thirdRow.GetComponent<Button>().interactable = true;
         }
+    }
+
+    public void ToggleUIElementOff(string element)
+    {
+        CanvasGroup group;
+        uiTable.TryGetValue(element, out group);
+        group.alpha = 0;
+        group.blocksRaycasts = false;
+    }
+
+    public void ToggleUIElementOn(string element)
+    {
+        CanvasGroup group;
+        uiTable.TryGetValue(element, out group);
+        group.alpha = 1;
+        group.blocksRaycasts = true;
+    }
+
+    public void ToggleOffAllElements() {
+        foreach (string key in uiTable.Keys) {
+            ToggleUIElementOff(key);
+        }
+        ToggleUIElementOn("HUD");
+    }
+
+    public float isElementActive(string element) {
+        CanvasGroup group;
+        uiTable.TryGetValue(element, out group);
+        return group.alpha;
     }
 }

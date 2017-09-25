@@ -386,6 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23dcf83dabaf09842a07f8c00163b9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Power: 0
+  Defense: 0
   playerSpeed: 75
   verticalJump: 40
   stealthDuration: 0.5
@@ -399,11 +401,8 @@ MonoBehaviour:
   TotalHealth: 100
   currentMana: 0
   currentHealth: 0
-  Power: 0
-  Defense: 0
-  grounded: 1
-  isStealth: 0
-  isInUI: 0
+  stunned: 0
+  immobile: 0
   MyTelePrefab: {fileID: 1830700538700448, guid: e7f2cb743ac8685409b3b63c615910c4,
     type: 2}
   MyDetonatePrefab: {fileID: 1152893136603130, guid: a934f3de3d1653c46af9eb9adbc9e669,
@@ -411,6 +410,7 @@ MonoBehaviour:
   LightningChain: {fileID: 1730512078321140, guid: 5bf4fba8d58e57a43bb3d94a966a1eb9,
     type: 2}
   LightningDetonate: {fileID: 0}
+  flamePrefab: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
   Aggro: []
   myGear:
