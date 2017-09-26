@@ -139,6 +139,7 @@ public class Ifrit_FSM : Monster
         prevState = myState;
         print("Casting Aura");
         GameObject tempAuraObj = Instantiate(AuraPrefab, player.transform.position, Quaternion.identity);
+        tempAuraObj.transform.parent = transform;
         ReturnToIdle();
     }
 
