@@ -18,5 +18,6 @@ public class Medicate : Skill
   {
     player.Heal(ratio * player.Power);
     Destroy(Instantiate(myPrefab, player.transform, false), 4f);
+    player.StartCooldown(this);
   }
 }

@@ -30,5 +30,6 @@ public class LightningStrike : Skill
       mob[i].Damage(skillRatio * player.Power);
     }
     mob.Clear();
+    player.StartCooldown(this);
   }
 }

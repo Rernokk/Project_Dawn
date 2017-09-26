@@ -50,12 +50,13 @@ public class Player_Controller : MonoBehaviour
   bool grounded = true, isStealth = false;
   bool canStealth = true, canTeleport = true, canDash = true, canBolt = true, canHeal = true;
   bool isInUI = false;
+  public bool chainMode = false;
   public bool stunned = false, immobile = false;
   bool cont = false;
   #endregion
   #region GameObjects
   [SerializeField]
-  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, HealFX, FlameWakeFX, FireballProjectilePrefab;
+  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, HealFX, FlameWakeFX, FireballProjectilePrefab, ChainPrefab;
   GameObject myTemporaryTeleport;
 
   //Skill Prefabs
@@ -92,6 +93,7 @@ public class Player_Controller : MonoBehaviour
   public List<string> BuffNames;
   #endregion
 
+  #region Properties
   public float Power
   {
     get
@@ -160,7 +162,8 @@ public class Player_Controller : MonoBehaviour
       return level;
     }
   }
-
+  #endregion
+  //Methods
   void Start()
   {
     #region Setup
@@ -181,7 +184,7 @@ public class Player_Controller : MonoBehaviour
     dir = transform.right;
 
     //Populate Skill List
-    skillArray[0].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
+    skillArray[0].Add(new Chain_Grip(this, ChainPrefab, 10, 3f));
     skillArray[0].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
     skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
     skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
@@ -279,18 +282,21 @@ public class Player_Controller : MonoBehaviour
       #endregion
       #region Skills
       #region First Skill Slot
-      if (Input.GetKeyDown(one) && firstSkill.IsCooledDown && firstSkill.ManaCost <= currentMana && Level >= firstSkill.levelReq)
+      if ((Input.GetKeyDown(one) && firstSkill.IsCooledDown && firstSkill.ManaCost <= currentMana && Level >= firstSkill.levelReq) || chainMode)
       {
+        //StartCoroutine(SkillCooldown(firstSkill));
+        if (!chainMode)
+        {
+          currentMana -= firstSkill.ManaCost;
+        }
         firstSkill.Cast(Power);
-        StartCoroutine(SkillCooldown(firstSkill));
-        currentMana -= firstSkill.ManaCost;
       }
       #endregion
       #region Second Skill Slot
       if (Input.GetKeyDown(two) && secondSkill.IsCooledDown && secondSkill.ManaCost <= currentMana && Level >= secondSkill.levelReq)
       {
         secondSkill.Cast(Power);
-        StartCoroutine(SkillCooldown(secondSkill));
+        //StartCoroutine(SkillCooldown(secondSkill));
         currentMana -= secondSkill.ManaCost;
       }
       #endregion
@@ -298,7 +304,7 @@ public class Player_Controller : MonoBehaviour
       if (Input.GetKeyDown(three) && thirdSkill.IsCooledDown && thirdSkill.ManaCost <= currentMana && Level >= thirdSkill.levelReq)
       {
         thirdSkill.Cast(Power);
-        StartCoroutine(SkillCooldown(thirdSkill));
+        //StartCoroutine(SkillCooldown(thirdSkill));
         currentMana -= thirdSkill.ManaCost;
       }
       #endregion
@@ -306,15 +312,15 @@ public class Player_Controller : MonoBehaviour
       if (Input.GetKeyDown(four) && fourthSkill.IsCooledDown && fourthSkill.ManaCost <= currentMana && Level >= fourthSkill.levelReq)
       {
         fourthSkill.Cast(Power);
-        StartCoroutine(SkillCooldown(fourthSkill));
+        //StartCoroutine(SkillCooldown(fourthSkill));
         currentMana -= fourthSkill.ManaCost;
       }
       #endregion
       #region LMB Slot
-      if (Input.GetKeyDown(lmb) && lmbSkill.IsCooledDown && lmbSkill.ManaCost <= currentMana && Level >= lmbSkill.levelReq)
+      if (Input.GetKeyDown(lmb) && lmbSkill.IsCooledDown && lmbSkill.ManaCost <= currentMana && Level >= lmbSkill.levelReq && !chainMode)
       {
         lmbSkill.Cast(Power);
-        StartCoroutine(SkillCooldown(lmbSkill));
+        //StartCoroutine(SkillCooldown(lmbSkill));
         currentMana -= lmbSkill.ManaCost;
       }
       #endregion
@@ -322,7 +328,7 @@ public class Player_Controller : MonoBehaviour
       if (Input.GetKeyDown(rmb) && rmbSkill.IsCooledDown && rmbSkill.ManaCost <= currentMana && Level >= rmbSkill.levelReq)
       {
         rmbSkill.Cast(Power);
-        StartCoroutine(SkillCooldown(rmbSkill));
+        //StartCoroutine(SkillCooldown(rmbSkill));
         currentMana -= rmbSkill.ManaCost;
       }
       #endregion
@@ -523,5 +529,15 @@ public class Player_Controller : MonoBehaviour
       BuffNames.Add(buffName);
       uiController.UpdateStats();
     }
+  }
+  public void StartCooldown(Skill skill){
+    StartCoroutine(SkillCooldown(skill));
+  }
+  public void ChainDelay(){
+    StartCoroutine(callFrameDelay());
+  }
+  IEnumerator callFrameDelay(){
+    yield return null;
+    chainMode = false;
   }
 }

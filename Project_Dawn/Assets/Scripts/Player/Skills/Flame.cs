@@ -18,5 +18,6 @@ public class Flame : Skill
     GameObject temp = Instantiate(myPrefab, (Vector2)player.transform.position + -player.Direction + (Vector2.up * .5f), Quaternion.identity);
     temp.GetComponent<Fireball_Projectile>().dmg = skillRatio * damage;
     Destroy(temp, 4f);
+    player.StartCooldown(this);
   }
 }
