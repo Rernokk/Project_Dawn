@@ -6,363 +6,422 @@ using UnityEngine.UI;
 
 public class Player_Controller : MonoBehaviour
 {
-    #region KeyCodes
-    KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space,
-        shift = KeyCode.LeftShift, lmb = KeyCode.Mouse0, stealth = KeyCode.F, rmb = KeyCode.Mouse1,
-        one = KeyCode.Alpha1, two = KeyCode.Alpha2, three = KeyCode.Alpha3, four = KeyCode.Alpha4;
-    #endregion
-    #region Floats
-    public int Power, Defense;
-    //Regular values
-    [SerializeField]
-    float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f;
-    
-    [HideInInspector]
-    public float teleportRange = 1f;
+  #region KeyCodes
+  KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space,
+      lmb = KeyCode.Mouse0, rmb = KeyCode.Mouse1,
+      one = KeyCode.Alpha1, two = KeyCode.Alpha2, three = KeyCode.Alpha3, four = KeyCode.Alpha4;
+  #endregion
+  #region Floats
+  public int power, defense;
+  public int currentExp, TotalExp;
 
-    //Damage Ratios
-    [SerializeField]
-    float flameRatio = 8.28f, explosionRatio = 12f, lightningRatio = 15f;
+  [SerializeField]
+  float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f;
 
-    //Cooldowns
-    float dashCD = 1f, stealthCD = 1f, lightningCD = 1f;
-    float gravScale = 1f;
+  [HideInInspector]
+  public float teleportRange = 1f;
 
-    [SerializeField]
-    float TotalMana = 100, TotalHealth = 100;
+  //Damage Ratios
+  [SerializeField]
+  float flameRatio = 8.28f, explosionRatio = 12f, lightningRatio = 15f;
 
-    [SerializeField]
-    float currentMana, currentHealth;
+  [HideInInspector]
+  public float powerMult = 1f;
 
-    public float HealthPercent
+  //Cooldowns
+  float dashCD = 1f, stealthCD = 1f, lightningCD = 1f;
+  float gravScale = 1f;
+
+  [SerializeField]
+  float TotalMana = 100, TotalHealth = 100;
+
+  [SerializeField]
+  float currentMana, currentHealth;
+
+  public float HealthPercent
+  {
+    get
     {
-        get
-        {
-            return currentHealth / TotalHealth;
-        }
+      return currentHealth / TotalHealth;
+    }
+  }
+
+  public float ManaPercent
+  {
+    get
+    {
+      return currentMana / TotalMana;
+    }
+  }
+
+
+  #endregion
+  #region Bools
+  bool grounded = true, isStealth = false;
+  bool canStealth = true, canTeleport = true, canDash = true, canBolt = true, canHeal = true;
+  bool isInUI = false;
+  public bool stunned = false, immobile = false;
+  bool cont = false;
+  #endregion
+  #region GameObjects
+  [SerializeField]
+  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, LightningDetonate;
+  GameObject myTemporaryTeleport;
+
+  //Skill Prefabs
+  [SerializeField]
+  GameObject flamePrefab;
+  GameObject myInventoryUI;
+
+  Dictionary<string, CanvasGroup> UIElements;
+  #endregion
+  #region Misc
+  Rigidbody2D rgd;
+
+  [HideInInspector]
+  public Vector3 direction;
+  BoxCollider2D myColl;
+  Transform FlameDirection;
+  Transform myCam;
+
+  [SerializeField]
+  List<Monster> Aggro;
+  Player_UI_Controller uiController;
+
+
+  [SerializeField]
+  Equipment myGear;
+  public List<Item> myInventory;
+  Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
+  List<List<Skill>> skillArray;
+  #endregion
+
+  public float Power{
+    get{
+      return power * powerMult;
+    }
+    set {
+      power = (int) value;
+    }
+  }
+  public float Defense{
+    get {
+      return defense;
     }
 
-    public float ManaPercent
-    {
-        get
-        {
-            return currentMana / TotalMana;
-        }
+    set {
+      defense = (int) value;
+    }
+  }
+  public float PowerMult{
+    get {
+      return powerMult;
     }
 
+    set {
+      powerMult = value;
+    }
+  }
 
-    #endregion
-    #region Bools
-    bool grounded = true, isStealth = false;
-    bool canStealth = true, canTeleport = true, canDash = true, canBolt = true;
-    bool isInUI = false;
-    public bool stunned = false, immobile = false;
-    bool cont = false;
-    #endregion
-    #region GameObjects
-    [SerializeField]
-    GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, LightningDetonate;
-    GameObject myTemporaryTeleport;
-
-    //Skill Prefabs
-    [SerializeField]
-    GameObject flamePrefab;
-    GameObject myInventoryUI;
-    #endregion
-    #region Misc
-    Rigidbody2D rgd;
-
-    [HideInInspector]
-    public Vector3 direction;
-    BoxCollider2D myColl;
-    Transform FlameDirection;
-    Transform myCam;
-    Transform Instructions;
-
-    [SerializeField]
-    List<Monster> Aggro;
-    Monster_List_Ref MonsterRef;
-    Player_UI_Controller uiController;
-
-    [SerializeField]
-    Equipment myGear;
-    public List<Item> myInventory;
-    Skill lmbSkill, rmbSkill;
-    #endregion
-
-    void Start()
+  void Start()
+  {
+    #region Setup
+    rgd = GetComponent<Rigidbody2D>();
+    gravScale = rgd.gravityScale;
+    direction = transform.right;
+    myColl = GetComponent<BoxCollider2D>();
+    currentMana = TotalMana;
+    currentHealth = 1;
+    Aggro = new List<Monster>();
+    skillArray = new List<List<Skill>>();
+    for (int i = 0; i < 6; i++)
     {
-        #region Setup
-        rgd = GetComponent<Rigidbody2D>();
-        gravScale = rgd.gravityScale;
-        direction = transform.right;
-        myColl = GetComponent<BoxCollider2D>();
-        currentMana = TotalMana;
+      skillArray.Add(new List<Skill>());
+    }
+
+    //Populate Skill List
+    skillArray[0].Add(new Teleport(this, 8f));
+    skillArray[1].Add(new Stealth(this, 18f));
+    skillArray[2].Add(new DamageAmp(this));
+    skillArray[3].Add(new Medicate(this, .25f, 4f));
+    skillArray[4].Add(new Flame(this));
+    skillArray[5].Add(new LightningStrike(this, 3f, 1f, LightningChain));
+    StartCoroutine(PopulateCurrentSkills());
+
+    myCam = transform.Find("Main Camera").transform;
+    uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
+    #endregion
+    #region Example for Equipment
+    myGear = new Equipment(new Helmet("Helm of Mystery", 1, 1), new Shoulders("Shoulders of Stuff", 1, 1), new Torso("Torso of Existing", 1, 1),
+        new Gloves("Gloves of Grabbing", 1, 1), new Legs("Legs of Also Existing", 1, 1), new Boots("Shoes", 1, 1));
+    UpdateStats();
+    #endregion
+    #region UI Setup
+    myInventoryUI = uiController.transform.Find("Inventory").gameObject;
+    myInventory = new List<Item>
+    {
+      new Helmet("Hellgate Helmet", 25, 10),
+      new Helmet("Netherspawn Helmet", 25, 10),
+      new Helmet("Demonguard Helmet", 25, 10),
+      new Shoulders("Hellgate Pauldrons", 25, 10),
+      new Shoulders("Netherspawn Pauldrons", 125, 10),
+      new Shoulders("Demonguard Pauldrons", 125, 10),
+      new Torso("Hellgate Chestplate", 25, 10),
+      new Torso("Netherspawn Chestplate", 25, 10),
+      new Torso("Demonguard Chestplate", 25, 10),
+      new Gloves("Hellgate Gauntlets", 25, 10),
+      new Gloves("Netherspawn Gauntlets", 25, 10),
+      new Gloves("Demonguard Gauntlets", 25, 10),
+      //myInventory.Add(new Legs("Hellgate Greaves", 25, 10));
+      new Legs("Netherspawn Greaves", 25, 10),
+      new Legs("Demonguard Greaves", 25, 10),
+      new Boots("Hellgate Sabatons", 25, 10),
+      new Boots("Netherspawn Sabatons", 25, 10),
+      new Boots("Demonguard Sabatons", 25, 10),
+      new Boots("Slayer Sabatons", 225, 10)
+    };
+    uiController.GetComponent<Player_UI_Controller>().Populate("Helmet");
+    #endregion
+    TotalExp = 100;
+    currentExp = 0;
+  }
+  void Update()
+  {
+    if (!isInUI && !stunned)
+    {
+      #region Movement
+      if (!immobile)
+      {
+        #region Left/Right
+        if (Input.GetKey(left))
+        {
+          direction = -transform.right;
+          rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+        }
+        if (Input.GetKey(right))
+        {
+          direction = transform.right;
+          rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+        }
+        #endregion
+        #region Jumping
+        if (Input.GetKey(KeyCode.Space) && grounded)
+        {
+          rgd.velocity += new Vector2(0, 1) * verticalJump;
+          grounded = false;
+        }
+
+        if (rgd.velocity.y < 0 && rgd.gravityScale == gravScale)
+        {
+          rgd.gravityScale *= 1.5f;
+        }
+
+        if (rgd.velocity.y >= 0 && rgd.gravityScale != gravScale)
+        {
+          rgd.gravityScale = gravScale;
+        }
+        #endregion
+      }
+      #endregion
+      #region Skills
+      #region First Skill Slot
+      if (Input.GetKeyDown(one) && firstSkill.IsCooledDown)
+      {
+        firstSkill.Cast();
+        StartCoroutine(SkillCooldown(firstSkill));
+      }
+      #endregion
+      #region Second Skill Slot
+      if (Input.GetKeyDown(two) && secondSkill.IsCooledDown)
+      {
+        secondSkill.Cast();
+        StartCoroutine(SkillCooldown(secondSkill));
+      }
+      #endregion
+      #region Third Skill Slot
+      if (Input.GetKeyDown(three) && thirdSkill.IsCooledDown)
+      {
+        thirdSkill.Cast();
+        StartCoroutine(SkillCooldown(thirdSkill));
+      }
+      #endregion
+      #region Fourth Skill Slot
+      if (Input.GetKeyDown(four) && fourthSkill.IsCooledDown)
+      {
+        fourthSkill.Cast(Power);
+        StartCoroutine(SkillCooldown(fourthSkill));
+      }
+      #endregion
+      #region LMB Slot
+      if (Input.GetKeyDown(lmb) && lmbSkill.IsCooledDown)
+      {
+        lmbSkill.Cast(Power);
+        StartCoroutine(SkillCooldown(lmbSkill));
+      }
+      #endregion
+      #region RMB Slot
+      if (Input.GetKeyDown(rmb) && rmbSkill.IsCooledDown)
+      {
+        rmbSkill.Cast(Power);
+        StartCoroutine(SkillCooldown(rmbSkill));
+      }
+      #endregion
+      #endregion
+      if (Input.anyKeyDown && currentHealth <= 0)
+      {
+        cont = true;
+      }
+    }
+
+    if (currentHealth < TotalHealth)
+    {
+      currentHealth += 5 * Time.deltaTime;
+      if (currentHealth > TotalHealth)
+      {
         currentHealth = TotalHealth;
-        Aggro = new List<Monster>();
-        //FlameDirection = transform.Find("FlameAnchor").transform;
-        //FlameDirection.Find("FlameFX").GetComponent<ParticleSystem>().Stop();
-        myCam = transform.Find("Main Camera").transform;
-        MonsterRef = GameObject.Find("Monster_Ref").GetComponent<Monster_List_Ref>();
-        uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
-        Instructions = GameObject.Find("Instructions").transform;
-        Instructions.gameObject.SetActive(false);
-        #endregion
-        #region Example for Equipment
-        myGear = new Equipment(new Helmet("Helm of Mystery", 1, 1), new Shoulders("Shoulders of Stuff", 1, 1), new Torso("Torso of Existing", 1, 1),
-            new Gloves("Gloves of Grabbing", 1, 1), new Legs("Legs of Also Existing", 1, 1), new Boots("Shoes", 1, 1));
-        UpdateStats();
-        #endregion
-        #region UI Setup
-        myInventoryUI = uiController.transform.Find("Inventory").gameObject;
-        myInventory = new List<Item>();
-        myInventory.Add(new Helmet("Hellgate Helmet", 25, 10));
-        myInventory.Add(new Helmet("Netherspawn Helmet", 25, 10));
-        myInventory.Add(new Helmet("Demonguard Helmet", 25, 10));
-        myInventory.Add(new Shoulders("Hellgate Pauldrons", 25, 10));
-        myInventory.Add(new Shoulders("Netherspawn Pauldrons", 125, 10));
-        myInventory.Add(new Shoulders("Demonguard Pauldrons", 125, 10));
-        myInventory.Add(new Torso("Hellgate Chestplate", 25, 10));
-        myInventory.Add(new Torso("Netherspawn Chestplate", 25, 10));
-        myInventory.Add(new Torso("Demonguard Chestplate", 25, 10));
-        myInventory.Add(new Gloves("Hellgate Gauntlets", 25, 10));
-        myInventory.Add(new Gloves("Netherspawn Gauntlets", 25, 10));
-        myInventory.Add(new Gloves("Demonguard Gauntlets", 25, 10));
-        //myInventory.Add(new Legs("Hellgate Greaves", 25, 10));
-        myInventory.Add(new Legs("Netherspawn Greaves", 25, 10));
-        myInventory.Add(new Legs("Demonguard Greaves", 25, 10));
-        myInventory.Add(new Boots("Hellgate Sabatons", 25, 10));
-        myInventory.Add(new Boots("Netherspawn Sabatons", 25, 10));
-        myInventory.Add(new Boots("Demonguard Sabatons", 25, 10));
-        myInventory.Add(new Boots("Slayer Sabatons", 225, 10));
-        uiController.GetComponent<Player_UI_Controller>().Populate("Helmet");
-        #endregion
-        #region Flame
-        lmbSkill = new Flame();
-        (lmbSkill as Flame).myPrefab = flamePrefab;
-        #endregion
-
-        #region Lightning Strike
-        rmbSkill = new LightningStrike();
-        (rmbSkill as LightningStrike).myPrefab = LightningChain;
-        (rmbSkill as LightningStrike).CD = lightningCD;
-        (rmbSkill as LightningStrike).range = lightningRange;
-        (rmbSkill as LightningStrike).MonsterRef = MonsterRef;
-        (rmbSkill as LightningStrike).Init(lightningRatio);
-        #endregion
+      }
     }
-    void Update()
+
+    #region UI Controls
+    if (Input.GetKeyDown(KeyCode.I))
     {
-        if (!isInUI && !stunned)
-        {
-            #region Movement
-            if (!immobile)
-            {
-                #region Left/Right
-                if (Input.GetKey(left))
-                {
-                    direction = -transform.right;
-                    rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
-                }
-                if (Input.GetKey(right))
-                {
-                    direction = transform.right;
-                    rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
-                }
-                #endregion
-                #region Jumping
-                if (Input.GetKey(KeyCode.Space) && grounded)
-                {
-                    rgd.velocity += new Vector2(0, 1) * verticalJump;
-                    grounded = false;
-                }
-
-                if (rgd.velocity.y < 0 && rgd.gravityScale == gravScale)
-                {
-                    rgd.gravityScale *= 1.5f;
-                }
-
-                if (rgd.velocity.y >= 0 && rgd.gravityScale != gravScale)
-                {
-                    rgd.gravityScale = gravScale;
-                }
-                #endregion
-            }
-            #endregion
-            #region Skills
-            #region Dash
-            //TODO: Interact with walls correctly. Possibly act as a "taunt" to monsters aggro'd within range.
-            if (Input.GetKeyDown(shift) && canDash)
-            {
-                myTemporaryTeleport = Instantiate(MyTelePrefab, transform.position + direction * teleportRange, Quaternion.identity);
-            }
-
-            if (Input.GetKeyUp(shift) && canDash && myTemporaryTeleport != null)
-            {
-                Destroy(Instantiate(MyDetonatePrefab, transform.position, Quaternion.identity), 3f);
-                Vector3 myCamPos = new Vector3(myCam.localPosition.x, myCam.localPosition.y, myCam.localPosition.z);
-                Vector3[] CamShake = new Vector3[5];
-                for (int i = 0; i < 5; i++)
-                {
-                    CamShake[i] = myCam.position + new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 0);
-                }
-                //StartCoroutine(CameraShake(CamShake, myCamPos));
-                foreach (Monster m in MonsterRef.MonstersInRange(transform.position, explosionRange))
-                {
-                    m.Damage(explosionRatio * Power);
-                }
-                transform.position = myTemporaryTeleport.transform.position;
-                Destroy(myTemporaryTeleport);
-                StartCoroutine(StartDashCD());
-            }
-            #endregion
-            #region Stealth
-            if (Input.GetKeyDown(stealth) && canStealth)
-            {
-                StartCoroutine(StartStealthCD());
-            }
-            #endregion
-            #region Flame
-            if (Input.GetKeyDown(lmb)) {
-                lmbSkill.Init(flameRatio);
-            }
-
-            if (Input.GetKey(lmb)) {
-                lmbSkill.Cast(Power);
-            }
-
-            if (Input.GetKeyUp(lmb))
-            {
-                Destroy(transform.Find("FlameAnchor(Clone)").gameObject);
-                immobile = false;
-            }
-            #endregion
-            #region Lightning
-            if (Input.GetKeyDown(rmb) && Vector2.Distance(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 8f)
-            {
-                rmbSkill.Cast(Power);
-            }
-            #endregion
-            #endregion
-            if (Input.anyKeyDown && currentHealth <= 0) {
-                cont = true;
-            }
-        }
-
-        if (currentHealth < TotalHealth) {
-            currentHealth += 5 * Time.deltaTime;
-            if (currentHealth > TotalHealth) {
-                currentHealth = TotalHealth;
-            }
-        }
-
-        #region UI Controls
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (Instructions.gameObject.activeSelf) {
-                Instructions.gameObject.SetActive(false);
-            }
-            myInventoryUI.SetActive(!myInventoryUI.activeSelf);
-            isInUI = myInventoryUI.activeSelf;
-            if (isInUI)
-            {
-                uiController.GetComponent<Player_UI_Controller>().UpdateStats();
-                uiController.GetComponent<Player_UI_Controller>().Populate("Helmet");
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (myInventoryUI.activeSelf) {
-                myInventoryUI.SetActive(false);
-                uiController.GetComponent<Player_UI_Controller>().UpdateStats();
-            }
-
-            Instructions.gameObject.SetActive(!Instructions.gameObject.activeSelf);
-            isInUI = Instructions.gameObject.activeSelf;
-
-        }
-        #endregion
+      if (uiController.isElementActive("Inventory") != 1)
+      {
+        uiController.ToggleOffAllElements();
+        uiController.ToggleUIElementOn("Inventory");
+        isInUI = true;
+      }
+      else
+      {
+        isInUI = false;
+        uiController.ToggleUIElementOff("Inventory");
+      }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    if (Input.GetKeyDown(KeyCode.Escape))
     {
-        if (collision.transform.tag == "Ground")
-        {
-            grounded = true;
-        }
-    }
-    public void Damage(float Damage)
-    {
-        currentHealth -= Damage;
-        uiController.UpdateHealthValue();
-        if (currentHealth <= 0)
-        {
-            GameObject.Find("BossRank").GetComponent<Boss_Ranking>().YouFailed();
-            StartCoroutine(WaitForInputScreen());
-        }
-    }
-    IEnumerator StartStealthCD()
-    {
-        canStealth = false;
-        isStealth = true;
-        yield return new WaitForSeconds(stealthDuration);
-        isStealth = false;
-        yield return new WaitForSeconds(stealthCD - stealthDuration);
-        canStealth = true;
-    }
-    IEnumerator StartDashCD()
-    {
-        canDash = false;
-        yield return new WaitForSeconds(dashCD);
-        canDash = true;
+      if (uiController.isElementActive("Instructions") != 1)
+      {
+        uiController.ToggleOffAllElements();
+        uiController.ToggleUIElementOn("Instructions");
+        isInUI = true;
+      }
+      else
+      {
+        isInUI = false;
+        uiController.ToggleUIElementOff("Instructions");
+      }
     }
 
-    IEnumerator CameraShake(Vector3[] Positions, Vector3 Origin)
+    if (Input.GetKeyDown(KeyCode.K))
     {
-        foreach (Vector3 pos in Positions)
-        {
-            float temp2 = 0;
-            while (temp2 < 1)
-            {
-                Vector3 tempPos = Vector3.Lerp(new Vector3(myCam.localPosition.x, myCam.localPosition.y, pos.z), pos, temp2);
-                tempPos.z = Origin.z;
-                myCam.localPosition = tempPos;
-                temp2 += Time.deltaTime * 5;
-                yield return null;
-            }
-            //yield return new WaitForSeconds(.5f);
-        }
-        float temp = 0;
-        while (temp < 1)
-        {
-            temp += Time.deltaTime * 5;
-            myCam.localPosition = Vector3.Lerp(myCam.localPosition, Origin, temp);
-            yield return null;
-        }
+      if (uiController.isElementActive("Skills") != 1)
+      {
+        uiController.ToggleOffAllElements();
+        uiController.ToggleUIElementOn("Skills");
+        isInUI = true;
+      }
+      else
+      {
+        uiController.ToggleUIElementOff("Skills");
+        isInUI = false;
+      }
     }
-
-    IEnumerator WaitForInputScreen() {
-        while (!cont) {
-            yield return null;
-        }
-        SceneManager.LoadScene("Playground");
-    }
-
-    public void AddAggression(GameObject ctx)
+    #endregion
+  }
+  private void OnTriggerEnter2D(Collider2D collision)
+  {
+    if (collision.transform.tag == "Ground")
     {
-        Aggro.Add(ctx.GetComponent<Monster>());
+      grounded = true;
     }
-
-    public Item UpdateGear(Item newItem)
+  }
+  public void Damage(float Damage)
+  {
+    currentHealth -= Damage;
+    uiController.UpdateHealthValue();
+    if (currentHealth <= 0)
     {
-        myInventory.Remove(newItem);
-        Item temp = myGear.SwapItem(newItem);
-        myInventory.Add(temp);
-        UpdateStats();
-        return temp;
+      GameObject.Find("BossRank").GetComponent<Boss_Ranking>().YouFailed();
+      StartCoroutine(WaitForInputScreen());
     }
-    void UpdateStats()
+  }
+  public void Heal(float heal)
+  {
+    currentHealth += heal;
+    if (currentHealth > TotalHealth)
     {
-        Power = myGear.GetTotalPower();
-        Defense = myGear.GetTotalDefense();
+      currentHealth = TotalHealth;
     }
+  }
+  IEnumerator WaitForInputScreen()
+  {
+    while (!cont)
+    {
+      yield return null;
+    }
+    SceneManager.LoadScene("Playground");
+  }
+  IEnumerator PopulateCurrentSkills()
+  {
+    yield return null;
+    for (int i = 0; i < 6; i++)
+    {
+      SetSkillActive(i, 0);
+    }
+    UpdateStats();
+  }
+  IEnumerator SkillCooldown(Skill skill)
+  {
+    skill.IsCooledDown = false;
+    float remaining = 0;
+    while (remaining < skill.CooldownDuration){
+      remaining += Time.deltaTime;
+      yield return null;
+    }
+    skill.IsCooledDown = true;
+  }
+  public void AddAggression(GameObject ctx)
+  {
+    Aggro.Add(ctx.GetComponent<Monster>());
+  }
+  public Item UpdateGear(Item newItem)
+  {
+    myInventory.Remove(newItem);
+    Item temp = myGear.SwapItem(newItem);
+    myInventory.Add(temp);
+    UpdateStats();
+    return temp;
+  }
+  void UpdateStats()
+  {
+    Power = myGear.GetTotalPower();
+    Defense = myGear.GetTotalDefense();
+  }
+  public void SetSkillActive(int row, int col)
+  {
+    switch (row)
+    {
+      case (0):
+        firstSkill = skillArray[row][col];
+        break;
+      case (1):
+        secondSkill = skillArray[row][col];
+        break;
+      case (2):
+        thirdSkill = skillArray[row][col];
+        break;
+      case (3):
+        fourthSkill = skillArray[row][col];
+        break;
+      case (4):
+        //LMB
+        lmbSkill = skillArray[row][col];
+        break;
+      case (5):
+        //RMB
+        rmbSkill = skillArray[row][col];
+        break;
+    }
+  }
 }
