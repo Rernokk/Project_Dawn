@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class DamageAmp : Skill
 {
-  public DamageAmp(Player_Controller controller) : base(controller)
+  public DamageAmp(Player_Controller controller, int manaCost, int levelReq, float cd) : base(controller, manaCost, cd, levelReq)
   {
     skillName = "Damage Amp";
   }
   public override void Cast(float damage = 0)
   {
-    
-    player.PowerMult = 1.2f;
+    player.AddBuff(PowerBuff(), skillName);
   }
 
-  public void ResetBuff(){
-    player.PowerMult = 1f;
+  public IEnumerator PowerBuff(){
+    player.PowerMult += .4f;
+    yield return new WaitForSeconds(4f);
+    player.PowerMult -= .4f;
+    player.BuffNames.Remove(skillName);
+    player.uiController.UpdateStats();
   }
 }

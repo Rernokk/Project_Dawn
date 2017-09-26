@@ -38,6 +38,39 @@ public class Item : IComparable<Item>
     }
   }
 
+  public static Item GenerateItem(){
+    Item item = new Item();
+    int randomPower = UnityEngine.Random.Range(5, 100);
+    int randomDefense = UnityEngine.Random.Range(5, 100);
+    string[] affixes = { "Aether Guardian", "Ancient", "Barricade", "Challenger", "Rival", "Host", "Hellborne" };
+
+    switch (UnityEngine.Random.Range(0, 5))
+    {
+      case (0):
+        item = new Helmet();
+        break;
+      case (1):
+        item = new Shoulders();
+        break;
+      case (2):
+        item = new Gloves();
+        break;
+      case (3):
+        item = new Torso();
+        break;
+      case (4):
+        item = new Legs();
+        break;
+      case (5):
+        item = new Boots();
+        break;
+    }
+    item.myName = item.itemSlot + " of the " + affixes[UnityEngine.Random.Range(0, affixes.Length)];
+    item.Power = randomPower;
+    item.Defense = randomDefense;
+    return item;
+  }
+
   #region Constructors
   protected Item()
   {

@@ -3,33 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TargetDummy : Monster {
-	// Use this for initialization
-	void Start () {
-        base.Start();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        base.Update();
-        if (Health < TotalHealth)
-        {
-            Heal(10 * Time.deltaTime);
-        }
-    }
+public class TargetDummy : Monster
+{
+  // Use this for initialization
+  void Start()
+  {
+    base.Start();
+  }
 
-    public void Damage(float damageValue)
+  // Update is called once per frame
+  void Update()
+  {
+    base.Update();
+    if (Health < TotalHealth)
     {
-        base.Damage(damageValue);
-        if (!Triggered)
-        {
-            Aggro();
-        }
+      Heal(10 * Time.deltaTime);
     }
+  }
 
-    protected override void Aggro()
+  public void Damage(float damageValue)
+  {
+    base.Damage(damageValue);
+    if (!Triggered)
     {
-        Triggered = true;
-        playerController.AddAggression(gameObject);
+      Aggro();
     }
+  }
+
+  protected override void Aggro()
+  {
+    Triggered = true;
+    playerController.AddAggression(gameObject);
+  }
 }

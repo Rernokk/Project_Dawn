@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Teleport : Skill
 {
-  public Teleport (Player_Controller controller, float cd) : base(controller, cd)
+  public Teleport(Player_Controller controller, int manaCost, float cd) : base(controller, manaCost, cd)
   {
     skillName = "Teleport";
   }

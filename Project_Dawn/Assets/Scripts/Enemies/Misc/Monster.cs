@@ -13,6 +13,7 @@ public abstract class Monster : MonoBehaviour
 
   [SerializeField]
   protected float Health, TotalHealth = 100;
+  protected int xpValue;
 
   public Color MyHealthColor;
   public Material HealthRefMat;
@@ -44,6 +45,9 @@ public abstract class Monster : MonoBehaviour
     myHealthMaterial.SetFloat("_Value", Health / TotalHealth);
     if (Health <= 0)
     {
+      playerController.currentExp += 25;
+      playerController.uiController.UpdateExpValue();
+      playerController.myInventory.Add(Item.GenerateItem());
       MonsterManager.Instance.CullMonster(this);
       Destroy(gameObject);
     }

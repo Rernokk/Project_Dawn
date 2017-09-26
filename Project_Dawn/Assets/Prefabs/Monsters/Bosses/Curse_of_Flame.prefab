@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4264079014846566}
   - component: {fileID: 114611906488856350}
   - component: {fileID: 212373355868122864}
-  m_Layer: 0
+  - component: {fileID: 58156113068226850}
+  m_Layer: 9
   m_Name: Curse_of_Flame
   m_TagString: Untagged
   m_Icon: {fileID: -2349822300998112484, guid: 0000000000000000d000000000000000, type: 0}
@@ -35,12 +36,27 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1631528409870852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.273323, y: 5.09, z: 1}
+  m_LocalPosition: {x: 12.134373, y: 5.803652, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58156113068226850
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1631528409870852}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!114 &114611906488856350
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,11 +12,11 @@ public class Player_Controller : MonoBehaviour
       one = KeyCode.Alpha1, two = KeyCode.Alpha2, three = KeyCode.Alpha3, four = KeyCode.Alpha4;
   #endregion
   #region Floats
-  public int power, defense;
+  public int power, defense, level = 1;
   public int currentExp, TotalExp;
 
   [SerializeField]
-  float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f;
+  float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f, FlameWakeSpeed = 1f;
 
   [HideInInspector]
   public float teleportRange = 1f;
@@ -26,34 +26,24 @@ public class Player_Controller : MonoBehaviour
   float flameRatio = 8.28f, explosionRatio = 12f, lightningRatio = 15f;
 
   [HideInInspector]
-  public float powerMult = 1f;
+  public float powerMult = 1f, defenseMult = 1f;
 
   //Cooldowns
-  float dashCD = 1f, stealthCD = 1f, lightningCD = 1f;
+  [Space(15f)]
+  [Header("Skill Cooldowns")]
+  [SerializeField]
+  float dashCD = 1f;
+  [SerializeField]
+  float stealthCD = 1f, lightningCD = 1f, FlameWakeCD = 1f;
   float gravScale = 1f;
 
+  [Space(15f)]
   [SerializeField]
-  float TotalMana = 100, TotalHealth = 100;
-
+  float TotalMana = 100;
+  [SerializeField]
+  float TotalHealth = 100;
   [SerializeField]
   float currentMana, currentHealth;
-
-  public float HealthPercent
-  {
-    get
-    {
-      return currentHealth / TotalHealth;
-    }
-  }
-
-  public float ManaPercent
-  {
-    get
-    {
-      return currentMana / TotalMana;
-    }
-  }
-
 
   #endregion
   #region Bools
@@ -65,7 +55,7 @@ public class Player_Controller : MonoBehaviour
   #endregion
   #region GameObjects
   [SerializeField]
-  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, LightningDetonate;
+  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, HealFX, FlameWakeFX, FireballProjectilePrefab;
   GameObject myTemporaryTeleport;
 
   //Skill Prefabs
@@ -83,10 +73,12 @@ public class Player_Controller : MonoBehaviour
   BoxCollider2D myColl;
   Transform FlameDirection;
   Transform myCam;
+  SpriteRenderer pointyHat;
 
   [SerializeField]
   List<Monster> Aggro;
-  Player_UI_Controller uiController;
+  [HideInInspector]
+  public Player_UI_Controller uiController;
 
 
   [SerializeField]
@@ -94,32 +86,78 @@ public class Player_Controller : MonoBehaviour
   public List<Item> myInventory;
   Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
   List<List<Skill>> skillArray;
+  Vector2 dir;
+
+  [HideInInspector]
+  public List<string> BuffNames;
   #endregion
 
-  public float Power{
-    get{
+  public float Power
+  {
+    get
+    {
       return power * powerMult;
     }
-    set {
-      power = (int) value;
+    set
+    {
+      power = (int)value;
     }
   }
-  public float Defense{
-    get {
-      return defense;
+  public float Defense
+  {
+    get
+    {
+      return defense * defenseMult;
     }
 
-    set {
-      defense = (int) value;
+    set
+    {
+      defense = (int)value;
     }
   }
-  public float PowerMult{
-    get {
+  public float PowerMult
+  {
+    get
+    {
       return powerMult;
     }
 
-    set {
+    set
+    {
       powerMult = value;
+    }
+  }
+  public Vector2 Direction
+  {
+    get
+    {
+      return dir;
+    }
+
+    set
+    {
+      dir = value;
+    }
+  }
+  public float HealthPercent
+  {
+    get
+    {
+      return currentHealth / TotalHealth;
+    }
+  }
+  public float ManaPercent
+  {
+    get
+    {
+      return currentMana / TotalMana;
+    }
+  }
+  public int Level
+  {
+    get
+    {
+      return level;
     }
   }
 
@@ -134,18 +172,27 @@ public class Player_Controller : MonoBehaviour
     currentHealth = 1;
     Aggro = new List<Monster>();
     skillArray = new List<List<Skill>>();
+    BuffNames = new List<string>();
+    pointyHat = transform.Find("Pointy_Hat").GetComponent<SpriteRenderer>();
     for (int i = 0; i < 6; i++)
     {
       skillArray.Add(new List<Skill>());
     }
+    dir = transform.right;
 
     //Populate Skill List
-    skillArray[0].Add(new Teleport(this, 8f));
-    skillArray[1].Add(new Stealth(this, 18f));
-    skillArray[2].Add(new DamageAmp(this));
-    skillArray[3].Add(new Medicate(this, .25f, 4f));
-    skillArray[4].Add(new Flame(this));
-    skillArray[5].Add(new LightningStrike(this, 3f, 1f, LightningChain));
+    skillArray[0].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
+    skillArray[0].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
+    skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
+    skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
+    skillArray[2].Add(new Shield(this, 15, 12f));
+    skillArray[2].Add(new DamageAmp(this, 8, 2, 20f));
+    skillArray[3].Add(new Medicate(this, 12, .25f, 4f, HealFX));
+    skillArray[3].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
+    skillArray[4].Add(new Flame(this, FireballProjectilePrefab, 5, 12, 1f));
+    skillArray[4].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 2, FlameWakeCD, FlameWakeSpeed));
+    skillArray[5].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
+    skillArray[5].Add(new LightningStrike(this, 2, 40, 5f, 9f, LightningChain));
     StartCoroutine(PopulateCurrentSkills());
 
     myCam = transform.Find("Main Camera").transform;
@@ -154,7 +201,6 @@ public class Player_Controller : MonoBehaviour
     #region Example for Equipment
     myGear = new Equipment(new Helmet("Helm of Mystery", 1, 1), new Shoulders("Shoulders of Stuff", 1, 1), new Torso("Torso of Existing", 1, 1),
         new Gloves("Gloves of Grabbing", 1, 1), new Legs("Legs of Also Existing", 1, 1), new Boots("Shoes", 1, 1));
-    UpdateStats();
     #endregion
     #region UI Setup
     myInventoryUI = uiController.transform.Find("Inventory").gameObject;
@@ -164,8 +210,8 @@ public class Player_Controller : MonoBehaviour
       new Helmet("Netherspawn Helmet", 25, 10),
       new Helmet("Demonguard Helmet", 25, 10),
       new Shoulders("Hellgate Pauldrons", 25, 10),
-      new Shoulders("Netherspawn Pauldrons", 125, 10),
-      new Shoulders("Demonguard Pauldrons", 125, 10),
+      //new Shoulders("Netherspawn Pauldrons", 125, 10),
+      //new Shoulders("Demonguard Pauldrons", 125, 10),
       new Torso("Hellgate Chestplate", 25, 10),
       new Torso("Netherspawn Chestplate", 25, 10),
       new Torso("Demonguard Chestplate", 25, 10),
@@ -178,12 +224,18 @@ public class Player_Controller : MonoBehaviour
       new Boots("Hellgate Sabatons", 25, 10),
       new Boots("Netherspawn Sabatons", 25, 10),
       new Boots("Demonguard Sabatons", 25, 10),
-      new Boots("Slayer Sabatons", 225, 10)
+      //new Boots("Slayer Sabatons", 225, 10)
     };
     uiController.GetComponent<Player_UI_Controller>().Populate("Helmet");
     #endregion
     TotalExp = 100;
     currentExp = 0;
+    currentHealth = TotalHealth;
+    currentMana = TotalMana;
+    uiController.UpdateHealthValue();
+    uiController.UpdateManaValue();
+    uiController.UpdateExpValue();
+    uiController.UpdateStats();
   }
   void Update()
   {
@@ -197,11 +249,13 @@ public class Player_Controller : MonoBehaviour
         {
           direction = -transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+          pointyHat.flipX = true;
         }
         if (Input.GetKey(right))
         {
           direction = transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+          pointyHat.flipX = false;
         }
         #endregion
         #region Jumping
@@ -225,45 +279,51 @@ public class Player_Controller : MonoBehaviour
       #endregion
       #region Skills
       #region First Skill Slot
-      if (Input.GetKeyDown(one) && firstSkill.IsCooledDown)
+      if (Input.GetKeyDown(one) && firstSkill.IsCooledDown && firstSkill.ManaCost <= currentMana && Level >= firstSkill.levelReq)
       {
-        firstSkill.Cast();
+        firstSkill.Cast(Power);
         StartCoroutine(SkillCooldown(firstSkill));
+        currentMana -= firstSkill.ManaCost;
       }
       #endregion
       #region Second Skill Slot
-      if (Input.GetKeyDown(two) && secondSkill.IsCooledDown)
+      if (Input.GetKeyDown(two) && secondSkill.IsCooledDown && secondSkill.ManaCost <= currentMana && Level >= secondSkill.levelReq)
       {
-        secondSkill.Cast();
+        secondSkill.Cast(Power);
         StartCoroutine(SkillCooldown(secondSkill));
+        currentMana -= secondSkill.ManaCost;
       }
       #endregion
       #region Third Skill Slot
-      if (Input.GetKeyDown(three) && thirdSkill.IsCooledDown)
+      if (Input.GetKeyDown(three) && thirdSkill.IsCooledDown && thirdSkill.ManaCost <= currentMana && Level >= thirdSkill.levelReq)
       {
-        thirdSkill.Cast();
+        thirdSkill.Cast(Power);
         StartCoroutine(SkillCooldown(thirdSkill));
+        currentMana -= thirdSkill.ManaCost;
       }
       #endregion
       #region Fourth Skill Slot
-      if (Input.GetKeyDown(four) && fourthSkill.IsCooledDown)
+      if (Input.GetKeyDown(four) && fourthSkill.IsCooledDown && fourthSkill.ManaCost <= currentMana && Level >= fourthSkill.levelReq)
       {
         fourthSkill.Cast(Power);
         StartCoroutine(SkillCooldown(fourthSkill));
+        currentMana -= fourthSkill.ManaCost;
       }
       #endregion
       #region LMB Slot
-      if (Input.GetKeyDown(lmb) && lmbSkill.IsCooledDown)
+      if (Input.GetKeyDown(lmb) && lmbSkill.IsCooledDown && lmbSkill.ManaCost <= currentMana && Level >= lmbSkill.levelReq)
       {
         lmbSkill.Cast(Power);
         StartCoroutine(SkillCooldown(lmbSkill));
+        currentMana -= lmbSkill.ManaCost;
       }
       #endregion
       #region RMB Slot
-      if (Input.GetKeyDown(rmb) && rmbSkill.IsCooledDown)
+      if (Input.GetKeyDown(rmb) && rmbSkill.IsCooledDown && rmbSkill.ManaCost <= currentMana && Level >= rmbSkill.levelReq)
       {
         rmbSkill.Cast(Power);
         StartCoroutine(SkillCooldown(rmbSkill));
+        currentMana -= rmbSkill.ManaCost;
       }
       #endregion
       #endregion
@@ -282,10 +342,19 @@ public class Player_Controller : MonoBehaviour
       }
     }
 
+    if (currentMana < TotalMana)
+    {
+      currentMana += 10 * Time.deltaTime;
+      if (currentMana > TotalMana)
+      {
+        currentMana = TotalMana;
+      }
+    }
+
     #region UI Controls
     if (Input.GetKeyDown(KeyCode.I))
     {
-      if (uiController.isElementActive("Inventory") != 1)
+      if (uiController.IsElementActive("Inventory") != 1)
       {
         uiController.ToggleOffAllElements();
         uiController.ToggleUIElementOn("Inventory");
@@ -300,7 +369,8 @@ public class Player_Controller : MonoBehaviour
 
     if (Input.GetKeyDown(KeyCode.Escape))
     {
-      if (uiController.isElementActive("Instructions") != 1)
+      /*
+      if (uiController.IsElementActive("Instructions") != 1)
       {
         uiController.ToggleOffAllElements();
         uiController.ToggleUIElementOn("Instructions");
@@ -310,12 +380,13 @@ public class Player_Controller : MonoBehaviour
       {
         isInUI = false;
         uiController.ToggleUIElementOff("Instructions");
-      }
+      }*/
+      SceneManager.LoadScene("Instructions");
     }
 
     if (Input.GetKeyDown(KeyCode.K))
     {
-      if (uiController.isElementActive("Skills") != 1)
+      if (uiController.IsElementActive("Skills") != 1)
       {
         uiController.ToggleOffAllElements();
         uiController.ToggleUIElementOn("Skills");
@@ -327,7 +398,22 @@ public class Player_Controller : MonoBehaviour
         isInUI = false;
       }
     }
+
+    if (Input.GetKeyDown(KeyCode.Q))
+    {
+      print("Quitting");
+      Application.Quit();
+    }
     #endregion
+    Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
+    if (currentExp >= TotalExp)
+    {
+      currentExp -= TotalExp;
+      level++;
+      currentMana = TotalMana;
+      currentHealth = TotalHealth;
+      uiController.UpdateLevel();
+    }
   }
   private void OnTriggerEnter2D(Collider2D collision)
   {
@@ -369,13 +455,16 @@ public class Player_Controller : MonoBehaviour
     {
       SetSkillActive(i, 0);
     }
+    
     UpdateStats();
+    uiController.UpdateSkills();
   }
   IEnumerator SkillCooldown(Skill skill)
   {
     skill.IsCooledDown = false;
     float remaining = 0;
-    while (remaining < skill.CooldownDuration){
+    while (remaining < skill.CooldownDuration)
+    {
       remaining += Time.deltaTime;
       yield return null;
     }
@@ -398,30 +487,41 @@ public class Player_Controller : MonoBehaviour
     Power = myGear.GetTotalPower();
     Defense = myGear.GetTotalDefense();
   }
-  public void SetSkillActive(int row, int col)
+  public Skill SetSkillActive(int row, int col)
   {
     switch (row)
     {
       case (0):
         firstSkill = skillArray[row][col];
-        break;
+        return firstSkill;
       case (1):
         secondSkill = skillArray[row][col];
-        break;
+        return secondSkill;
       case (2):
         thirdSkill = skillArray[row][col];
-        break;
+        return thirdSkill;
       case (3):
         fourthSkill = skillArray[row][col];
-        break;
+        return fourthSkill;
       case (4):
         //LMB
         lmbSkill = skillArray[row][col];
-        break;
+        return lmbSkill;
       case (5):
         //RMB
         rmbSkill = skillArray[row][col];
-        break;
+        return rmbSkill;
+      default:
+        return null;
+    }
+  }
+  public void AddBuff(IEnumerator buff, string buffName)
+  {
+    if (BuffNames.IndexOf(buffName) == -1)
+    {
+      StartCoroutine(buff);
+      BuffNames.Add(buffName);
+      uiController.UpdateStats();
     }
   }
 }
