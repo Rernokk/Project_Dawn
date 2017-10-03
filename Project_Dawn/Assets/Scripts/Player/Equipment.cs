@@ -10,12 +10,14 @@ public class Item : IComparable<Item>
   public int Power;
   public int Defense;
   public string itemSlot;
+  public bool isNew;
 
   protected void CreateEmpty()
   {
     myName = "None";
     Power = 0;
     Defense = 0;
+    isNew = false;
   }
   public override string ToString()
   {
@@ -24,17 +26,24 @@ public class Item : IComparable<Item>
 
   public int CompareTo(Item other)
   {
-    if (other.Power < Power)
+    if (isNew && !other.isNew)
     {
       return 0;
     }
-    else if (other.Power == Power)
-    {
-      return -1;
-    }
     else
     {
-      return 1;
+      if (other.Power < Power)
+      {
+        return 0;
+      }
+      else if (other.Power == Power)
+      {
+        return -1;
+      }
+      else
+      {
+        return 1;
+      }
     }
   }
 
@@ -68,6 +77,7 @@ public class Item : IComparable<Item>
     item.myName = item.itemSlot + " of the " + affixes[UnityEngine.Random.Range(0, affixes.Length)];
     item.Power = randomPower;
     item.Defense = randomDefense;
+    item.isNew = true;
     return item;
   }
 

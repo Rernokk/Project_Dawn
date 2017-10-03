@@ -97,6 +97,10 @@ public class Player_UI_Controller : MonoBehaviour
       inventoryList.Add(i);
     }
     inventoryList.Sort();
+    
+    firstRow.GetComponent<Image>().color = Color.white;
+    secondRow.GetComponent<Image>().color = Color.white;
+    thirdRow.GetComponent<Image>().color = Color.white;
 
     //Updating UI Controls appropriately for navigation.
     if (startVal == 0)
@@ -171,6 +175,21 @@ public class Player_UI_Controller : MonoBehaviour
       thirdRow.Find("myText").GetComponent<Text>().text = "None";
       thirdRow.Find("power").GetComponent<Text>().text = "";
       thirdRow.Find("power/defense").GetComponent<Text>().text = "";
+    }
+    if (inventoryList.Count > startVal && inventoryList[startVal].isNew)
+    {
+      firstRow.GetComponent<Image>().color = Color.yellow;
+      inventoryList[startVal].isNew = false;
+    }
+    if (inventoryList.Count > startVal + 1 && inventoryList[startVal + 1].isNew)
+    {
+      secondRow.GetComponent<Image>().color = Color.yellow;
+      inventoryList[startVal + 1].isNew = false;
+    }
+    if (inventoryList.Count > startVal +2 && inventoryList[startVal + 2].isNew)
+    {
+      thirdRow.GetComponent<Image>().color = Color.yellow;
+      inventoryList[startVal + 2].isNew = false;
     }
     IfNull();
     UpdateStats();

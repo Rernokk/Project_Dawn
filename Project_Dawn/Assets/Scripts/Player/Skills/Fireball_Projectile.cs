@@ -8,11 +8,19 @@ public class Fireball_Projectile : MonoBehaviour
   float speed = 5f;
   Rigidbody2D rgd2d;
   public float dmg;
+  public Player_Controller player;
   // Use this for initialization
   void Start()
   {
     rgd2d = GetComponent<Rigidbody2D>();
-    rgd2d.AddForce(-(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized * speed, ForceMode2D.Impulse);
+    if (GameObject.Find("Variables").GetComponent<PersistantVariables>().currentBinds == KeybindSettings.KEYBOARDONLY)
+    {
+      rgd2d.AddForce(speed * new Vector2(-Mathf.Sign(player.dir.x) * .7f, .7f), ForceMode2D.Impulse);
+    }
+    else
+    {
+      rgd2d.AddForce(-(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized * speed, ForceMode2D.Impulse);
+    }
   }
 
   private void OnTriggerEnter2D(Collider2D collision)

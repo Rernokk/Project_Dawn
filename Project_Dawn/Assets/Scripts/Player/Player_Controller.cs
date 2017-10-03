@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Player_Controller : MonoBehaviour
 {
   #region KeyCodes
+  //Normal Binds
   KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space,
       lmb = KeyCode.Mouse0, rmb = KeyCode.Mouse1,
       one = KeyCode.Alpha1, two = KeyCode.Alpha2, three = KeyCode.Alpha3, four = KeyCode.Alpha4;
@@ -86,10 +87,11 @@ public class Player_Controller : MonoBehaviour
   public List<Item> myInventory;
   Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
   List<List<Skill>> skillArray;
-  Vector2 dir;
+  public Vector2 dir;
 
   [HideInInspector]
   public List<string> BuffNames;
+  PersistantVariables variables;
   #endregion
 
   public float Power
@@ -174,6 +176,46 @@ public class Player_Controller : MonoBehaviour
     skillArray = new List<List<Skill>>();
     BuffNames = new List<string>();
     pointyHat = transform.Find("Pointy_Hat").GetComponent<SpriteRenderer>();
+    variables = GameObject.Find("Variables").GetComponent<PersistantVariables>();
+    
+    //Movement
+    if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+    {
+      left = KeyCode.A; right = KeyCode.D; jump = KeyCode.Space;
+    }
+    else
+    {
+      //Southpaw
+      left = KeyCode.J; rmb = KeyCode.L; jump = KeyCode.Space;
+    }
+
+    //Primary Skills
+    if (variables.currentBinds == KeybindSettings.NORMAL)
+    {
+      lmb = KeyCode.Mouse0; rmb = KeyCode.Mouse1;
+    }
+    else if (variables.currentBinds == KeybindSettings.SOUTHPAW)
+    {
+      //Southpaw
+      lmb = KeyCode.Mouse1; rmb = KeyCode.Mouse0;
+    }
+    else
+    {
+
+      lmb = KeyCode.LeftArrow; rmb = KeyCode.RightArrow;
+    }
+
+    //Skill Binds
+    if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+    {
+      one = KeyCode.Alpha1; two = KeyCode.Alpha2; three = KeyCode.Alpha3; four = KeyCode.Alpha4;
+    }
+    else
+    {
+      //Southpaw
+      one = KeyCode.Alpha7; two = KeyCode.Alpha8; three = KeyCode.Alpha9; four = KeyCode.Alpha0;
+    }
+
     for (int i = 0; i < 6; i++)
     {
       skillArray.Add(new List<Skill>());
@@ -248,12 +290,14 @@ public class Player_Controller : MonoBehaviour
         if (Input.GetKey(left))
         {
           direction = -transform.right;
+          dir = -transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
           pointyHat.flipX = true;
         }
         if (Input.GetKey(right))
         {
           direction = transform.right;
+          dir = transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
           pointyHat.flipX = false;
         }
@@ -455,7 +499,7 @@ public class Player_Controller : MonoBehaviour
     {
       SetSkillActive(i, 0);
     }
-    
+
     UpdateStats();
     uiController.UpdateSkills();
   }
