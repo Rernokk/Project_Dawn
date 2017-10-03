@@ -20,5 +20,6 @@ public class Flamewake : Skill
     temp.GetComponent<Flamewake_Projectile>().dir = -player.Direction;
     temp.GetComponent<Flamewake_Projectile>().damage = damage * skillRatio;
     Destroy(temp, 3f);
+    player.StartCooldown(this);
   }
 }

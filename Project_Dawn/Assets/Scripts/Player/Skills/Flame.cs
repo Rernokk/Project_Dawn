@@ -19,5 +19,6 @@ public class Flame : Skill
     temp.GetComponent<Fireball_Projectile>().dmg = skillRatio * damage;
     temp.GetComponent<Fireball_Projectile>().player = player;
     Destroy(temp, 4f);
+    player.StartCooldown(this);
   }
 }

@@ -11,6 +11,7 @@ public class DamageAmp : Skill
   public override void Cast(float damage = 0)
   {
     player.AddBuff(PowerBuff(), skillName);
+    player.StartCooldown(this);
   }
 
   public IEnumerator PowerBuff(){
