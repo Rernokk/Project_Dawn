@@ -444,6 +444,13 @@ MonoBehaviour:
     skills. (K)
 
 
+    For selecting multiple targets, players can use the new Chain Grab skill (Bound
+    to one) to select three enemies and drag them in a direction indicated by the
+    mouse.
+
+    Players are also able to indicate their preferred control scheme in the instructions
+    window. This alternates between the default bind set, a keyboard only set, and
+    a left-handed set.
 
 
     All art assets are my own.

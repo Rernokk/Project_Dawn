@@ -35,12 +35,12 @@ public class MonsterManager
     MonstersInMap.Remove(ctx);
   }
 
-  public List<Monster> MonstersInRange(Vector3 Position, float Distance)
+  public List<Monster> MonstersInRange(Vector2 Position, float Distance)
   {
     List<Monster> tempList = new List<Monster>();
     foreach (Monster ctx in MonstersInMap)
     {
-      if (Vector3.Distance(Position, ctx.transform.position) <= Distance)
+      if (Vector2.Distance(Position, ctx.transform.position) <= Distance)
       {
         tempList.Add(ctx);
       }

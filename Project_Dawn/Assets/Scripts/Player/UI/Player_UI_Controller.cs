@@ -91,108 +91,112 @@ public class Player_UI_Controller : MonoBehaviour
     //Reset
     inventoryList.Clear();
     //Populate list by Item Type
-    IEnumerable<Item> q = from thisItem in playerDetails.myInventory where thisItem.itemSlot == item select thisItem;
-    foreach (Item i in q)
+    if (inventoryList != null)
     {
-      inventoryList.Add(i);
-    }
-    inventoryList.Sort();
-    
-    firstRow.GetComponent<Image>().color = Color.white;
-    secondRow.GetComponent<Image>().color = Color.white;
-    thirdRow.GetComponent<Image>().color = Color.white;
+      IEnumerable<Item> q = from thisItem in playerDetails.myInventory where thisItem.itemSlot == item select thisItem;
 
-    //Updating UI Controls appropriately for navigation.
-    if (startVal == 0)
-    {
-      prevPage.interactable = false;
-      nextPage.interactable = true;
-    }
-    else if (startVal == inventoryList.Count - 2)
-    {
-      nextPage.interactable = false;
-      prevPage.interactable = true;
-    }
-    else
-    {
-      nextPage.interactable = true;
-      prevPage.interactable = true;
-    }
+      foreach (Item i in q)
+      {
+        inventoryList.Add(i);
+      }
+      inventoryList.Sort();
 
-    if (inventoryList.Count < 3)
-    {
-      nextPage.interactable = false;
-      prevPage.interactable = false;
-    }
+      firstRow.GetComponent<Image>().color = Color.white;
+      secondRow.GetComponent<Image>().color = Color.white;
+      thirdRow.GetComponent<Image>().color = Color.white;
 
-    //Changing and displaying appropriately.
-    if (inventoryList.Count > startVal)
-    {
-      firstRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal].myName;
-      firstRow.Find("power").GetComponent<Text>().text = inventoryList[startVal].Power.ToString();
-      firstRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal].Defense.ToString();
-      firstRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal];
-    }
-    else
-    {
-      firstRow.Find("myText").GetComponent<Text>().text = "None";
-      firstRow.Find("power").GetComponent<Text>().text = "";
-      firstRow.Find("power/defense").GetComponent<Text>().text = "";
-      secondRow.Find("myText").GetComponent<Text>().text = "None";
-      secondRow.Find("power").GetComponent<Text>().text = "";
-      secondRow.Find("power/defense").GetComponent<Text>().text = "";
-      thirdRow.Find("myText").GetComponent<Text>().text = "None";
-      thirdRow.Find("power").GetComponent<Text>().text = "";
-      thirdRow.Find("power/defense").GetComponent<Text>().text = "";
-    }
+      //Updating UI Controls appropriately for navigation.
+      if (startVal == 0)
+      {
+        prevPage.interactable = false;
+        nextPage.interactable = true;
+      }
+      else if (startVal == inventoryList.Count - 2)
+      {
+        nextPage.interactable = false;
+        prevPage.interactable = true;
+      }
+      else
+      {
+        nextPage.interactable = true;
+        prevPage.interactable = true;
+      }
 
-    if (inventoryList.Count > startVal + 1)
-    {
-      secondRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal + 1].myName;
-      secondRow.Find("power").GetComponent<Text>().text = inventoryList[startVal + 1].Power.ToString();
-      secondRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal + 1].Defense.ToString();
-      secondRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal + 1];
-    }
-    else
-    {
-      secondRow.Find("myText").GetComponent<Text>().text = "None";
-      secondRow.Find("power").GetComponent<Text>().text = "";
-      secondRow.Find("power/defense").GetComponent<Text>().text = "";
-      thirdRow.Find("myText").GetComponent<Text>().text = "None";
-      thirdRow.Find("power").GetComponent<Text>().text = "";
-      thirdRow.Find("power/defense").GetComponent<Text>().text = "";
-    }
+      if (inventoryList.Count < 3)
+      {
+        nextPage.interactable = false;
+        prevPage.interactable = false;
+      }
 
-    if (inventoryList.Count > startVal + 2)
-    {
-      thirdRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal + 2].myName;
-      thirdRow.Find("power").GetComponent<Text>().text = inventoryList[startVal + 2].Power.ToString();
-      thirdRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal + 2].Defense.ToString();
-      thirdRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal + 2];
+      //Changing and displaying appropriately.
+      if (inventoryList.Count > startVal)
+      {
+        firstRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal].myName;
+        firstRow.Find("power").GetComponent<Text>().text = inventoryList[startVal].Power.ToString();
+        firstRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal].Defense.ToString();
+        firstRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal];
+      }
+      else
+      {
+        firstRow.Find("myText").GetComponent<Text>().text = "None";
+        firstRow.Find("power").GetComponent<Text>().text = "";
+        firstRow.Find("power/defense").GetComponent<Text>().text = "";
+        secondRow.Find("myText").GetComponent<Text>().text = "None";
+        secondRow.Find("power").GetComponent<Text>().text = "";
+        secondRow.Find("power/defense").GetComponent<Text>().text = "";
+        thirdRow.Find("myText").GetComponent<Text>().text = "None";
+        thirdRow.Find("power").GetComponent<Text>().text = "";
+        thirdRow.Find("power/defense").GetComponent<Text>().text = "";
+      }
+
+      if (inventoryList.Count > startVal + 1)
+      {
+        secondRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal + 1].myName;
+        secondRow.Find("power").GetComponent<Text>().text = inventoryList[startVal + 1].Power.ToString();
+        secondRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal + 1].Defense.ToString();
+        secondRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal + 1];
+      }
+      else
+      {
+        secondRow.Find("myText").GetComponent<Text>().text = "None";
+        secondRow.Find("power").GetComponent<Text>().text = "";
+        secondRow.Find("power/defense").GetComponent<Text>().text = "";
+        thirdRow.Find("myText").GetComponent<Text>().text = "None";
+        thirdRow.Find("power").GetComponent<Text>().text = "";
+        thirdRow.Find("power/defense").GetComponent<Text>().text = "";
+      }
+
+      if (inventoryList.Count > startVal + 2)
+      {
+        thirdRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal + 2].myName;
+        thirdRow.Find("power").GetComponent<Text>().text = inventoryList[startVal + 2].Power.ToString();
+        thirdRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal + 2].Defense.ToString();
+        thirdRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal + 2];
+      }
+      else
+      {
+        thirdRow.Find("myText").GetComponent<Text>().text = "None";
+        thirdRow.Find("power").GetComponent<Text>().text = "";
+        thirdRow.Find("power/defense").GetComponent<Text>().text = "";
+      }
+      if (inventoryList.Count > startVal && inventoryList[startVal].isNew)
+      {
+        firstRow.GetComponent<Image>().color = Color.yellow;
+        inventoryList[startVal].isNew = false;
+      }
+      if (inventoryList.Count > startVal + 1 && inventoryList[startVal + 1].isNew)
+      {
+        secondRow.GetComponent<Image>().color = Color.yellow;
+        inventoryList[startVal + 1].isNew = false;
+      }
+      if (inventoryList.Count > startVal + 2 && inventoryList[startVal + 2].isNew)
+      {
+        thirdRow.GetComponent<Image>().color = Color.yellow;
+        inventoryList[startVal + 2].isNew = false;
+      }
+      IfNull();
+      UpdateStats();
     }
-    else
-    {
-      thirdRow.Find("myText").GetComponent<Text>().text = "None";
-      thirdRow.Find("power").GetComponent<Text>().text = "";
-      thirdRow.Find("power/defense").GetComponent<Text>().text = "";
-    }
-    if (inventoryList.Count > startVal && inventoryList[startVal].isNew)
-    {
-      firstRow.GetComponent<Image>().color = Color.yellow;
-      inventoryList[startVal].isNew = false;
-    }
-    if (inventoryList.Count > startVal + 1 && inventoryList[startVal + 1].isNew)
-    {
-      secondRow.GetComponent<Image>().color = Color.yellow;
-      inventoryList[startVal + 1].isNew = false;
-    }
-    if (inventoryList.Count > startVal +2 && inventoryList[startVal + 2].isNew)
-    {
-      thirdRow.GetComponent<Image>().color = Color.yellow;
-      inventoryList[startVal + 2].isNew = false;
-    }
-    IfNull();
-    UpdateStats();
   }
 
   public void UpdateStats()

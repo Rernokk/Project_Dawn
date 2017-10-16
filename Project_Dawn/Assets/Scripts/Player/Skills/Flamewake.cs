@@ -15,9 +15,18 @@ public class Flamewake : Skill
 
   public override void Cast(float damage = 0)
   {
-    GameObject temp = Instantiate(projectile, (Vector2)player.transform.position + -player.Direction, Quaternion.identity);
+    GameObject temp;
+    if (GameObject.Find("Variables").GetComponent<PersistantVariables>().currentBinds != KeybindSettings.KEYBOARDONLY)
+    {
+      temp = Instantiate(projectile, (Vector2)player.transform.position + -player.Direction, Quaternion.identity);
+      temp.GetComponent<Flamewake_Projectile>().dir = -player.Direction;
+    }
+    else
+    {
+      temp = Instantiate(projectile, (Vector2)player.transform.position + player.Direction, Quaternion.identity);
+      temp.GetComponent<Flamewake_Projectile>().dir = player.Direction;
+    }
     temp.GetComponent<Flamewake_Projectile>().speed = moveSpeed;
-    temp.GetComponent<Flamewake_Projectile>().dir = -player.Direction;
     temp.GetComponent<Flamewake_Projectile>().damage = damage * skillRatio;
     Destroy(temp, 3f);
     player.StartCooldown(this);

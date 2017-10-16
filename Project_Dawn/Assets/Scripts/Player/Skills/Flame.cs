@@ -15,7 +15,15 @@ public class Flame : Skill
   }
   public override void Cast(float damage = 0)
   {
-    GameObject temp = Instantiate(myPrefab, (Vector2)player.transform.position + -player.dir + (Vector2.up * .5f), Quaternion.identity);
+    GameObject temp;
+    if (GameObject.Find("Variables").GetComponent<PersistantVariables>().currentBinds != KeybindSettings.KEYBOARDONLY)
+    {
+      temp = Instantiate(myPrefab, (Vector2)player.transform.position + -player.dir + (Vector2.up * .5f), Quaternion.identity);
+    }
+    else
+    {
+      temp = Instantiate(myPrefab, (Vector2)player.transform.position + player.dir + (Vector2.up * .5f), Quaternion.identity);
+    }
     temp.GetComponent<Fireball_Projectile>().dmg = skillRatio * damage;
     temp.GetComponent<Fireball_Projectile>().player = player;
     Destroy(temp, 4f);

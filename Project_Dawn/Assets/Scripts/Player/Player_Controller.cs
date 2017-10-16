@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class Player_Controller : MonoBehaviour
 {
+  #region Variables
   #region KeyCodes
   //Normal Binds
   KeyCode left = KeyCode.A, right = KeyCode.D, jump = KeyCode.Space,
       lmb = KeyCode.Mouse0, rmb = KeyCode.Mouse1,
       one = KeyCode.Alpha1, two = KeyCode.Alpha2, three = KeyCode.Alpha3, four = KeyCode.Alpha4;
+  KeyCode inventoryKey = KeyCode.I, skillsKey = KeyCode.K, creditsKey = KeyCode.C;
   #endregion
   #region Floats
   public int power, defense, level = 1;
@@ -57,7 +59,7 @@ public class Player_Controller : MonoBehaviour
   #endregion
   #region GameObjects
   [SerializeField]
-  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, HealFX, FlameWakeFX, FireballProjectilePrefab, ChainPrefab;
+  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, HealFX, FlameWakeFX, FireballProjectilePrefab, ChainPrefab, SelectionPrefab, PointPrefab;
   GameObject myTemporaryTeleport;
 
   //Skill Prefabs
@@ -93,6 +95,7 @@ public class Player_Controller : MonoBehaviour
   [HideInInspector]
   public List<string> BuffNames;
   PersistantVariables variables;
+  #endregion
   #endregion
 
   #region Properties
@@ -165,7 +168,8 @@ public class Player_Controller : MonoBehaviour
     }
   }
   #endregion
-  //Methods
+
+  #region Methods
   void Start()
   {
     #region Setup
@@ -180,7 +184,7 @@ public class Player_Controller : MonoBehaviour
     BuffNames = new List<string>();
     pointyHat = transform.Find("Pointy_Hat").GetComponent<SpriteRenderer>();
     variables = GameObject.Find("Variables").GetComponent<PersistantVariables>();
-    
+
     //Movement
     if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
     {
@@ -189,7 +193,7 @@ public class Player_Controller : MonoBehaviour
     else
     {
       //Southpaw
-      left = KeyCode.J; rmb = KeyCode.L; jump = KeyCode.Space;
+      left = KeyCode.J; right = KeyCode.L; jump = KeyCode.Space;
     }
 
     //Primary Skills
@@ -219,6 +223,20 @@ public class Player_Controller : MonoBehaviour
       one = KeyCode.Alpha7; two = KeyCode.Alpha8; three = KeyCode.Alpha9; four = KeyCode.Alpha0;
     }
 
+    //Interface Binds
+    if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+    {
+      inventoryKey = KeyCode.I;
+      skillsKey = KeyCode.K;
+      creditsKey = KeyCode.C;
+    }
+    else
+    {
+      inventoryKey = KeyCode.W;
+      skillsKey = KeyCode.S;
+      creditsKey = KeyCode.Comma;
+    }
+
     for (int i = 0; i < 6; i++)
     {
       skillArray.Add(new List<Skill>());
@@ -226,7 +244,7 @@ public class Player_Controller : MonoBehaviour
     dir = transform.right;
 
     //Populate Skill List
-    skillArray[0].Add(new Chain_Grip(this, ChainPrefab, 10, 3f));
+    skillArray[0].Add(new Chain_Grip(this, ChainPrefab, SelectionPrefab, PointPrefab, 10, 3f));
     skillArray[0].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
     skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
     skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
@@ -402,7 +420,7 @@ public class Player_Controller : MonoBehaviour
     }
 
     #region UI Controls
-    if (Input.GetKeyDown(KeyCode.I))
+    if (Input.GetKeyDown(inventoryKey))
     {
       if (uiController.IsElementActive("Inventory") != 1)
       {
@@ -419,22 +437,10 @@ public class Player_Controller : MonoBehaviour
 
     if (Input.GetKeyDown(KeyCode.Escape))
     {
-      /*
-      if (uiController.IsElementActive("Instructions") != 1)
-      {
-        uiController.ToggleOffAllElements();
-        uiController.ToggleUIElementOn("Instructions");
-        isInUI = true;
-      }
-      else
-      {
-        isInUI = false;
-        uiController.ToggleUIElementOff("Instructions");
-      }*/
       SceneManager.LoadScene("Instructions");
     }
 
-    if (Input.GetKeyDown(KeyCode.K))
+    if (Input.GetKeyDown(skillsKey))
     {
       if (uiController.IsElementActive("Skills") != 1)
       {
@@ -455,7 +461,12 @@ public class Player_Controller : MonoBehaviour
       Application.Quit();
     }
     #endregion
-    Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
+    if (variables.currentBinds != KeybindSettings.KEYBOARDONLY)
+    {
+      Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
+    } else {
+      //Direction = -dir;
+    }
     if (currentExp >= TotalExp)
     {
       currentExp -= TotalExp;
@@ -574,14 +585,18 @@ public class Player_Controller : MonoBehaviour
       uiController.UpdateStats();
     }
   }
-  public void StartCooldown(Skill skill){
+  public void StartCooldown(Skill skill)
+  {
     StartCoroutine(SkillCooldown(skill));
   }
-  public void ChainDelay(){
-    StartCoroutine(callFrameDelay());
+  public void ChainDelay()
+  {
+    StartCoroutine(CallFrameDelay());
   }
-  IEnumerator callFrameDelay(){
+  IEnumerator CallFrameDelay()
+  {
     yield return null;
     chainMode = false;
   }
+  #endregion
 }

@@ -15,7 +15,7 @@ public class Fireball_Projectile : MonoBehaviour
     rgd2d = GetComponent<Rigidbody2D>();
     if (GameObject.Find("Variables").GetComponent<PersistantVariables>().currentBinds == KeybindSettings.KEYBOARDONLY)
     {
-      rgd2d.AddForce(speed * new Vector2(-Mathf.Sign(player.dir.x) * .7f, .7f), ForceMode2D.Impulse);
+      rgd2d.AddForce(speed * new Vector2(Mathf.Sign(player.dir.x) * .7f, .1f).normalized, ForceMode2D.Impulse);
     }
     else
     {

@@ -29,5 +29,14 @@ public class PersistantVariables : MonoBehaviour {
 
   public void SetKeybindSet(int ctx){
     currentBinds = (KeybindSettings)ctx;
+    if (SceneManager.GetActiveScene().name == "Instructions"){
+      foreach (Transform t in GameObject.Find("InstructionsWindow").transform){
+        t.GetComponent<CanvasGroup>().alpha = 0;
+        t.GetComponent<CanvasGroup>().blocksRaycasts = false;
+      }
+      GameObject.Find("InstructionsWindow").transform.GetChild(ctx).GetComponent<CanvasGroup>().alpha = 1;
+      GameObject.Find("InstructionsWindow").transform.GetChild(ctx).GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+    }
   }
 }

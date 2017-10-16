@@ -365,54 +365,6 @@ Prefab:
       propertyPath: m_Name
       value: InstructionsWindow
       objectReference: {fileID: 0}
-    - target: {fileID: 224415017431335378, guid: f0aacb4423fa831438eb46184cdc2eca,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224415017431335378, guid: f0aacb4423fa831438eb46184cdc2eca,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224415017431335378, guid: f0aacb4423fa831438eb46184cdc2eca,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224704710318893660, guid: f0aacb4423fa831438eb46184cdc2eca,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224704710318893660, guid: f0aacb4423fa831438eb46184cdc2eca,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114506381034563320, guid: f0aacb4423fa831438eb46184cdc2eca,
-        type: 2}
-      propertyPath: m_Text
-      value: 'Welcome to S
-
-        Kill enemies for experience and loot!
-
-        Use Keys 1 - 4 as well as the left and right mouse buttons to activate powerful
-        skills!
-
-        I - Access your inventory! You will need to swap your gear.
-
-        **K - Access your skill tree! As you level up, you will gain access to additional
-        skills with different effects and strength.
-
-
-        **There is a minor bug, you will have to specifically select your abilities
-        at the start to get them to reactivate properly.
-
-        Press Return for the Main Menu!
-
-        Press Space to Play!'
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f0aacb4423fa831438eb46184cdc2eca, type: 2}
   m_IsPrefabParent: 0
@@ -421,22 +373,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224415017431335378, guid: f0aacb4423fa831438eb46184cdc2eca,
     type: 2}
   m_PrefabInternal: {fileID: 1666007142}
---- !u!1 &1666007144 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1891093744131408, guid: f0aacb4423fa831438eb46184cdc2eca,
-    type: 2}
-  m_PrefabInternal: {fileID: 1666007142}
---- !u!114 &1666007145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1666007144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c17def2597501f04889b2daa09384771, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1781525558
 GameObject:
   m_ObjectHideFlags: 0
