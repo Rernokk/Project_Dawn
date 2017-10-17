@@ -185,58 +185,73 @@ public class Player_Controller : MonoBehaviour
     pointyHat = transform.Find("Pointy_Hat").GetComponent<SpriteRenderer>();
     variables = GameObject.Find("Variables").GetComponent<PersistantVariables>();
 
-    //Movement
-    if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+    if (variables.isControllerConnected)
     {
-      left = KeyCode.A; right = KeyCode.D; jump = KeyCode.Space;
+      jump = KeyCode.JoystickButton1;
+      lmb = KeyCode.JoystickButton4;
+      rmb = KeyCode.JoystickButton5;
+      one = KeyCode.JoystickButton6;
+      two = KeyCode.JoystickButton7;
+      three = KeyCode.JoystickButton0;
+      four = KeyCode.JoystickButton3;
+      inventoryKey = KeyCode.JoystickButton2;
+      skillsKey = KeyCode.JoystickButton8;
+      creditsKey = KeyCode.JoystickButton9;
     }
     else
     {
-      //Southpaw
-      left = KeyCode.J; right = KeyCode.L; jump = KeyCode.Space;
-    }
+      //Movement
+      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      {
+        left = KeyCode.A; right = KeyCode.D; jump = KeyCode.Space;
+      }
+      else
+      {
+        //Southpaw
+        left = KeyCode.J; right = KeyCode.L; jump = KeyCode.Space;
+      }
 
-    //Primary Skills
-    if (variables.currentBinds == KeybindSettings.NORMAL)
-    {
-      lmb = KeyCode.Mouse0; rmb = KeyCode.Mouse1;
-    }
-    else if (variables.currentBinds == KeybindSettings.SOUTHPAW)
-    {
-      //Southpaw
-      lmb = KeyCode.Mouse1; rmb = KeyCode.Mouse0;
-    }
-    else
-    {
+      //Primary Skills
+      if (variables.currentBinds == KeybindSettings.NORMAL)
+      {
+        lmb = KeyCode.Mouse0; rmb = KeyCode.Mouse1;
+      }
+      else if (variables.currentBinds == KeybindSettings.SOUTHPAW)
+      {
+        //Southpaw
+        lmb = KeyCode.Mouse1; rmb = KeyCode.Mouse0;
+      }
+      else
+      {
 
-      lmb = KeyCode.LeftArrow; rmb = KeyCode.RightArrow;
-    }
+        lmb = KeyCode.LeftArrow; rmb = KeyCode.RightArrow;
+      }
 
-    //Skill Binds
-    if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
-    {
-      one = KeyCode.Alpha1; two = KeyCode.Alpha2; three = KeyCode.Alpha3; four = KeyCode.Alpha4;
-    }
-    else
-    {
-      //Southpaw
-      one = KeyCode.Alpha7; two = KeyCode.Alpha8; three = KeyCode.Alpha9; four = KeyCode.Alpha0;
-    }
+      //Skill Binds
+      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      {
+        one = KeyCode.Alpha1; two = KeyCode.Alpha2; three = KeyCode.Alpha3; four = KeyCode.Alpha4;
+      }
+      else
+      {
+        //Southpaw
+        one = KeyCode.Alpha7; two = KeyCode.Alpha8; three = KeyCode.Alpha9; four = KeyCode.Alpha0;
+      }
 
-    //Interface Binds
-    if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
-    {
-      inventoryKey = KeyCode.I;
-      skillsKey = KeyCode.K;
-      creditsKey = KeyCode.C;
+      //Interface Binds
+      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      {
+        inventoryKey = KeyCode.I;
+        skillsKey = KeyCode.K;
+        creditsKey = KeyCode.C;
+      }
+      else
+      {
+        inventoryKey = KeyCode.W;
+        skillsKey = KeyCode.S;
+        creditsKey = KeyCode.Comma;
+      }
     }
-    else
-    {
-      inventoryKey = KeyCode.W;
-      skillsKey = KeyCode.S;
-      creditsKey = KeyCode.Comma;
-    }
-
     for (int i = 0; i < 6; i++)
     {
       skillArray.Add(new List<Skill>());
@@ -302,20 +317,25 @@ public class Player_Controller : MonoBehaviour
   }
   void Update()
   {
+    if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton10))
+    {
+      SceneManager.LoadScene("Instructions");
+    }
+
     if (!isInUI && !stunned)
     {
       #region Movement
       if (!immobile)
       {
         #region Left/Right
-        if (Input.GetKey(left))
+        if ((!variables.isControllerConnected && Input.GetKey(left)) || (variables.isControllerConnected && Input.GetAxis("Horizontal") < 0))
         {
           direction = -transform.right;
           dir = -transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
           pointyHat.flipX = true;
         }
-        if (Input.GetKey(right))
+        if ((!variables.isControllerConnected && Input.GetKey(right)) || (variables.isControllerConnected && Input.GetAxis("Horizontal") > 0))
         {
           direction = transform.right;
           dir = transform.right;
@@ -324,7 +344,7 @@ public class Player_Controller : MonoBehaviour
         }
         #endregion
         #region Jumping
-        if (Input.GetKey(KeyCode.Space) && grounded)
+        if (Input.GetKey(jump) && grounded)
         {
           rgd.velocity += new Vector2(0, 1) * verticalJump;
           grounded = false;
@@ -435,9 +455,9 @@ public class Player_Controller : MonoBehaviour
       }
     }
 
-    if (Input.GetKeyDown(KeyCode.Escape))
+    if (Input.GetKeyDown(creditsKey))
     {
-      SceneManager.LoadScene("Instructions");
+      SceneManager.LoadScene("Credits");
     }
 
     if (Input.GetKeyDown(skillsKey))
@@ -455,13 +475,13 @@ public class Player_Controller : MonoBehaviour
       }
     }
 
-    if (Input.GetKeyDown(KeyCode.Q))
+    if (Input.GetKeyDown(KeyCode.JoystickButton11) || Input.GetKeyDown(KeyCode.Q))
     {
       print("Quitting");
       Application.Quit();
     }
     #endregion
-    if (variables.currentBinds != KeybindSettings.KEYBOARDONLY)
+    if (variables.currentBinds != KeybindSettings.KEYBOARDONLY && !variables.isControllerConnected)
     {
       Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
     }

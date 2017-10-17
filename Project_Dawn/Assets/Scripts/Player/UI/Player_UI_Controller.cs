@@ -33,7 +33,6 @@ public class Player_UI_Controller : MonoBehaviour
     expUI = transform.Find("Player_HUD/EXPBar").GetComponent<Image>();
 
     levelText = transform.Find("Player_HUD/Level").GetComponent<Text>();
-    instructionsCanvas = transform.Find("Instructions").GetComponent<CanvasGroup>();
     inventoryCanvas = transform.Find("Inventory").GetComponent<CanvasGroup>();
 
     uiTable.Add("Inventory", transform.Find("Inventory").GetComponent<CanvasGroup>());
@@ -264,6 +263,10 @@ public class Player_UI_Controller : MonoBehaviour
     uiTable.TryGetValue(element, out group);
     group.alpha = 1;
     group.blocksRaycasts = true;
+    if (group.GetComponent<UI_Select>())
+    {
+      group.GetComponent<UI_Select>().Sel();
+    }
   }
 
   public void ToggleOffAllElements()

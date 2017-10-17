@@ -365,6 +365,112 @@ Prefab:
       propertyPath: m_Name
       value: InstructionsWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 114506381034563320, guid: f0aacb4423fa831438eb46184cdc2eca,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Welcome to Aetherguard
+
+        Kill enemies for experience and loot!
+
+        <L2> For First Skill.
+
+        <R2> For Second Skill.
+
+        <Square> For Third Skill.
+
+        <Triangle> For Fourth Skill.
+
+        <L1> For Primary Skill.
+
+        <R1> For Secondary Skill.
+
+        W - Access your inventory! You will need to swap your gear.
+
+        **S - Access your skill tree! As you level up, you will gain access to additional
+        skills with different effects and strength.
+
+        New items in your inventory are now highlighted upon the first time they are
+        seen.
+
+
+        Colorblind Modes - F1 - Normal, F2 - Protanopia, F3 - Deutranopia
+
+
+        **There is a minor bug, you will have to specifically select your abilities
+        at the start to get them to reactivate properly.
+
+        Press Return for the Main Menu!
+
+        Press Space to Play!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 224704710318893660, guid: f0aacb4423fa831438eb46184cdc2eca,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 49.999992
+      objectReference: {fileID: 0}
+    - target: {fileID: 224704710318893660, guid: f0aacb4423fa831438eb46184cdc2eca,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -100.000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 114817585366366646, guid: f0aacb4423fa831438eb46184cdc2eca,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Welcome to Aetherguard
+
+        Kill enemies for experience and loot!
+
+        Use Keys 7 - 0 as well as the right and left mouse buttons to activate powerful
+        skills!
+
+        W - Access your inventory! You will need to swap your gear.
+
+        **S - Access your skill tree! As you level up, you will gain access to additional
+        skills with different effects and strength.
+
+        New items in your inventory are now highlighted upon the first time they are
+        seen.
+
+
+        Colorblind Modes - F1 - Normal, F2 - Protanopia, F3 - Deutranopia
+
+
+        **There is a minor bug, you will have to specifically select your abilities
+        at the start to get them to reactivate properly.
+
+        Press Return for the Main Menu!
+
+        Press Space to Play!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410659798000418, guid: f0aacb4423fa831438eb46184cdc2eca,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Welcome to Aetherguard
+
+        Kill enemies for experience and loot!
+
+        Use Keys 1 - 4 as well as the left and right arrow keys to activate powerful
+        skills!
+
+        I - Access your inventory! You will need to swap your gear.
+
+        **K - Access your skill tree! As you level up, you will gain access to additional
+        skills with different effects and strength.
+
+        New items in your inventory are now highlighted upon the first time they are
+        seen.
+
+
+        Colorblind Modes - F1 - Normal, F2 - Protanopia, F3 - Deutranopia
+
+
+        **There is a minor bug, you will have to specifically select your abilities
+        at the start to get them to reactivate properly.
+
+        Press Return for the Main Menu!
+
+        Press Space to Play!'
+      objectReference: {fileID: 0}
     - target: {fileID: 114043114992788568, guid: f0aacb4423fa831438eb46184cdc2eca,
         type: 2}
       propertyPath: m_Text
@@ -385,11 +491,6 @@ Prefab:
 
 
         Colorblind Modes - F1 - Normal, F2 - Protanopia, F3 - Deutranopia
-
-        Deaf players are informed of actions during the boss battle and their given
-        location by using [Text] where appropriate.
-
-        The colors within my game are acceptable for the given colorblindnesses.
 
 
         **There is a minor bug, you will have to specifically select your abilities

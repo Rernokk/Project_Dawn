@@ -16,7 +16,7 @@ public class Flamewake : Skill
   public override void Cast(float damage = 0)
   {
     GameObject temp;
-    if (GameObject.Find("Variables").GetComponent<PersistantVariables>().currentBinds != KeybindSettings.KEYBOARDONLY)
+    if (GameObject.Find("Variables").GetComponent<PersistantVariables>().currentBinds != KeybindSettings.KEYBOARDONLY && !GameObject.Find("Variables").GetComponent<PersistantVariables>().isControllerConnected)
     {
       temp = Instantiate(projectile, (Vector2)player.transform.position + -player.Direction, Quaternion.identity);
       temp.GetComponent<Flamewake_Projectile>().dir = -player.Direction;

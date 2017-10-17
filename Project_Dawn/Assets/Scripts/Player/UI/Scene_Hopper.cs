@@ -20,7 +20,7 @@ public class Scene_Hopper : MonoBehaviour
       SceneManager.LoadScene("Title");
     }
 
-    if (Input.GetKeyDown(KeyCode.Space))
+    if (Input.GetKeyDown(KeyCode.Space) || Input.GetAxis("Submit") > 0)
     {
       SceneManager.LoadScene("Playground");
     }

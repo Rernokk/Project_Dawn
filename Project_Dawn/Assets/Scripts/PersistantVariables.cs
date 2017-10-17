@@ -8,6 +8,7 @@ public enum KeybindSettings { NORMAL, KEYBOARDONLY, SOUTHPAW };
 public class PersistantVariables : MonoBehaviour {
   public KeybindSettings currentBinds = KeybindSettings.NORMAL;
   public Transform myDropdown;
+  public bool isControllerConnected = false;
 	// Use this for initialization
 	void Start () {
     DontDestroyOnLoad(gameObject);
