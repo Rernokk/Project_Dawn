@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CurseOfFlameAura : MonoBehaviour
 {
   [SerializeField]
   float duration = 1f, range = 1f;
   float TimeLeft;
+
+  [SerializeField]
+  GameObject myTextPrefab;
+
   Transform player;
   Material myMat;
   Material playerMat;
@@ -18,6 +23,7 @@ public class CurseOfFlameAura : MonoBehaviour
     TimeLeft = duration;
     myMat = GetComponent<SpriteRenderer>().material;
     playerMat = player.Find("Sprite").GetComponent<SpriteRenderer>().material;
+    GameObject.Find("Ifrit/BossCamera/GameObject/Canvas/Text").GetComponent<Text>().text = "[Curse of Flame]";
   }
 
   // Update is called once per frame
@@ -30,7 +36,7 @@ public class CurseOfFlameAura : MonoBehaviour
   IEnumerator DebuffCountdown()
   {
     yield return new WaitForSeconds(duration);
-    if (Vector2.Distance(player.transform.position, transform.position) <= GetComponent<CircleCollider2D>().bounds.extents.x * 2)
+    if (Vector2.Distance(player.transform.position, transform.position) <= GetComponent<CircleCollider2D>().bounds.extents.x)
     {
       GameObject.Find("Ifrit").GetComponent<Ifrit_FSM>().AuraMult = 1;
       playerMat.color = Color.red;
@@ -39,6 +45,7 @@ public class CurseOfFlameAura : MonoBehaviour
       playerMat.color = Color.white;
     }
     myMat.SetFloat("_Value", -1f);
+    GameObject.Find("Ifrit/BossCamera/GameObject/Canvas/Text").GetComponent<Text>().text = "";
     Destroy(gameObject);
   }
 }

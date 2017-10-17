@@ -365,6 +365,40 @@ Prefab:
       propertyPath: m_Name
       value: InstructionsWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 114043114992788568, guid: f0aacb4423fa831438eb46184cdc2eca,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Welcome to Aetherguard
+
+        Kill enemies for experience and loot!
+
+        Use Keys 1 - 4 as well as the left and right mouse buttons to activate powerful
+        skills!
+
+        I - Access your inventory! You will need to swap your gear.
+
+        **K - Access your skill tree! As you level up, you will gain access to additional
+        skills with different effects and strength.
+
+        New items in your inventory are now highlighted upon the first time they are
+        seen.
+
+
+        Colorblind Modes - F1 - Normal, F2 - Protanopia, F3 - Deutranopia
+
+        Deaf players are informed of actions during the boss battle and their given
+        location by using [Text] where appropriate.
+
+        The colors within my game are acceptable for the given colorblindnesses.
+
+
+        **There is a minor bug, you will have to specifically select your abilities
+        at the start to get them to reactivate properly.
+
+        Press Return for the Main Menu!
+
+        Press Space to Play!'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f0aacb4423fa831438eb46184cdc2eca, type: 2}
   m_IsPrefabParent: 0

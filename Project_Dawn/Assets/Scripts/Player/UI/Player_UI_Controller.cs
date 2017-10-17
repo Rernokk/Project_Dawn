@@ -87,6 +87,10 @@ public class Player_UI_Controller : MonoBehaviour
 
   public void Populate(string item)
   {
+    if (inventoryList == null){
+      return;
+    }
+
     currentType = item;
     //Reset
     inventoryList.Clear();

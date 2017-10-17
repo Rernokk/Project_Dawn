@@ -127,6 +127,18 @@ MonoBehaviour:
     **K - Access your skill tree! As you level up, you will gain access to additional
     skills with different effects and strength.
 
+    New items in your inventory are now highlighted upon the first time they are seen.
+
+
+    Colorblind Modes - F1 - Normal, F2 - Protanopia, F3 - Deutranopia
+
+    Deaf players are informed of actions during the boss battle and their given location
+    by using [Text] where appropriate.
+
+    The colors within my game are acceptable for the given colorblindnesses.
+
+
+
 
     **There is a minor bug, you will have to specifically select your abilities at
     the start to get them to reactivate properly.
@@ -188,6 +200,16 @@ MonoBehaviour:
     **K - Access your skill tree! As you level up, you will gain access to additional
     skills with different effects and strength.
 
+    New items in your inventory are now highlighted upon the first time they are seen.
+
+
+    Colorblind Modes - F1 - Normal, F2 - Protanopia, F3 - Deutranopia
+
+    Deaf players are informed of actions during the boss battle and their given location
+    by using [Text] where appropriate.
+
+    The colors within my game are acceptable for the given colorblindnesses.
+
 
     **There is a minor bug, you will have to specifically select your abilities at
     the start to get them to reactivate properly.
@@ -238,6 +260,16 @@ MonoBehaviour:
 
     **S - Access your skill tree! As you level up, you will gain access to additional
     skills with different effects and strength.
+
+    New items in your inventory are now highlighted upon the first time they are seen.
+
+
+    Colorblind Modes - F1 - Normal, F2 - Protanopia, F3 - Deutranopia
+
+    Deaf players are informed of actions during the boss battle and their given location
+    by using [Text] where appropriate.
+
+    The colors within my game are acceptable for the given colorblindnesses.
 
 
     **There is a minor bug, you will have to specifically select your abilities at

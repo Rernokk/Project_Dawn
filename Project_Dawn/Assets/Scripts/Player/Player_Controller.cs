@@ -59,7 +59,7 @@ public class Player_Controller : MonoBehaviour
   #endregion
   #region GameObjects
   [SerializeField]
-  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, HealFX, FlameWakeFX, FireballProjectilePrefab, ChainPrefab, SelectionPrefab, PointPrefab;
+  GameObject MyTelePrefab, MyDetonatePrefab, LightningChain, HealFX, FlameWakeFX, FireballProjectilePrefab, ChainPrefab, SelectionPrefab, PointPrefab, myLevelPrefab;
   GameObject myTemporaryTeleport;
 
   //Skill Prefabs
@@ -464,9 +464,8 @@ public class Player_Controller : MonoBehaviour
     if (variables.currentBinds != KeybindSettings.KEYBOARDONLY)
     {
       Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
-    } else {
-      //Direction = -dir;
     }
+
     if (currentExp >= TotalExp)
     {
       currentExp -= TotalExp;
@@ -474,6 +473,8 @@ public class Player_Controller : MonoBehaviour
       currentMana = TotalMana;
       currentHealth = TotalHealth;
       uiController.UpdateLevel();
+      Destroy(Instantiate(myLevelPrefab, transform), 3f);
+      StartCoroutine(DelayedParticleStop(uiController.transform.Find("Player_HUD/Level/GameObject/Particle System").GetComponent<ParticleSystem>(), 3));
     }
   }
   private void OnTriggerEnter2D(Collider2D collision)
@@ -530,6 +531,12 @@ public class Player_Controller : MonoBehaviour
       yield return null;
     }
     skill.IsCooledDown = true;
+  }
+  IEnumerator DelayedParticleStop(ParticleSystem system, float time)
+  {
+    system.Play();
+    yield return new WaitForSeconds(time);
+    system.Stop();
   }
   public void AddAggression(GameObject ctx)
   {
