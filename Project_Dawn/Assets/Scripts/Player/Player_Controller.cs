@@ -94,7 +94,6 @@ public class Player_Controller : MonoBehaviour
 
   [HideInInspector]
   public List<string> BuffNames;
-  PersistantVariables variables;
   #endregion
   #endregion
 
@@ -183,9 +182,8 @@ public class Player_Controller : MonoBehaviour
     skillArray = new List<List<Skill>>();
     BuffNames = new List<string>();
     pointyHat = transform.Find("Pointy_Hat").GetComponent<SpriteRenderer>();
-    variables = GameObject.Find("Variables").GetComponent<PersistantVariables>();
 
-    if (variables.isControllerConnected)
+    if (PersistantVariables.Instance.isControllerConnected)
     {
       jump = KeyCode.JoystickButton1;
       lmb = KeyCode.JoystickButton4;
@@ -201,7 +199,7 @@ public class Player_Controller : MonoBehaviour
     else
     {
       //Movement
-      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      if (PersistantVariables.Instance.currentBinds == KeybindSettings.NORMAL || PersistantVariables.Instance.currentBinds == KeybindSettings.KEYBOARDONLY)
       {
         left = KeyCode.A; right = KeyCode.D; jump = KeyCode.Space;
       }
@@ -212,11 +210,11 @@ public class Player_Controller : MonoBehaviour
       }
 
       //Primary Skills
-      if (variables.currentBinds == KeybindSettings.NORMAL)
+      if (PersistantVariables.Instance.currentBinds == KeybindSettings.NORMAL)
       {
         lmb = KeyCode.Mouse0; rmb = KeyCode.Mouse1;
       }
-      else if (variables.currentBinds == KeybindSettings.SOUTHPAW)
+      else if (PersistantVariables.Instance.currentBinds == KeybindSettings.SOUTHPAW)
       {
         //Southpaw
         lmb = KeyCode.Mouse1; rmb = KeyCode.Mouse0;
@@ -228,7 +226,7 @@ public class Player_Controller : MonoBehaviour
       }
 
       //Skill Binds
-      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      if (PersistantVariables.Instance.currentBinds == KeybindSettings.NORMAL || PersistantVariables.Instance.currentBinds == KeybindSettings.KEYBOARDONLY)
       {
         one = KeyCode.Alpha1; two = KeyCode.Alpha2; three = KeyCode.Alpha3; four = KeyCode.Alpha4;
       }
@@ -239,7 +237,7 @@ public class Player_Controller : MonoBehaviour
       }
 
       //Interface Binds
-      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      if (PersistantVariables.Instance.currentBinds == KeybindSettings.NORMAL || PersistantVariables.Instance.currentBinds == KeybindSettings.KEYBOARDONLY)
       {
         inventoryKey = KeyCode.I;
         skillsKey = KeyCode.K;
@@ -328,14 +326,14 @@ public class Player_Controller : MonoBehaviour
       if (!immobile)
       {
         #region Left/Right
-        if ((!variables.isControllerConnected && Input.GetKey(left)) || (variables.isControllerConnected && Input.GetAxis("Horizontal") < 0))
+        if ((!PersistantVariables.Instance.isControllerConnected && Input.GetKey(left)) || (PersistantVariables.Instance.isControllerConnected && Input.GetAxis("Horizontal") < 0))
         {
           direction = -transform.right;
           dir = -transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
           pointyHat.flipX = true;
         }
-        if ((!variables.isControllerConnected && Input.GetKey(right)) || (variables.isControllerConnected && Input.GetAxis("Horizontal") > 0))
+        if ((!PersistantVariables.Instance.isControllerConnected && Input.GetKey(right)) || (PersistantVariables.Instance.isControllerConnected && Input.GetAxis("Horizontal") > 0))
         {
           direction = transform.right;
           dir = transform.right;
@@ -481,7 +479,7 @@ public class Player_Controller : MonoBehaviour
       Application.Quit();
     }
     #endregion
-    if (variables.currentBinds != KeybindSettings.KEYBOARDONLY && !variables.isControllerConnected)
+    if (PersistantVariables.Instance.currentBinds != KeybindSettings.KEYBOARDONLY && !PersistantVariables.Instance.isControllerConnected)
     {
       Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
     }

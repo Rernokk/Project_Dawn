@@ -9,7 +9,7 @@ public class ControllerDetection : MonoBehaviour {
 	void Start () {
     KeyboardText = transform.Find("Keyboard").GetComponent<CanvasGroup>();
     ControllerText = transform.Find("Controller").GetComponent<CanvasGroup>();
-    vars = GameObject.Find("Variables").GetComponent<PersistantVariables>();
+    vars = GameObject.Find("Persistants").GetComponent<PersistantVariables>();
     StartCoroutine(CheckForInputShift());
 	}
 

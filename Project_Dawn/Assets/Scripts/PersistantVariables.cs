@@ -9,6 +9,17 @@ public class PersistantVariables : MonoBehaviour {
   public KeybindSettings currentBinds = KeybindSettings.NORMAL;
   public Transform myDropdown;
   public bool isControllerConnected = false;
+  private static PersistantVariables instance;
+  private PersistantVariables() { }
+  public static PersistantVariables Instance {
+    get {
+      if (instance == null){
+        instance = new PersistantVariables();
+      }
+      return instance;
+    }
+  }
+
 	// Use this for initialization
 	void Start () {
     DontDestroyOnLoad(gameObject);

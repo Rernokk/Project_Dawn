@@ -4242,8 +4242,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2134697801}
   - component: {fileID: 2134697802}
+  - component: {fileID: 2134697803}
   m_Layer: 0
-  m_Name: Variables
+  m_Name: Persistants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4277,3 +4278,14 @@ MonoBehaviour:
   currentBinds: 0
   myDropdown: {fileID: 0}
   isControllerConnected: 0
+--- !u!114 &2134697803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134697800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2d831e9eadecba40a1fdcaa3e8a5982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
