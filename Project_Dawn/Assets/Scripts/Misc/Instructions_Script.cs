@@ -10,7 +10,7 @@ public class Instructions_Script : MonoBehaviour
   {
     if (Input.GetKeyDown(KeyCode.Return))
     {
-      SceneManager.LoadScene("Playground");
+      SceneManager.LoadScene("Level-0");
     }
     if (Input.GetKeyDown(KeyCode.JoystickButton9)){
       SceneManager.LoadScene("Instructions");

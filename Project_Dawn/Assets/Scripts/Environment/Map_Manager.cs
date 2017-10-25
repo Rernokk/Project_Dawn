@@ -9,10 +9,12 @@ public class Map_Manager : MonoBehaviour
   {
     public bool doesBitmask;
     public bool isOccupied;
-    public Tile(bool isOccupied, bool doesBitmask)
+    public Color myIDColor;
+    public Tile(bool isOccupied, bool doesBitmask, Color myIDColor)
     {
       this.doesBitmask = doesBitmask;
       this.isOccupied = isOccupied;
+      this.myIDColor = myIDColor;
     }
   }
   #endregion
@@ -20,7 +22,9 @@ public class Map_Manager : MonoBehaviour
   #region Variables
   private static Map_Manager instance;
   Tile[,] levelArray;
+  int mapWidth, mapHeight;
   #endregion
+
   #region Properties
   public static Map_Manager Instance
   {
@@ -50,32 +54,89 @@ public class Map_Manager : MonoBehaviour
   {
     DontDestroyOnLoad(gameObject);
   }
+
+  GameObject GetTileObject(List<ColorPair> pairList, Color col){
+    foreach (ColorPair pair in pairList){
+      if (pair.col == col){
+        return pair.obj;
+      }
+    }
+    return null;
+  }
+
+  IEnumerator StallCreation(Texture2D myPixelMap, List<ColorPair> pairListing){
+    yield return null;
+    Transform LevelHolder = GameObject.Find("Level_Loader").transform;
+    for (int i = 0; i < myPixelMap.width; i++)
+    {
+      for (int j = 0; j < myPixelMap.height; j++)
+      {
+        if (levelArray[i, j].isOccupied)
+        {
+          Instantiate(GetTileObject(pairListing, levelArray[i, j].myIDColor), position: new Vector3(i, j, 0), rotation: Quaternion.identity).transform.parent = LevelHolder;
+        }
+      }
+    }
+  }
   #endregion
+
   #region Public Methods
-  public void LoadMap(Texture2D myPixelMap)
+  public void LoadMap(Texture2D myPixelMap, List<ColorPair> pairListing)
   {
+    //Populating level array & tiles.
     levelArray = new Tile[myPixelMap.width, myPixelMap.height];
+    mapWidth = myPixelMap.width;
+    mapHeight = myPixelMap.height;
+    print("Map Width: " + mapWidth + " & Map Height: " + mapHeight);
     for (int i = 0; i < myPixelMap.width; i++)
     {
       for (int j = 0; j < myPixelMap.height; j++)
       {
         Color col = myPixelMap.GetPixel(i, j);
-        if (col.a == 0){
+        if (col.a == 0)
+        {
+          //Full Alpha Transparency implies empty tile, open space.
           levelArray[i, j].isOccupied = false;
           levelArray[i, j].doesBitmask = false;
-        } else {
+        }
+        else
+        {
           levelArray[i, j].isOccupied = true;
           levelArray[i, j].doesBitmask = true;
         }
+        levelArray[i, j].myIDColor = col;
       }
     }
-    int tileCount = 0;
-    foreach (Tile t in levelArray){
-      if (t.isOccupied){
-        tileCount++;
-      }
+
+    ////Spawning Tiles into worldspace.
+    //Transform LevelHolder = GameObject.Find("Level_Loader").transform;
+    //for (int i = 0; i < myPixelMap.width; i++)
+    //{
+    //  for (int j = 0; j < myPixelMap.height; j++)
+    //  {
+    //    if (levelArray[i, j].isOccupied)
+    //    {
+    //      Instantiate(GetTileObject(pairListing, levelArray[i, j].myIDColor), position: new Vector3(i, j, 0), rotation: Quaternion.identity).transform.parent = LevelHolder;
+    //    }
+    //  }
+    //}
+    StartCoroutine(StallCreation(myPixelMap, pairListing));
+  }
+
+
+  public int IsTileOpen(Vector2 pos){
+    if ((pos.x < 0 || pos.x >= mapWidth) && (pos.y < 0 || pos.y >= mapHeight))
+    {
+      print("Out of Range, W: " + mapWidth + ", H: " + mapHeight);
+      return 0;
     }
-    print(tileCount);
+    if (levelArray[(int) pos.x, (int) pos.y].isOccupied){
+      print("Occupied");
+      return 1;
+    }
+
+    print("Not Occupied");
+    return 0;
   }
   #endregion
 }
