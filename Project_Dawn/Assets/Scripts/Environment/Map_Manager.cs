@@ -49,7 +49,6 @@ public class Map_Manager : MonoBehaviour
 
   #region Private Methods
   private Map_Manager() { }
-
   private void Awake()
   {
     if(instance != null && instance != this){
