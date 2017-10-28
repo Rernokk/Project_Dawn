@@ -117,7 +117,7 @@ public class Map_Manager : MonoBehaviour
     {
       for (int j = 0; j < myPixelMap.height; j++)
       {
-        if (levelArray[i, j].isOccupied)
+        if (levelArray[i, j].isOccupied && LevelArray[i,j].myIDColor != Color.clear)
         {
           Instantiate(GetTileObject(pairListing, levelArray[i, j].myIDColor), position: new Vector3(i, j, 0), rotation: Quaternion.identity).transform.parent = LevelHolder;
         }
