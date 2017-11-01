@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Skill : Object
+[Serializable]
+public abstract class Skill : ScriptableObject
 {
   protected float skillRatio = 1f, cooldown = 1f;
   protected bool cooled = true;

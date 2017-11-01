@@ -13,13 +13,15 @@ public struct ColorPair
 public class Level_Loader : MonoBehaviour
 {
   [SerializeField]
-  Texture2D tex;
+  Texture2D bgTex, levelTex, fgTex;
 
   [SerializeField]
-  List<ColorPair> pairs;
+  List<ColorPair> bgPairs, levelPairs, fgPairs;
   // Use this for initialization
   void Start()
   {
-    Map_Manager.Instance.LoadMap(tex, pairs);
+    Map_Manager.Instance.LoadMap(fgTex, fgPairs, 0);
+    Map_Manager.Instance.LoadMap(levelTex, levelPairs, 1);
+    Map_Manager.Instance.LoadMap(bgTex, bgPairs, 2);
   }
 }

@@ -16,6 +16,7 @@ public class Player_UI_Controller : MonoBehaviour
   Dictionary<string, CanvasGroup> uiTable;
   List<Item> inventoryList = new List<Item>();
   Text levelText;
+  Image s1Skill, s2Skill, s3Skill, s4Skill;
 
   [HideInInspector]
   public int startVal = 0;
@@ -26,17 +27,16 @@ public class Player_UI_Controller : MonoBehaviour
   void Start()
   {
     uiTable = new Dictionary<string, CanvasGroup>();
-    playerDetails = GameObject.Find("Player").GetComponent<Player_Controller>();
+    playerDetails = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Controller>();
 
-    healthUI = transform.Find("Player_HUD/HealthBar").GetComponent<Image>();
-    manaUI = transform.Find("Player_HUD/ManaBar").GetComponent<Image>();
-    expUI = transform.Find("Player_HUD/EXPBar").GetComponent<Image>();
+    healthUI = transform.Find("Player_HUD/Overlay/HealthBar").GetComponent<Image>();
+    manaUI = transform.Find("Player_HUD/Overlay/ManaBar").GetComponent<Image>();
+    //expUI = transform.Find("Player_HUD/EXPBar").GetComponent<Image>();
 
     levelText = transform.Find("Player_HUD/Level").GetComponent<Text>();
     inventoryCanvas = transform.Find("Inventory").GetComponent<CanvasGroup>();
 
     uiTable.Add("Inventory", transform.Find("Inventory").GetComponent<CanvasGroup>());
-    //uiTable.Add("Instructions", transform.Find("Instructions").GetComponent<CanvasGroup>());
     uiTable.Add("HUD", transform.Find("Player_HUD").GetComponent<CanvasGroup>());
     uiTable.Add("Skills", transform.Find("Skill_Tree").GetComponent<CanvasGroup>());
 
@@ -46,12 +46,17 @@ public class Player_UI_Controller : MonoBehaviour
 
     healthUI.material = new Material(healthRefMat);
     manaUI.material = new Material(manaRefMat);
-    expUI.material = new Material(expRefMat);
+    //expUI.material = new Material(expRefMat);
+
+    s1Skill = transform.Find("Player_HUD/CD_Overlay/S1Shadow/Skill").GetComponent<Image>();
+    s2Skill = transform.Find("Player_HUD/CD_Overlay/S2Shadow/Skill").GetComponent<Image>();
+    s3Skill = transform.Find("Player_HUD/CD_Overlay/S3Shadow/Skill").GetComponent<Image>();
+    s4Skill = transform.Find("Player_HUD/CD_Overlay/S4Shadow/Skill").GetComponent<Image>();
 
     UpdateHealthValue();
     UpdateManaValue();
     UpdateStats();
-    UpdateLevel();
+    //UpdateLevel();
     IfNull();
 
     nextPage = GameObject.Find("Inventory_Controller/Next_Page").GetComponent<Button>();
@@ -63,12 +68,13 @@ public class Player_UI_Controller : MonoBehaviour
   {
     UpdateHealthValue();
     UpdateManaValue();
+    UpdateSkillCooldowns();
   }
 
   public void UpdateLevel(){
     levelText.text = playerDetails.Level.ToString();
     UpdateSkills();
-    UpdateExpValue();
+    //UpdateExpValue();
   }
 
   public void UpdateHealthValue()
@@ -216,6 +222,13 @@ public class Player_UI_Controller : MonoBehaviour
         t.GetComponent<Skill_Specifier>().UpdateInteractive(playerDetails.level);
       }
     }
+  }
+
+  public void UpdateSkillCooldowns(){
+    s1Skill.fillAmount = playerDetails.FirstSkillCooldown;
+    s2Skill.fillAmount = playerDetails.SecondSkillCooldown;
+    s3Skill.fillAmount = playerDetails.ThirdSkillCooldown;
+    s4Skill.fillAmount = playerDetails.FourthSkillCooldown;
   }
 
   public void IfNull()

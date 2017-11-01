@@ -133,7 +133,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 401878160}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &401878162
 Behaviour:
   m_ObjectHideFlags: 0
@@ -224,10 +224,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73b6686bb4e4564fa7439658b6f335b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tex: {fileID: 2800000, guid: 060a5d3e4150ee945b147e685284b3cf, type: 3}
-  pairs:
+  bgTex: {fileID: 2800000, guid: 4bb93e83df044ff4994252538ddda762, type: 3}
+  levelTex: {fileID: 2800000, guid: d1c914a38af88174d89dc597f9256153, type: 3}
+  fgTex: {fileID: 2800000, guid: e137058b6ced6264ebd03d46a633b527, type: 3}
+  bgPairs:
+  - col: {r: 0, g: 0, b: 0, a: 1}
+    obj: {fileID: 1853482466485460, guid: 5500e81cf75162345906cdaf459b5fcf, type: 2}
+  levelPairs:
   - col: {r: 0, g: 0, b: 0, a: 1}
     obj: {fileID: 1853482466485460, guid: 614db997bbf794444bbe1b52e8cb038f, type: 2}
+  - col: {r: 1, g: 1, b: 1, a: 1}
+    obj: {fileID: 1441395580844230, guid: 9ddcda9c1a41a7a49af95f99d5519737, type: 2}
+  fgPairs:
+  - col: {r: 0, g: 0, b: 0, a: 1}
+    obj: {fileID: 1853482466485460, guid: 1a490190948944d41a230cd106a579f4, type: 2}
 --- !u!4 &1444232884
 Transform:
   m_ObjectHideFlags: 0

@@ -47,6 +47,7 @@ public class Player_Controller : MonoBehaviour
   float TotalHealth = 100;
   [SerializeField]
   float currentMana, currentHealth;
+  float s1CD, s2CD, s3CD, s4CD;
 
   #endregion
   #region Bools
@@ -83,12 +84,16 @@ public class Player_Controller : MonoBehaviour
   List<Monster> Aggro;
   [HideInInspector]
   public Player_UI_Controller uiController;
+  public GameObject uiControllerRef;
 
 
   [SerializeField]
   Equipment myGear;
   public List<Item> myInventory;
-  Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
+
+  [HideInInspector]
+  public Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
+
   List<List<Skill>> skillArray;
   public Vector2 dir;
 
@@ -164,6 +169,46 @@ public class Player_Controller : MonoBehaviour
     get
     {
       return level;
+    }
+  }
+  public float FirstSkillCooldown
+  {
+    get {
+      if (firstSkill == null)
+      {
+        return .5f;
+      }
+      return 1 - s1CD / firstSkill.CooldownDuration;
+    }
+  }
+  public float SecondSkillCooldown{
+    get
+    {
+      if (secondSkill == null)
+      {
+        return .5f;
+      }
+      return 1 - s2CD / secondSkill.CooldownDuration;
+    }
+  }
+  public float ThirdSkillCooldown{
+    get
+    {
+      if (thirdSkill == null)
+      {
+        return .5f;
+      }
+      return 1 - s3CD / thirdSkill.CooldownDuration;
+    }
+  }
+  public float FourthSkillCooldown{
+    get
+    {
+      if (fourthSkill == null)
+      {
+        return .5f;
+      }
+      return 1 - s4CD / fourthSkill.CooldownDuration;
     }
   }
   #endregion
@@ -272,7 +317,13 @@ public class Player_Controller : MonoBehaviour
     StartCoroutine(PopulateCurrentSkills());
 
     myCam = transform.Find("Main Camera").transform;
-    uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
+    if (GameObject.Find("PlayerUI"))
+    {
+      uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
+    } else {
+      uiController = Instantiate(uiControllerRef, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<Player_UI_Controller>();
+    }
+    uiController.GetComponent<Canvas>().worldCamera = myCam.GetComponent<Camera>();
     #endregion
     #region Example for Equipment
     myGear = new Equipment(new Helmet("Helm of Mystery", 1, 1), new Shoulders("Shoulders of Stuff", 1, 1), new Torso("Torso of Existing", 1, 1),
@@ -370,6 +421,7 @@ public class Player_Controller : MonoBehaviour
           currentMana -= firstSkill.ManaCost;
         }
         firstSkill.Cast(Power);
+        s1CD = firstSkill.CooldownDuration;
       }
       #endregion
       #region Second Skill Slot
@@ -378,6 +430,7 @@ public class Player_Controller : MonoBehaviour
         secondSkill.Cast(Power);
         //StartCoroutine(SkillCooldown(secondSkill));
         currentMana -= secondSkill.ManaCost;
+        s2CD = secondSkill.CooldownDuration;
       }
       #endregion
       #region Third Skill Slot
@@ -386,6 +439,7 @@ public class Player_Controller : MonoBehaviour
         thirdSkill.Cast(Power);
         //StartCoroutine(SkillCooldown(thirdSkill));
         currentMana -= thirdSkill.ManaCost;
+        s3CD = thirdSkill.CooldownDuration;
       }
       #endregion
       #region Fourth Skill Slot
@@ -394,6 +448,7 @@ public class Player_Controller : MonoBehaviour
         fourthSkill.Cast(Power);
         //StartCoroutine(SkillCooldown(fourthSkill));
         currentMana -= fourthSkill.ManaCost;
+        s4CD = fourthSkill.CooldownDuration;
       }
       #endregion
       #region LMB Slot
@@ -412,6 +467,31 @@ public class Player_Controller : MonoBehaviour
         currentMana -= rmbSkill.ManaCost;
       }
       #endregion
+
+      if (firstSkill != null && !firstSkill.IsCooledDown){
+        s1CD -= Time.deltaTime;
+        if (s1CD < 0){
+          s1CD = 0;
+        }
+      }
+      if (secondSkill != null && !secondSkill.IsCooledDown){
+        s2CD -= Time.deltaTime;
+        if (s2CD < 0){
+          s2CD = 0;
+        }
+      }
+      if (thirdSkill != null && !thirdSkill.IsCooledDown){
+        s3CD -= Time.deltaTime;
+        if (s3CD < 0){
+          s3CD = 0;
+        }
+      }
+      if (fourthSkill != null && !fourthSkill.IsCooledDown){
+        s4CD -= Time.deltaTime;
+        if (s4CD < 0){
+          s4CD = 0;
+        }
+      }
       #endregion
       if (Input.anyKeyDown && currentHealth <= 0)
       {

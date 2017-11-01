@@ -14,8 +14,8 @@ public class Equipment_Item_Slot : MonoBehaviour
   bool ChangeText = true;
   private void Start()
   {
-    player = GameObject.Find("Player").GetComponent<Player_Controller>();
-    uiCtrl = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
+    player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Controller>();
+    uiCtrl = GameObject.FindGameObjectWithTag("PlayerUI").GetComponent<Player_UI_Controller>();
     if (ChangeText)
     {
       transform.Find("myText").GetComponent<Text>().text = myItem.myName;
