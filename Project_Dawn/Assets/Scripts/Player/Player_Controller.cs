@@ -228,7 +228,7 @@ public class Player_Controller : MonoBehaviour
     BuffNames = new List<string>();
     pointyHat = transform.Find("Pointy_Hat").GetComponent<SpriteRenderer>();
 
-    if (PersistantVariables.Instance.isControllerConnected)
+    if (PersistantVariables.isControllerConnected)
     {
       jump = KeyCode.JoystickButton1;
       lmb = KeyCode.JoystickButton4;
@@ -377,14 +377,15 @@ public class Player_Controller : MonoBehaviour
       if (!immobile)
       {
         #region Left/Right
-        if ((!PersistantVariables.Instance.isControllerConnected && Input.GetKey(left)) || (PersistantVariables.Instance.isControllerConnected && Input.GetAxis("Horizontal") < 0))
+        if ((!PersistantVariables.isControllerConnected && Input.GetKey(left)) || (PersistantVariables.isControllerConnected && Input.GetAxis("Horizontal") < 0))
         {
           direction = -transform.right;
           dir = -transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
           pointyHat.flipX = true;
+          print("Left");
         }
-        if ((!PersistantVariables.Instance.isControllerConnected && Input.GetKey(right)) || (PersistantVariables.Instance.isControllerConnected && Input.GetAxis("Horizontal") > 0))
+        if ((!PersistantVariables.isControllerConnected && Input.GetKey(right)) || (PersistantVariables.isControllerConnected && Input.GetAxis("Horizontal") > 0))
         {
           direction = transform.right;
           dir = transform.right;
@@ -559,7 +560,7 @@ public class Player_Controller : MonoBehaviour
       Application.Quit();
     }
     #endregion
-    if (PersistantVariables.Instance.currentBinds != KeybindSettings.KEYBOARDONLY && !PersistantVariables.Instance.isControllerConnected)
+    if (PersistantVariables.Instance.currentBinds != KeybindSettings.KEYBOARDONLY && !PersistantVariables.isControllerConnected)
     {
       Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
     }

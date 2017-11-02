@@ -13,7 +13,7 @@ public class Fireball_Projectile : MonoBehaviour
   void Start()
   {
     rgd2d = GetComponent<Rigidbody2D>();
-    if (GameObject.Find("Persistants").GetComponent<PersistantVariables>().currentBinds == KeybindSettings.KEYBOARDONLY || GameObject.Find("Persistants").GetComponent<PersistantVariables>().isControllerConnected)
+    if (GameObject.Find("Persistants").GetComponent<PersistantVariables>().currentBinds == KeybindSettings.KEYBOARDONLY || PersistantVariables.isControllerConnected)
     {
       rgd2d.AddForce(speed * new Vector2(Mathf.Sign(player.dir.x) * .7f, .1f).normalized, ForceMode2D.Impulse);
     }

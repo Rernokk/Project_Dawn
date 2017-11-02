@@ -18,11 +18,11 @@ public class ControllerDetection : MonoBehaviour {
     {
       KeyboardText.alpha = 0;
       ControllerText.alpha = 1;
-      vars.isControllerConnected = true;
+      PersistantVariables.isControllerConnected = true;
     } else {
       KeyboardText.alpha = 1;
       ControllerText.alpha = 0;
-      vars.isControllerConnected = false;
+      PersistantVariables.isControllerConnected = false;
     }
     yield return new WaitForSeconds(3f);
     StartCoroutine(CheckForInputShift());

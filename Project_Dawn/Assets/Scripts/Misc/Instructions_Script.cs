@@ -8,7 +8,7 @@ public class Instructions_Script : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Return))
+    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1))
     {
       SceneManager.LoadScene("Level-0");
     }

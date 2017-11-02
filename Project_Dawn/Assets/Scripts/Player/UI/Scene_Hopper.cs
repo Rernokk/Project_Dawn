@@ -22,7 +22,7 @@ public class Scene_Hopper : MonoBehaviour
 
     if (Input.GetKeyDown(KeyCode.Space) || Input.GetAxis("Submit") > 0)
     {
-      SceneManager.LoadScene("Playground");
+      SceneManager.LoadScene("Level-0");
     }
 
     if (Input.GetKeyDown(KeyCode.C))

@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364a13ef71f9b40e58990911b66a39cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlindMode: 1
+  BlindMode: 0
   BlindIntensity: 1
   ColorBlindShader: {fileID: 4800000, guid: 88e723f30bf154fbe91c8f4fe29a7ee9, type: 3}
 --- !u!1 &1338334699
@@ -4277,7 +4277,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentBinds: 0
   myDropdown: {fileID: 0}
-  isControllerConnected: 0
 --- !u!114 &2134697803
 MonoBehaviour:
   m_ObjectHideFlags: 0
