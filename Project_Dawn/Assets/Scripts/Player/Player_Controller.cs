@@ -47,6 +47,7 @@ public class Player_Controller : MonoBehaviour
   float TotalHealth = 100;
   [SerializeField]
   float currentMana, currentHealth;
+  float s1CD, s2CD, s3CD, s4CD;
 
   #endregion
   #region Bools
@@ -83,18 +84,21 @@ public class Player_Controller : MonoBehaviour
   List<Monster> Aggro;
   [HideInInspector]
   public Player_UI_Controller uiController;
+  public GameObject uiControllerRef;
 
 
   [SerializeField]
   Equipment myGear;
   public List<Item> myInventory;
-  Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
+
+  [HideInInspector]
+  public Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
+
   List<List<Skill>> skillArray;
   public Vector2 dir;
 
   [HideInInspector]
   public List<string> BuffNames;
-  PersistantVariables variables;
   #endregion
   #endregion
 
@@ -167,6 +171,46 @@ public class Player_Controller : MonoBehaviour
       return level;
     }
   }
+  public float FirstSkillCooldown
+  {
+    get {
+      if (firstSkill == null)
+      {
+        return .5f;
+      }
+      return 1 - s1CD / firstSkill.CooldownDuration;
+    }
+  }
+  public float SecondSkillCooldown{
+    get
+    {
+      if (secondSkill == null)
+      {
+        return .5f;
+      }
+      return 1 - s2CD / secondSkill.CooldownDuration;
+    }
+  }
+  public float ThirdSkillCooldown{
+    get
+    {
+      if (thirdSkill == null)
+      {
+        return .5f;
+      }
+      return 1 - s3CD / thirdSkill.CooldownDuration;
+    }
+  }
+  public float FourthSkillCooldown{
+    get
+    {
+      if (fourthSkill == null)
+      {
+        return .5f;
+      }
+      return 1 - s4CD / fourthSkill.CooldownDuration;
+    }
+  }
   #endregion
 
   #region Methods
@@ -183,9 +227,8 @@ public class Player_Controller : MonoBehaviour
     skillArray = new List<List<Skill>>();
     BuffNames = new List<string>();
     pointyHat = transform.Find("Pointy_Hat").GetComponent<SpriteRenderer>();
-    variables = GameObject.Find("Variables").GetComponent<PersistantVariables>();
 
-    if (variables.isControllerConnected)
+    if (PersistantVariables.isControllerConnected)
     {
       jump = KeyCode.JoystickButton1;
       lmb = KeyCode.JoystickButton4;
@@ -201,7 +244,7 @@ public class Player_Controller : MonoBehaviour
     else
     {
       //Movement
-      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      if (PersistantVariables.Instance.currentBinds == KeybindSettings.NORMAL || PersistantVariables.Instance.currentBinds == KeybindSettings.KEYBOARDONLY)
       {
         left = KeyCode.A; right = KeyCode.D; jump = KeyCode.Space;
       }
@@ -212,11 +255,11 @@ public class Player_Controller : MonoBehaviour
       }
 
       //Primary Skills
-      if (variables.currentBinds == KeybindSettings.NORMAL)
+      if (PersistantVariables.Instance.currentBinds == KeybindSettings.NORMAL)
       {
         lmb = KeyCode.Mouse0; rmb = KeyCode.Mouse1;
       }
-      else if (variables.currentBinds == KeybindSettings.SOUTHPAW)
+      else if (PersistantVariables.Instance.currentBinds == KeybindSettings.SOUTHPAW)
       {
         //Southpaw
         lmb = KeyCode.Mouse1; rmb = KeyCode.Mouse0;
@@ -228,7 +271,7 @@ public class Player_Controller : MonoBehaviour
       }
 
       //Skill Binds
-      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      if (PersistantVariables.Instance.currentBinds == KeybindSettings.NORMAL || PersistantVariables.Instance.currentBinds == KeybindSettings.KEYBOARDONLY)
       {
         one = KeyCode.Alpha1; two = KeyCode.Alpha2; three = KeyCode.Alpha3; four = KeyCode.Alpha4;
       }
@@ -239,7 +282,7 @@ public class Player_Controller : MonoBehaviour
       }
 
       //Interface Binds
-      if (variables.currentBinds == KeybindSettings.NORMAL || variables.currentBinds == KeybindSettings.KEYBOARDONLY)
+      if (PersistantVariables.Instance.currentBinds == KeybindSettings.NORMAL || PersistantVariables.Instance.currentBinds == KeybindSettings.KEYBOARDONLY)
       {
         inventoryKey = KeyCode.I;
         skillsKey = KeyCode.K;
@@ -274,7 +317,13 @@ public class Player_Controller : MonoBehaviour
     StartCoroutine(PopulateCurrentSkills());
 
     myCam = transform.Find("Main Camera").transform;
-    uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
+    if (GameObject.Find("PlayerUI"))
+    {
+      uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
+    } else {
+      uiController = Instantiate(uiControllerRef, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<Player_UI_Controller>();
+    }
+    uiController.GetComponent<Canvas>().worldCamera = myCam.GetComponent<Camera>();
     #endregion
     #region Example for Equipment
     myGear = new Equipment(new Helmet("Helm of Mystery", 1, 1), new Shoulders("Shoulders of Stuff", 1, 1), new Torso("Torso of Existing", 1, 1),
@@ -328,14 +377,15 @@ public class Player_Controller : MonoBehaviour
       if (!immobile)
       {
         #region Left/Right
-        if ((!variables.isControllerConnected && Input.GetKey(left)) || (variables.isControllerConnected && Input.GetAxis("Horizontal") < 0))
+        if ((!PersistantVariables.isControllerConnected && Input.GetKey(left)) || (PersistantVariables.isControllerConnected && Input.GetAxis("Horizontal") < 0))
         {
           direction = -transform.right;
           dir = -transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
           pointyHat.flipX = true;
+          print("Left");
         }
-        if ((!variables.isControllerConnected && Input.GetKey(right)) || (variables.isControllerConnected && Input.GetAxis("Horizontal") > 0))
+        if ((!PersistantVariables.isControllerConnected && Input.GetKey(right)) || (PersistantVariables.isControllerConnected && Input.GetAxis("Horizontal") > 0))
         {
           direction = transform.right;
           dir = transform.right;
@@ -372,6 +422,7 @@ public class Player_Controller : MonoBehaviour
           currentMana -= firstSkill.ManaCost;
         }
         firstSkill.Cast(Power);
+        s1CD = firstSkill.CooldownDuration;
       }
       #endregion
       #region Second Skill Slot
@@ -380,6 +431,7 @@ public class Player_Controller : MonoBehaviour
         secondSkill.Cast(Power);
         //StartCoroutine(SkillCooldown(secondSkill));
         currentMana -= secondSkill.ManaCost;
+        s2CD = secondSkill.CooldownDuration;
       }
       #endregion
       #region Third Skill Slot
@@ -388,6 +440,7 @@ public class Player_Controller : MonoBehaviour
         thirdSkill.Cast(Power);
         //StartCoroutine(SkillCooldown(thirdSkill));
         currentMana -= thirdSkill.ManaCost;
+        s3CD = thirdSkill.CooldownDuration;
       }
       #endregion
       #region Fourth Skill Slot
@@ -396,6 +449,7 @@ public class Player_Controller : MonoBehaviour
         fourthSkill.Cast(Power);
         //StartCoroutine(SkillCooldown(fourthSkill));
         currentMana -= fourthSkill.ManaCost;
+        s4CD = fourthSkill.CooldownDuration;
       }
       #endregion
       #region LMB Slot
@@ -414,6 +468,31 @@ public class Player_Controller : MonoBehaviour
         currentMana -= rmbSkill.ManaCost;
       }
       #endregion
+
+      if (firstSkill != null && !firstSkill.IsCooledDown){
+        s1CD -= Time.deltaTime;
+        if (s1CD < 0){
+          s1CD = 0;
+        }
+      }
+      if (secondSkill != null && !secondSkill.IsCooledDown){
+        s2CD -= Time.deltaTime;
+        if (s2CD < 0){
+          s2CD = 0;
+        }
+      }
+      if (thirdSkill != null && !thirdSkill.IsCooledDown){
+        s3CD -= Time.deltaTime;
+        if (s3CD < 0){
+          s3CD = 0;
+        }
+      }
+      if (fourthSkill != null && !fourthSkill.IsCooledDown){
+        s4CD -= Time.deltaTime;
+        if (s4CD < 0){
+          s4CD = 0;
+        }
+      }
       #endregion
       if (Input.anyKeyDown && currentHealth <= 0)
       {
@@ -481,7 +560,7 @@ public class Player_Controller : MonoBehaviour
       Application.Quit();
     }
     #endregion
-    if (variables.currentBinds != KeybindSettings.KEYBOARDONLY && !variables.isControllerConnected)
+    if (PersistantVariables.Instance.currentBinds != KeybindSettings.KEYBOARDONLY && !PersistantVariables.isControllerConnected)
     {
       Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
     }

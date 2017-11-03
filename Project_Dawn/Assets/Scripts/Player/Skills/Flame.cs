@@ -16,7 +16,7 @@ public class Flame : Skill
   public override void Cast(float damage = 0)
   {
     GameObject temp;
-    if (GameObject.Find("Variables").GetComponent<PersistantVariables>().currentBinds != KeybindSettings.KEYBOARDONLY && !GameObject.Find("Variables").GetComponent<PersistantVariables>().isControllerConnected)
+    if (GameObject.Find("Persistants").GetComponent<PersistantVariables>().currentBinds != KeybindSettings.KEYBOARDONLY && !PersistantVariables.isControllerConnected)
     {
       temp = Instantiate(myPrefab, (Vector2)player.transform.position + -player.dir + (Vector2.up * .5f), Quaternion.identity);
     }
