@@ -3,24 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public struct BitmaskPairValue
+{
+  public int index;
+  public int spriteIndex;
+
+  public BitmaskPairValue(int a, int b)
+  {
+    index = a;
+    spriteIndex = b;
+  }
+}
+
 public class Bitmasking_Value : MonoBehaviour
 {
-  [Serializable]
-  public struct BitmaskPairValue {
-    public int index;
-    public int spriteIndex;
-
-    public BitmaskPairValue (int a, int b) {
-      index = a;
-      spriteIndex = b;
-    }
-  }
 
   [SerializeField]
   Sprite[] tileSet;
-
-  [SerializeField]
-  public List<BitmaskPairValue> IndexLookup = new List<BitmaskPairValue>();
 
   [SerializeField]
   int bitmaskValue = 0;
@@ -57,10 +57,13 @@ public class Bitmasking_Value : MonoBehaviour
     {
       bitmaskValue += (int) Mathf.Pow(2, j) * neighborArray[j];
     }
-    foreach (BitmaskPairValue pair in IndexLookup){
+
+    GetComponent<SpriteRenderer>().sprite = tileSet[GameObject.Find("Level_Loader").GetComponent<Level_Loader>().FetchSpriteIndex(bitmaskValue)];
+
+    /*foreach (BitmaskPairValue pair in IndexLookup){
       if (pair.spriteIndex == bitmaskValue){
         GetComponent<SpriteRenderer>().sprite = tileSet[pair.index];
       }
-    }
+    }*/
   }
 }
