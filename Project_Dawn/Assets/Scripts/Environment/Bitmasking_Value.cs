@@ -47,7 +47,7 @@ public class Bitmasking_Value : MonoBehaviour
         }
         else
         {
-          Vector2 checkPos = (Vector2)transform.position + new Vector2(j, k);
+          Vector3 checkPos = transform.position + new Vector3(j, k, 0);
           neighborArray[i] = Map_Manager.Instance.IsTileOpen(checkPos);
           i++;
         }

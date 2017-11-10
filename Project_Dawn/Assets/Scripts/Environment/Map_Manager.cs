@@ -21,7 +21,7 @@ public class Map_Manager : MonoBehaviour
 
   #region Variables
   private static Map_Manager instance = null;
-  static Tile[,] levelArray;
+  static Tile[,,] levelArray;
   static int mapWidth, mapHeight;
   #endregion
 
@@ -38,7 +38,7 @@ public class Map_Manager : MonoBehaviour
     }
   }
 
-  public Tile[,] LevelArray
+  public Tile[,,] LevelArray
   {
     get
     {
@@ -51,7 +51,8 @@ public class Map_Manager : MonoBehaviour
   private Map_Manager() { }
   private void Awake()
   {
-    if(instance != null && instance != this){
+    if (instance != null && instance != this)
+    {
       Destroy(this.gameObject);
     }
 
@@ -59,16 +60,19 @@ public class Map_Manager : MonoBehaviour
     DontDestroyOnLoad(gameObject);
   }
 
-  GameObject GetTileObject(List<ColorPair> pairList, Color col){
-    foreach (ColorPair pair in pairList){
-      if (pair.col == col){
+  GameObject GetTileObject(List<ColorPair> pairList, Color col)
+  {
+    foreach (ColorPair pair in pairList)
+    {
+      if (pair.col == col)
+      {
         return pair.obj;
       }
     }
     return null;
   }
 
-  IEnumerator StallCreation(Texture2D myPixelMap, List<ColorPair> pairListing){
+  /*IEnumerator StallCreation(Texture2D myPixelMap, List<ColorPair> pairListing){
     yield return null;
     Transform LevelHolder = GameObject.Find("Level_Loader").transform;
     for (int i = 0; i < myPixelMap.width; i++)
@@ -81,59 +85,70 @@ public class Map_Manager : MonoBehaviour
         }
       }
     }
-  }
+  }*/
   #endregion
 
   #region Public Methods
-  public void LoadMap(Texture2D myPixelMap, List<ColorPair> pairListing)
+  public void LoadMap(Texture2D myPixelMap, List<ColorPair> pairListing, int texDepth)
   {
     //Populating level array & tiles.
-    levelArray = new Tile[myPixelMap.width, myPixelMap.height];
-    mapWidth = myPixelMap.width;
-    mapHeight = myPixelMap.height;
+    if (levelArray == null)
+    {
+      levelArray = new Tile[myPixelMap.width, myPixelMap.height, 3];
+      mapWidth = myPixelMap.width;
+      mapHeight = myPixelMap.height;
+    }
+
     for (int i = 0; i < myPixelMap.width; i++)
     {
       for (int j = 0; j < myPixelMap.height; j++)
       {
         Color col = myPixelMap.GetPixel(i, j);
-        if (col.a == 0)
+        if (col.a == 0 || (col.r == 1 && col.g == 1 && col.b == 1))
         {
           //Full Alpha Transparency implies empty tile, open space.
-          levelArray[i, j].isOccupied = false;
-          levelArray[i, j].doesBitmask = false;
+          levelArray[i, j, texDepth].isOccupied = false;
+          levelArray[i, j, texDepth].doesBitmask = false;
         }
         else
         {
-          levelArray[i, j].isOccupied = true;
-          levelArray[i, j].doesBitmask = true;
+          levelArray[i, j, texDepth].isOccupied = true;
+          levelArray[i, j, texDepth].doesBitmask = true;
         }
-        levelArray[i, j].myIDColor = col;
+        levelArray[i, j, texDepth].myIDColor = col;
       }
     }
 
     ////Spawning Tiles into worldspace.
-    Transform LevelHolder = GameObject.Find("Level_Loader").transform;
+    Transform LevelHolder = new GameObject("Level_Depth_" + texDepth).transform;
     for (int i = 0; i < myPixelMap.width; i++)
     {
       for (int j = 0; j < myPixelMap.height; j++)
       {
-        if (levelArray[i, j].isOccupied)
+        if ((levelArray[i, j, texDepth].isOccupied && LevelArray[i, j, texDepth].myIDColor != Color.clear) || levelArray[i,j,texDepth].myIDColor == Color.white)
         {
-          Instantiate(GetTileObject(pairListing, levelArray[i, j].myIDColor), position: new Vector3(i, j, 0), rotation: Quaternion.identity).transform.parent = LevelHolder;
+          GameObject temp = Instantiate(GetTileObject(pairListing, levelArray[i, j, texDepth].myIDColor), position: new Vector3(i, j, texDepth), rotation: Quaternion.identity);
+          if (temp.transform.tag != "Player")
+          {
+            temp.transform.parent = LevelHolder;
+          }
         }
       }
     }
+    print(levelArray.Length);
   }
 
 
-  public int IsTileOpen(Vector2 pos){
-    
+  public int IsTileOpen(Vector3 pos)
+  {
+
     if ((pos.x < 0 || pos.x >= mapWidth) || (pos.y < 0 || pos.y >= mapHeight))
     {
       //Debugger, throw -1 for out of range.
       return 0;
     }
-    if (levelArray[(int) pos.x, (int) pos.y].isOccupied){
+    if (levelArray[(int)pos.x, (int)pos.y, (int)pos.z].isOccupied)
+    {
       //Occupied, use in calculation
       return 1;
     }

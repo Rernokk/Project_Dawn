@@ -19,7 +19,7 @@ public class LightningStrike : Skill
   {
     Debug.Log("Lightning Strike!");
     Vector3 targetPos = Vector3.zero;
-    if (GameObject.Find("Persistants").GetComponent<PersistantVariables>().currentBinds != KeybindSettings.KEYBOARDONLY && !GameObject.Find("Persistants").GetComponent<PersistantVariables>().isControllerConnected)
+    if (GameObject.Find("Persistants").GetComponent<PersistantVariables>().currentBinds != KeybindSettings.KEYBOARDONLY && !PersistantVariables.isControllerConnected)
     {
       RaycastHit2D info = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.down, 10f);
       GameObject temp = Instantiate(myPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);

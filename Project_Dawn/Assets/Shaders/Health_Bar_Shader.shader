@@ -12,7 +12,7 @@
 	{
 		Tags {"RenderType" = "Transparent" "Queue" = "Transparent"}
 		// No culling or depth
-		Cull Off ZWrite Off ZTest Always
+		//Cull Off ZWrite Off ZTest Always
 		Blend SrcAlpha OneMinusSrcAlpha
 
 		Pass

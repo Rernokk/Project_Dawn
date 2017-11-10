@@ -13,17 +13,23 @@ public struct ColorPair
 public class Level_Loader : MonoBehaviour
 {
   [SerializeField]
-  Texture2D tex;
+  Texture2D bgTex, levelTex, fgTex;
 
   [SerializeField]
+<<<<<<< HEAD
   List<ColorPair> pairs;
 
   [SerializeField]
   public List<BitmaskPairValue> IndexLookup = new List<BitmaskPairValue>();
+=======
+  List<ColorPair> bgPairs, levelPairs, fgPairs;
+>>>>>>> 8cb503434ab7598fc460e22d2860e2092b5d9cf1
   // Use this for initialization
   void Start()
   {
-    Map_Manager.Instance.LoadMap(tex, pairs);
+    Map_Manager.Instance.LoadMap(fgTex, fgPairs, 0);
+    Map_Manager.Instance.LoadMap(levelTex, levelPairs, 1);
+    Map_Manager.Instance.LoadMap(bgTex, bgPairs, 2);
   }
 
   public int FetchSpriteIndex(int i){
