@@ -38,7 +38,7 @@ public class Player_UI_Controller : MonoBehaviour
 
     uiTable.Add("Inventory", transform.Find("Inventory").GetComponent<CanvasGroup>());
     uiTable.Add("HUD", transform.Find("Player_HUD").GetComponent<CanvasGroup>());
-    uiTable.Add("Skills", transform.Find("Skill_Tree").GetComponent<CanvasGroup>());
+    //uiTable.Add("Skills", transform.Find("Skill_Tree").GetComponent<CanvasGroup>());
 
     firstRow = inventoryCanvas.transform.Find("Inventory_Controller/Top_Item");
     secondRow = inventoryCanvas.transform.Find("Inventory_Controller/Middle_Item");
@@ -48,10 +48,10 @@ public class Player_UI_Controller : MonoBehaviour
     manaUI.material = new Material(manaRefMat);
     //expUI.material = new Material(expRefMat);
 
-    s1Skill = transform.Find("Player_HUD/CD_Overlay/S1Shadow/Skill").GetComponent<Image>();
+    /*s1Skill = transform.Find("Player_HUD/CD_Overlay/S1Shadow/Skill").GetComponent<Image>();
     s2Skill = transform.Find("Player_HUD/CD_Overlay/S2Shadow/Skill").GetComponent<Image>();
     s3Skill = transform.Find("Player_HUD/CD_Overlay/S3Shadow/Skill").GetComponent<Image>();
-    s4Skill = transform.Find("Player_HUD/CD_Overlay/S4Shadow/Skill").GetComponent<Image>();
+    s4Skill = transform.Find("Player_HUD/CD_Overlay/S4Shadow/Skill").GetComponent<Image>();*/
 
     UpdateHealthValue();
     UpdateManaValue();
@@ -68,7 +68,7 @@ public class Player_UI_Controller : MonoBehaviour
   {
     UpdateHealthValue();
     UpdateManaValue();
-    UpdateSkillCooldowns();
+    //UpdateSkillCooldowns();
   }
 
   public void UpdateLevel(){

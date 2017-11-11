@@ -11,7 +11,7 @@ public class Shield : Skill
   public override void Cast(float damage = 0)
   {
     player.AddBuff(ShieldDuration(), skillName);
-    player.StartCooldown(this);
+    //player.StartCooldown(this);
   }
 
   IEnumerator ShieldDuration(){

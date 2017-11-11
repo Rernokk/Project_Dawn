@@ -301,21 +301,6 @@ public class Player_Controller : MonoBehaviour
     }
     dir = transform.right;
 
-    //Populate Skill List
-    skillArray[0].Add(new Chain_Grip(this, ChainPrefab, SelectionPrefab, PointPrefab, 10, 3f));
-    skillArray[0].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[2].Add(new Shield(this, 15, 12f));
-    skillArray[2].Add(new DamageAmp(this, 8, 2, 20f));
-    skillArray[3].Add(new Medicate(this, 12, .25f, 4f, HealFX));
-    skillArray[3].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[4].Add(new Flame(this, FireballProjectilePrefab, 5, 12, 1f));
-    skillArray[4].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 2, FlameWakeCD, FlameWakeSpeed));
-    skillArray[5].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[5].Add(new LightningStrike(this, 2, 40, 5f, 9f, LightningChain));
-    StartCoroutine(PopulateCurrentSkills());
-
     myCam = transform.Find("Main Camera").transform;
     if (GameObject.Find("PlayerUI"))
     {
@@ -412,6 +397,7 @@ public class Player_Controller : MonoBehaviour
         #endregion
       }
       #endregion
+<<<<<<< HEAD
       #region Skills
       /*
       #region First Skill Slot
@@ -495,6 +481,9 @@ public class Player_Controller : MonoBehaviour
         }
       }*/
       #endregion
+=======
+
+>>>>>>> ae2d1d71ad638f2719d7ecf47a9ba2412e783d63
       if (Input.anyKeyDown && currentHealth <= 0)
       {
         cont = true;
@@ -595,28 +584,7 @@ public class Player_Controller : MonoBehaviour
     }
     SceneManager.LoadScene("Playground");
   }
-  IEnumerator PopulateCurrentSkills()
-  {
-    yield return null;
-    for (int i = 0; i < 6; i++)
-    {
-      SetSkillActive(i, 0);
-    }
-
-    UpdateStats();
-    uiController.UpdateSkills();
-  }
-  IEnumerator SkillCooldown(Skill skill)
-  {
-    skill.IsCooledDown = false;
-    float remaining = 0;
-    while (remaining < skill.CooldownDuration)
-    {
-      remaining += Time.deltaTime;
-      yield return null;
-    }
-    skill.IsCooledDown = true;
-  }
+  
   IEnumerator DelayedParticleStop(ParticleSystem system, float time)
   {
     system.Play();
@@ -676,10 +644,6 @@ public class Player_Controller : MonoBehaviour
       BuffNames.Add(buffName);
       uiController.UpdateStats();
     }
-  }
-  public void StartCooldown(Skill skill)
-  {
-    StartCoroutine(SkillCooldown(skill));
   }
   public void ChainDelay()
   {
