@@ -413,6 +413,7 @@ public class Player_Controller : MonoBehaviour
       }
       #endregion
       #region Skills
+      /*
       #region First Skill Slot
       if ((Input.GetKeyDown(one) && firstSkill.IsCooledDown && firstSkill.ManaCost <= currentMana && Level >= firstSkill.levelReq) || chainMode)
       {
@@ -492,7 +493,7 @@ public class Player_Controller : MonoBehaviour
         if (s4CD < 0){
           s4CD = 0;
         }
-      }
+      }*/
       #endregion
       if (Input.anyKeyDown && currentHealth <= 0)
       {
@@ -537,21 +538,6 @@ public class Player_Controller : MonoBehaviour
     if (Input.GetKeyDown(creditsKey))
     {
       SceneManager.LoadScene("Credits");
-    }
-
-    if (Input.GetKeyDown(skillsKey))
-    {
-      if (uiController.IsElementActive("Skills") != 1)
-      {
-        uiController.ToggleOffAllElements();
-        uiController.ToggleUIElementOn("Skills");
-        isInUI = true;
-      }
-      else
-      {
-        uiController.ToggleUIElementOff("Skills");
-        isInUI = false;
-      }
     }
 
     if (Input.GetKeyDown(KeyCode.JoystickButton11) || Input.GetKeyDown(KeyCode.Q))

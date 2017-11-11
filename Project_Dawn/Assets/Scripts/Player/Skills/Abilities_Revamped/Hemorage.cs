@@ -9,6 +9,10 @@ public class Hemorage : Ability {
 
   public override void Activate()
   {
-    
+    print("Activating Hemorage");
+  }
+
+  public void AddFunctionality(){
+    print("First Fire");
   }
 }
