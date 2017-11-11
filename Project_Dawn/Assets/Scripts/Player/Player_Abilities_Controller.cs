@@ -46,9 +46,5 @@ public class Player_Abilities_Controller : MonoBehaviour {
     {
       secondarySkill.Invoke();
     }
-
-    if (Input.GetKeyDown(KeyCode.T)){
-      primarySkill += GetComponent<Hemorage>().AddFunctionality;
-    }
   }
 }
