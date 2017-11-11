@@ -301,21 +301,6 @@ public class Player_Controller : MonoBehaviour
     }
     dir = transform.right;
 
-    //Populate Skill List
-    skillArray[0].Add(new Chain_Grip(this, ChainPrefab, SelectionPrefab, PointPrefab, 10, 3f));
-    skillArray[0].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[1].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[2].Add(new Shield(this, 15, 12f));
-    skillArray[2].Add(new DamageAmp(this, 8, 2, 20f));
-    skillArray[3].Add(new Medicate(this, 12, .25f, 4f, HealFX));
-    skillArray[3].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[4].Add(new Flame(this, FireballProjectilePrefab, 5, 12, 1f));
-    skillArray[4].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 2, FlameWakeCD, FlameWakeSpeed));
-    skillArray[5].Add(new Flamewake(this, 25, FlameWakeFX, 2f, 10));
-    skillArray[5].Add(new LightningStrike(this, 2, 40, 5f, 9f, LightningChain));
-    StartCoroutine(PopulateCurrentSkills());
-
     myCam = transform.Find("Main Camera").transform;
     if (GameObject.Find("PlayerUI"))
     {
@@ -412,88 +397,7 @@ public class Player_Controller : MonoBehaviour
         #endregion
       }
       #endregion
-      #region Skills
-      #region First Skill Slot
-      if ((Input.GetKeyDown(one) && firstSkill.IsCooledDown && firstSkill.ManaCost <= currentMana && Level >= firstSkill.levelReq) || chainMode)
-      {
-        //StartCoroutine(SkillCooldown(firstSkill));
-        if (!chainMode)
-        {
-          currentMana -= firstSkill.ManaCost;
-        }
-        firstSkill.Cast(Power);
-        s1CD = firstSkill.CooldownDuration;
-      }
-      #endregion
-      #region Second Skill Slot
-      if (Input.GetKeyDown(two) && secondSkill.IsCooledDown && secondSkill.ManaCost <= currentMana && Level >= secondSkill.levelReq)
-      {
-        secondSkill.Cast(Power);
-        //StartCoroutine(SkillCooldown(secondSkill));
-        currentMana -= secondSkill.ManaCost;
-        s2CD = secondSkill.CooldownDuration;
-      }
-      #endregion
-      #region Third Skill Slot
-      if (Input.GetKeyDown(three) && thirdSkill.IsCooledDown && thirdSkill.ManaCost <= currentMana && Level >= thirdSkill.levelReq)
-      {
-        thirdSkill.Cast(Power);
-        //StartCoroutine(SkillCooldown(thirdSkill));
-        currentMana -= thirdSkill.ManaCost;
-        s3CD = thirdSkill.CooldownDuration;
-      }
-      #endregion
-      #region Fourth Skill Slot
-      if (Input.GetKeyDown(four) && fourthSkill.IsCooledDown && fourthSkill.ManaCost <= currentMana && Level >= fourthSkill.levelReq)
-      {
-        fourthSkill.Cast(Power);
-        //StartCoroutine(SkillCooldown(fourthSkill));
-        currentMana -= fourthSkill.ManaCost;
-        s4CD = fourthSkill.CooldownDuration;
-      }
-      #endregion
-      #region LMB Slot
-      if (Input.GetKeyDown(lmb) && lmbSkill.IsCooledDown && lmbSkill.ManaCost <= currentMana && Level >= lmbSkill.levelReq && !chainMode)
-      {
-        lmbSkill.Cast(Power);
-        //StartCoroutine(SkillCooldown(lmbSkill));
-        currentMana -= lmbSkill.ManaCost;
-      }
-      #endregion
-      #region RMB Slot
-      if (Input.GetKeyDown(rmb) && rmbSkill.IsCooledDown && rmbSkill.ManaCost <= currentMana && Level >= rmbSkill.levelReq)
-      {
-        rmbSkill.Cast(Power);
-        //StartCoroutine(SkillCooldown(rmbSkill));
-        currentMana -= rmbSkill.ManaCost;
-      }
-      #endregion
 
-      if (firstSkill != null && !firstSkill.IsCooledDown){
-        s1CD -= Time.deltaTime;
-        if (s1CD < 0){
-          s1CD = 0;
-        }
-      }
-      if (secondSkill != null && !secondSkill.IsCooledDown){
-        s2CD -= Time.deltaTime;
-        if (s2CD < 0){
-          s2CD = 0;
-        }
-      }
-      if (thirdSkill != null && !thirdSkill.IsCooledDown){
-        s3CD -= Time.deltaTime;
-        if (s3CD < 0){
-          s3CD = 0;
-        }
-      }
-      if (fourthSkill != null && !fourthSkill.IsCooledDown){
-        s4CD -= Time.deltaTime;
-        if (s4CD < 0){
-          s4CD = 0;
-        }
-      }
-      #endregion
       if (Input.anyKeyDown && currentHealth <= 0)
       {
         cont = true;
@@ -609,28 +513,7 @@ public class Player_Controller : MonoBehaviour
     }
     SceneManager.LoadScene("Playground");
   }
-  IEnumerator PopulateCurrentSkills()
-  {
-    yield return null;
-    for (int i = 0; i < 6; i++)
-    {
-      SetSkillActive(i, 0);
-    }
-
-    UpdateStats();
-    uiController.UpdateSkills();
-  }
-  IEnumerator SkillCooldown(Skill skill)
-  {
-    skill.IsCooledDown = false;
-    float remaining = 0;
-    while (remaining < skill.CooldownDuration)
-    {
-      remaining += Time.deltaTime;
-      yield return null;
-    }
-    skill.IsCooledDown = true;
-  }
+  
   IEnumerator DelayedParticleStop(ParticleSystem system, float time)
   {
     system.Play();
@@ -690,10 +573,6 @@ public class Player_Controller : MonoBehaviour
       BuffNames.Add(buffName);
       uiController.UpdateStats();
     }
-  }
-  public void StartCooldown(Skill skill)
-  {
-    StartCoroutine(SkillCooldown(skill));
   }
   public void ChainDelay()
   {

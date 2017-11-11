@@ -83,7 +83,7 @@ public class Chain_Grip : Skill
     }
 
     //Reset Mode
-    player.StartCooldown(this);
+    //player.StartCooldown(this);
     for (int i = 0; i < Targets.Length; i++)
     {
       Targets[i] = null;
@@ -120,7 +120,7 @@ public class Chain_Grip : Skill
     }
     yield return player.StartCoroutine(RetractChains());
     //Reset Mode
-    player.StartCooldown(this);
+    //player.StartCooldown(this);
     for (int i = 0; i < Targets.Length; i++)
     {
       Targets[i] = null;
