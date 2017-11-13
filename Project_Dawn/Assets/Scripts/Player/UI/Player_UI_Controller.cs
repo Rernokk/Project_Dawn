@@ -55,7 +55,6 @@ public class Player_UI_Controller : MonoBehaviour
 
     UpdateHealthValue();
     UpdateManaValue();
-    UpdateStats();
     //UpdateLevel();
     IfNull();
 
@@ -204,15 +203,9 @@ public class Player_UI_Controller : MonoBehaviour
         inventoryList[startVal + 2].isNew = false;
       }
       IfNull();
-      UpdateStats();
     }
   }
-
-  public void UpdateStats()
-  {
-    transform.Find("Inventory/Power").GetComponent<Text>().text = "Power \n" + playerDetails.Power.ToString();
-    transform.Find("Inventory/Defense").GetComponent<Text>().text = "Defense \n" + playerDetails.Defense.ToString();
-  }
+  
   public void UpdateSkills(){
     CanvasGroup skillTree;
     uiTable.TryGetValue("Skills", out skillTree);
@@ -223,14 +216,7 @@ public class Player_UI_Controller : MonoBehaviour
       }
     }
   }
-
-  public void UpdateSkillCooldowns(){
-    s1Skill.fillAmount = playerDetails.FirstSkillCooldown;
-    s2Skill.fillAmount = playerDetails.SecondSkillCooldown;
-    s3Skill.fillAmount = playerDetails.ThirdSkillCooldown;
-    s4Skill.fillAmount = playerDetails.FourthSkillCooldown;
-  }
-
+  
   public void IfNull()
   {
     //Nulling out empty slots.

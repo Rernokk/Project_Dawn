@@ -2,10 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dread : MonoBehaviour {
+public class Dread : Ability {
+  public override void Activate()
+  {
+    print("Dread");
+  }
+
+  public override void Initialize()
+  {
+    throw new System.NotImplementedException();
+  }
+
   //Reduce enemy power over time, decreasing as duration passes.
-	// Use this for initialization
-	void Start () {
+  // Use this for initialization
+  void Start () {
 		
 	}
 	

@@ -8,6 +8,7 @@ TagManager:
   - Unpassable
   - Wall
   - PlayerUI
+  - Enemy
   layers:
   - Default
   - TransparentFX

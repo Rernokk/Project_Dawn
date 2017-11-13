@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdrenalineRush : MonoBehaviour {
-  //Increases movement speed, accelerated cooldowns.
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+//Increases movement speed, accelerated cooldowns.
+public class AdrenalineRush : Ability
+{
+  public override void Activate()
+  {
+    if (!isOnCooldown)
+    {
+      print("Adrenaline Rush");
+      isOnCooldown = true;
+    }
+  }
+
+  public override void Initialize()
+  {
+    
+  }
 }

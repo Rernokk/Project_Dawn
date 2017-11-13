@@ -2,15 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Exsanguinate : MonoBehaviour {
-  //Refresh, Amplify, and Accelerate Bleeding Effects
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class Exsanguinate : Ability
+{
+  [SerializeField]
+  float range, damageMult;
+  public override void Activate()
+  {
+    if(!isOnCooldown){
+      List<Monster> affected = MonsterManager.Instance.MonstersInRange(transform.position, range);
+      foreach (Monster monster in affected){
+        foreach (DamageOverTime dot in monster.GetDamageOverTimeByType(DamageType.BLEED)){
+          dot.damageValue *= damageMult;
+          dot.RefreshDuration();
+        }
+      }
+      isOnCooldown = true;
+    }
+  }
+
+  public override void Initialize()
+  {
+    throw new System.NotImplementedException();
+  }
 }

@@ -45,6 +45,18 @@ GameObject:
   - component: {fileID: 114419411673618500}
   - component: {fileID: 70192477355382932}
   - component: {fileID: 114266665697671068}
+  - component: {fileID: 114948729533884814}
+  - component: {fileID: 114494550804411440}
+  - component: {fileID: 114508298961882474}
+  - component: {fileID: 114699429736667544}
+  - component: {fileID: 114066158436178648}
+  - component: {fileID: 114492597119430226}
+  - component: {fileID: 114060557087652558}
+  - component: {fileID: 114140355664160010}
+  - component: {fileID: 114457733910659882}
+  - component: {fileID: 114023656762478128}
+  - component: {fileID: 114139687669654372}
+  - component: {fileID: 114242123870429198}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -168,7 +180,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -264,6 +276,96 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340220346844034}
   m_Enabled: 1
+--- !u!114 &114023656762478128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964117209a9549b43b5c17b3de89c65d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+--- !u!114 &114060557087652558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b5cb32d29eac246ba9786035cf16f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+--- !u!114 &114066158436178648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac9a0cfdb30ea44aa84e1cd90c0d553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 3
+  rendingAnchorPrefab: {fileID: 1118839853899918, guid: 2033a16cb6abb454aa837fea93245390,
+    type: 2}
+  range: 3
+  duration: 12
+  ratio: 1
+  maxBleedStack: 3
+--- !u!114 &114139687669654372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8440e33db53ba45409c32cc7e3bb1a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+--- !u!114 &114140355664160010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddaf273afbf56647b5362f5212e26b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+--- !u!114 &114242123870429198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5f2c5eba4b0b44e98feb0c4601100e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
 --- !u!114 &114266665697671068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -275,6 +377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1af77c8a96619498bc93af7baf5ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  isGCD: 0
 --- !u!114 &114287163542715244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,20 +411,7 @@ MonoBehaviour:
   TotalExp: 100
   playerSpeed: 75
   verticalJump: 40
-  stealthDuration: 0.5
-  explosionRange: 5
-  lightningRange: 12
-  FlameWakeSpeed: 6
   teleportRange: 8
-  flameRatio: 1
-  explosionRatio: 1.2
-  lightningRatio: 1.5
-  powerMult: 1
-  defenseMult: 1
-  dashCD: 1
-  stealthCD: 1
-  lightningCD: 1
-  FlameWakeCD: 1
   TotalMana: 100
   TotalHealth: 100
   currentMana: 0
@@ -392,14 +483,99 @@ MonoBehaviour:
       itemSlot: 
       isNew: 0
   myInventory: []
-  lmbSkill: {fileID: 0}
-  rmbSkill: {fileID: 0}
-  fourthSkill: {fileID: 0}
-  thirdSkill: {fileID: 0}
-  secondSkill: {fileID: 0}
-  firstSkill: {fileID: 0}
   dir: {x: 0, y: 0}
   BuffNames: []
+--- !u!114 &114457733910659882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0580c8f14dfb244aa253b0ba8b1e0a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+--- !u!114 &114492597119430226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06e9ea5d79420e4a863358416ef71bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+--- !u!114 &114494550804411440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc243d9eab82244bb7e978be4ce4a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 12
+  range: 3
+  healRatio: 0.25
+--- !u!114 &114508298961882474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a49c9c09d0f71a4284baea875baccd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+--- !u!114 &114699429736667544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfd4488b60e71e42bb115a8eddc306f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 1
+  hemoragePrefab: {fileID: 1314844969211380, guid: 037d95630856a7c40ab00da7b78f8bb7,
+    type: 2}
+  damageRatio: 2
+  maxBleedStack: 10
+  dotDuration: 8
+--- !u!114 &114948729533884814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7270bdfccb478b4e8b7754585361432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
 --- !u!124 &124810000814673422
 Behaviour:
   m_ObjectHideFlags: 1

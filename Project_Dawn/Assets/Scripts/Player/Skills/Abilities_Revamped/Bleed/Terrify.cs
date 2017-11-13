@@ -2,10 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Terrify : MonoBehaviour {
-  //Enemies within range have any applied bleeds accelerated.
-	// Use this for initialization
-	void Start () {
+//Enemies within range have any applied bleeds accelerated.
+public class Terrify : Ability
+{
+  public override void Activate()
+  {
+    print("Terrify");
+  }
+
+  public override void Initialize()
+  {
+    throw new System.NotImplementedException();
+  }
+
+  // Use this for initialization
+  void Start () {
 		
 	}
 	

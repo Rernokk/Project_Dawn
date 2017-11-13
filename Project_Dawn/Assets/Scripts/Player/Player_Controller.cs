@@ -15,29 +15,14 @@ public class Player_Controller : MonoBehaviour
   KeyCode inventoryKey = KeyCode.I, skillsKey = KeyCode.K, creditsKey = KeyCode.C;
   #endregion
   #region Floats
-  public int power, defense, level = 1;
+  public int power = 10, defense = 10, level = 1;
   public int currentExp, TotalExp;
 
   [SerializeField]
-  float playerSpeed = 1f, verticalJump = 1f, stealthDuration = .5f, explosionRange = 5f, lightningRange = 1f, FlameWakeSpeed = 1f;
+  float playerSpeed = 1f, verticalJump = 1f;
 
   [HideInInspector]
   public float teleportRange = 1f;
-
-  //Damage Ratios
-  [SerializeField]
-  float flameRatio = 8.28f, explosionRatio = 12f, lightningRatio = 15f;
-
-  [HideInInspector]
-  public float powerMult = 1f, defenseMult = 1f;
-
-  //Cooldowns
-  [Space(15f)]
-  [Header("Skill Cooldowns")]
-  [SerializeField]
-  float dashCD = 1f;
-  [SerializeField]
-  float stealthCD = 1f, lightningCD = 1f, FlameWakeCD = 1f;
   float gravScale = 1f;
 
   [Space(15f)]
@@ -92,9 +77,9 @@ public class Player_Controller : MonoBehaviour
   public List<Item> myInventory;
 
   [HideInInspector]
-  public Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
+  //public Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
 
-  List<List<Skill>> skillArray;
+  //List<List<Skill>> skillArray;
   public Vector2 dir;
 
   [HideInInspector]
@@ -103,41 +88,6 @@ public class Player_Controller : MonoBehaviour
   #endregion
 
   #region Properties
-  public float Power
-  {
-    get
-    {
-      return power * powerMult;
-    }
-    set
-    {
-      power = (int)value;
-    }
-  }
-  public float Defense
-  {
-    get
-    {
-      return defense * defenseMult;
-    }
-
-    set
-    {
-      defense = (int)value;
-    }
-  }
-  public float PowerMult
-  {
-    get
-    {
-      return powerMult;
-    }
-
-    set
-    {
-      powerMult = value;
-    }
-  }
   public Vector2 Direction
   {
     get
@@ -171,46 +121,6 @@ public class Player_Controller : MonoBehaviour
       return level;
     }
   }
-  public float FirstSkillCooldown
-  {
-    get {
-      if (firstSkill == null)
-      {
-        return .5f;
-      }
-      return 1 - s1CD / firstSkill.CooldownDuration;
-    }
-  }
-  public float SecondSkillCooldown{
-    get
-    {
-      if (secondSkill == null)
-      {
-        return .5f;
-      }
-      return 1 - s2CD / secondSkill.CooldownDuration;
-    }
-  }
-  public float ThirdSkillCooldown{
-    get
-    {
-      if (thirdSkill == null)
-      {
-        return .5f;
-      }
-      return 1 - s3CD / thirdSkill.CooldownDuration;
-    }
-  }
-  public float FourthSkillCooldown{
-    get
-    {
-      if (fourthSkill == null)
-      {
-        return .5f;
-      }
-      return 1 - s4CD / fourthSkill.CooldownDuration;
-    }
-  }
   #endregion
 
   #region Methods
@@ -224,7 +134,6 @@ public class Player_Controller : MonoBehaviour
     currentMana = TotalMana;
     currentHealth = 1;
     Aggro = new List<Monster>();
-    skillArray = new List<List<Skill>>();
     BuffNames = new List<string>();
     pointyHat = transform.Find("Pointy_Hat").GetComponent<SpriteRenderer>();
 
@@ -295,10 +204,6 @@ public class Player_Controller : MonoBehaviour
         creditsKey = KeyCode.Comma;
       }
     }
-    for (int i = 0; i < 6; i++)
-    {
-      skillArray.Add(new List<Skill>());
-    }
     dir = transform.right;
 
     myCam = transform.Find("Main Camera").transform;
@@ -340,6 +245,7 @@ public class Player_Controller : MonoBehaviour
     };
     uiController.GetComponent<Player_UI_Controller>().Populate("Helmet");
     #endregion
+    power = 100;
     TotalExp = 100;
     currentExp = 0;
     currentHealth = TotalHealth;
@@ -347,7 +253,6 @@ public class Player_Controller : MonoBehaviour
     uiController.UpdateHealthValue();
     uiController.UpdateManaValue();
     uiController.UpdateExpValue();
-    uiController.UpdateStats();
   }
   void Update()
   {
@@ -368,7 +273,6 @@ public class Player_Controller : MonoBehaviour
           dir = -transform.right;
           rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
           pointyHat.flipX = true;
-          print("Left");
         }
         if ((!PersistantVariables.isControllerConnected && Input.GetKey(right)) || (PersistantVariables.isControllerConnected && Input.GetAxis("Horizontal") > 0))
         {
@@ -513,41 +417,7 @@ public class Player_Controller : MonoBehaviour
     myInventory.Remove(newItem);
     Item temp = myGear.SwapItem(newItem);
     myInventory.Add(temp);
-    UpdateStats();
     return temp;
-  }
-  void UpdateStats()
-  {
-    Power = myGear.GetTotalPower();
-    Defense = myGear.GetTotalDefense();
-  }
-  public Skill SetSkillActive(int row, int col)
-  {
-    switch (row)
-    {
-      case (0):
-        firstSkill = skillArray[row][col];
-        return firstSkill;
-      case (1):
-        secondSkill = skillArray[row][col];
-        return secondSkill;
-      case (2):
-        thirdSkill = skillArray[row][col];
-        return thirdSkill;
-      case (3):
-        fourthSkill = skillArray[row][col];
-        return fourthSkill;
-      case (4):
-        //LMB
-        lmbSkill = skillArray[row][col];
-        return lmbSkill;
-      case (5):
-        //RMB
-        rmbSkill = skillArray[row][col];
-        return rmbSkill;
-      default:
-        return null;
-    }
   }
   public void AddBuff(IEnumerator buff, string buffName)
   {
@@ -555,7 +425,6 @@ public class Player_Controller : MonoBehaviour
     {
       StartCoroutine(buff);
       BuffNames.Add(buffName);
-      uiController.UpdateStats();
     }
   }
   public void ChainDelay()
