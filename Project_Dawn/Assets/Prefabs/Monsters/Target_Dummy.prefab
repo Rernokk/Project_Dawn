@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114317364853558566}
   m_Layer: 8
   m_Name: Target_Dummy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,6 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a8c048a2df1fb438b54455ddfdf04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Triggered: 0
+  burning: 0
   Health: 0
   TotalHealth: 1000
   MyHealthColor: {r: 1, g: 0, b: 0, a: 1}
@@ -245,7 +247,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 531f0d42b92fb394fa931d33ddc8cb21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

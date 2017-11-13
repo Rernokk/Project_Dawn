@@ -16,7 +16,6 @@ public class Flame_Script : MonoBehaviour {
         {
             Monster tar = targets[i].GetComponent<Monster>();
             tar.Damage(dmg * Time.deltaTime);
-            tar.StartCoroutine(tar.DoT(dmg / 20));
         }
     }
 }
