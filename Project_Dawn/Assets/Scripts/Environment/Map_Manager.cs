@@ -23,6 +23,7 @@ public class Map_Manager : MonoBehaviour
   private static Map_Manager instance = null;
   static Tile[,,] levelArray;
   static int mapWidth, mapHeight;
+  public List<Color> NonBitmaskValues;
   #endregion
 
   #region Properties
@@ -58,6 +59,7 @@ public class Map_Manager : MonoBehaviour
 
     instance = this;
     DontDestroyOnLoad(gameObject);
+    //NonBitmaskValues = new List<Color>();
   }
 
   GameObject GetTileObject(List<ColorPair> pairList, Color col)
@@ -112,8 +114,19 @@ public class Map_Manager : MonoBehaviour
         }
         else
         {
-          levelArray[i, j, texDepth].isOccupied = true;
-          levelArray[i, j, texDepth].doesBitmask = true;
+          bool completed = false;
+          foreach (Color entry in NonBitmaskValues){
+            if (col == entry){
+              completed = true;
+              levelArray[i, j, texDepth].isOccupied = true;
+              levelArray[i, j, texDepth].doesBitmask = false;
+            }
+          }
+          if (!completed)
+          {
+            levelArray[i, j, texDepth].isOccupied = true;
+            levelArray[i, j, texDepth].doesBitmask = true;
+          }
         }
         levelArray[i, j, texDepth].myIDColor = col;
       }
@@ -135,7 +148,6 @@ public class Map_Manager : MonoBehaviour
         }
       }
     }
-    print(levelArray.Length);
   }
 
 
@@ -144,7 +156,6 @@ public class Map_Manager : MonoBehaviour
 
     if ((pos.x < 0 || pos.x >= mapWidth) || (pos.y < 0 || pos.y >= mapHeight))
     {
-      //Debugger, throw -1 for out of range.
       return 0;
     }
     if (levelArray[(int)pos.x, (int)pos.y, (int)pos.z].isOccupied)
@@ -153,6 +164,16 @@ public class Map_Manager : MonoBehaviour
       return 1;
     }
     //Null Calculation Value.
+    return 0;
+  }
+
+  public int DoesTileBitmask(Vector3 pos){
+    if((pos.x < 0 || pos.x >= mapWidth) || (pos.y < 0 || pos.y >= mapHeight)){
+      return 0;
+    }
+    if (levelArray[(int) pos.x, (int) pos.y, (int) pos.z].isOccupied && levelArray[(int) pos.x, (int) pos.y, (int) pos.z].doesBitmask){
+      return 1;
+    }
     return 0;
   }
   #endregion
