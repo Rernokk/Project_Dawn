@@ -443,7 +443,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   Aggro: []
   uiController: {fileID: 0}
-  uiControllerRef: {fileID: 1383954546771782, guid: cf5f7b6d9fd36b84ab4ddc6e208112fb,
+  uiControllerRef: {fileID: 1448462723771358, guid: a645f79895c086145b21960c1505d8eb,
     type: 2}
   myGear:
     myHelmet:
@@ -543,6 +543,8 @@ MonoBehaviour:
   isOnCooldown: 0
   cooldownDuration: 0
   cooldown: 0
+  range: 0
+  damageMult: 0
 --- !u!114 &114699429736667544
 MonoBehaviour:
   m_ObjectHideFlags: 1

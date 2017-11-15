@@ -38,7 +38,7 @@ public class Player_UI_Controller : MonoBehaviour
 
     uiTable.Add("Inventory", transform.Find("Inventory").GetComponent<CanvasGroup>());
     uiTable.Add("HUD", transform.Find("Player_HUD").GetComponent<CanvasGroup>());
-    //uiTable.Add("Skills", transform.Find("Skill_Tree").GetComponent<CanvasGroup>());
+    uiTable.Add("Skills", transform.Find("Skill_Tree").GetComponent<CanvasGroup>());
 
     firstRow = inventoryCanvas.transform.Find("Inventory_Controller/Top_Item");
     secondRow = inventoryCanvas.transform.Find("Inventory_Controller/Middle_Item");

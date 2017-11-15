@@ -341,6 +341,17 @@ public class Player_Controller : MonoBehaviour
       }
     }
 
+    if (Input.GetKeyDown(skillsKey)){
+      if (uiController.IsElementActive("Skills") != 1){
+        uiController.ToggleOffAllElements();
+        uiController.ToggleUIElementOn("Skills");
+        isInUI = true;
+      } else {
+        isInUI = false;
+        uiController.ToggleUIElementOff("Skills");
+      }
+    }
+
     if (Input.GetKeyDown(creditsKey))
     {
       SceneManager.LoadScene("Credits");
