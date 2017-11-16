@@ -75,11 +75,6 @@ public class Player_Controller : MonoBehaviour
   [SerializeField]
   Equipment myGear;
   public List<Item> myInventory;
-
-  [HideInInspector]
-  //public Skill lmbSkill, rmbSkill, fourthSkill, thirdSkill, secondSkill, firstSkill;
-
-  //List<List<Skill>> skillArray;
   public Vector2 dir;
 
   [HideInInspector]
@@ -253,6 +248,10 @@ public class Player_Controller : MonoBehaviour
     uiController.UpdateHealthValue();
     uiController.UpdateManaValue();
     uiController.UpdateExpValue();
+    uiController.SetAbilityCooldown(0, GetComponent<AdrenalineRush>().GetCooldownRemaining);
+    uiController.SetAbilityCooldown(1, GetComponent<AdrenalineRush>().GetCooldownRemaining);
+    uiController.SetAbilityCooldown(2, GetComponent<AdrenalineRush>().GetCooldownRemaining);
+    uiController.SetAbilityCooldown(3, GetComponent<AdrenalineRush>().GetCooldownRemaining);
   }
   void Update()
   {
@@ -368,6 +367,7 @@ public class Player_Controller : MonoBehaviour
       Direction = new Vector2(Mathf.Sign(transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 0);
     }
 
+    uiController.UpdateSkills();
     if (currentExp >= TotalExp)
     {
       currentExp -= TotalExp;
@@ -412,7 +412,6 @@ public class Player_Controller : MonoBehaviour
     }
     SceneManager.LoadScene("Playground");
   }
-  
   IEnumerator DelayedParticleStop(ParticleSystem system, float time)
   {
     system.Play();

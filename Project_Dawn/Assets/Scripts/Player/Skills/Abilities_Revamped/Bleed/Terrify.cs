@@ -7,21 +7,13 @@ public class Terrify : Ability
 {
   public override void Activate()
   {
-    print("Terrify");
+    if (!isOnCooldown){
+      isOnCooldown = true;
+    }
   }
 
   public override void Initialize()
   {
     throw new System.NotImplementedException();
   }
-
-  // Use this for initialization
-  void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

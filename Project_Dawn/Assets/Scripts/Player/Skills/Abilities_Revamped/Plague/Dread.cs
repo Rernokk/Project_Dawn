@@ -5,7 +5,11 @@ using UnityEngine;
 public class Dread : Ability {
   public override void Activate()
   {
-    print("Dread");
+    if (!isOnCooldown)
+    {
+      print("Dread");
+      isOnCooldown = true;
+    }
   }
 
   public override void Initialize()
@@ -14,13 +18,4 @@ public class Dread : Ability {
   }
 
   //Reduce enemy power over time, decreasing as duration passes.
-  // Use this for initialization
-  void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

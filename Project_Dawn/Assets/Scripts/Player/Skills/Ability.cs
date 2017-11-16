@@ -7,9 +7,14 @@ public abstract class Ability : MonoBehaviour {
   protected Player_Abilities_Controller abilityController;
   
   [SerializeField]
-  protected bool isOnCooldown = false;
+  protected string skillName, description;
 
+  //Slots are primary/secondary/first/second/third/fourth as 0 - 5.
   [SerializeField]
+  protected int requiredLevel, slot;
+  
+  [SerializeField]
+  protected bool isOnCooldown = false;
   protected float cooldownDuration, cooldown;
 
   protected float Power
@@ -26,12 +31,62 @@ public abstract class Ability : MonoBehaviour {
       return playerController.defense;
     }
   }
+  public string Name{
+    get {
+      return skillName;
+    }
+    set {
+      skillName = value;
+    }
+  }
+  public int RequiredLevel {
+    get {
+      return requiredLevel;
+    }
+    set {
+      requiredLevel = value;
+    }
+  }
+  public string Description{
+    get{
+      return description;
+    }
+
+     set{
+      description = value;
+     }
+  }
+  protected float Cooldown {
+    get {
+      if (cooldownDuration == 0){
+        return 1;
+      }
+      return cooldownDuration / cooldown;
+    }
+  }
+  public int Slot{
+    get {
+      return slot;
+    }
+  }
+
   private void Awake()
   {
     abilityController = GetComponent<Player_Abilities_Controller>();
     playerController = GetComponent<Player_Controller>();
   }
-
+  protected void Update()
+  {
+    if (isOnCooldown)
+    {
+      cooldownDuration += Time.deltaTime;
+      if (cooldownDuration > cooldown)
+      {
+        cooldownDuration = 0;
+        isOnCooldown = false;
+      }
+    }
+  }
   public abstract void Initialize();
   public abstract void Activate();
   public Vector3 VectorToMouse(){
@@ -44,17 +99,7 @@ public abstract class Ability : MonoBehaviour {
     Vector3 dir = (abilityController.Target.transform.position - transform.position).normalized;
     return dir;
   }
-  
-  protected void Update()
-  {
-    if (isOnCooldown)
-    {
-      cooldownDuration += Time.deltaTime;
-      if (cooldownDuration > cooldown)
-      {
-        cooldownDuration = 0;
-        isOnCooldown = false;
-      }
-    }
+  public float GetCooldownRemaining(){
+    return Cooldown;
   }
 }

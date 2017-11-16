@@ -5,7 +5,11 @@ using UnityEngine;
 public class Decay : Ability {
   public override void Activate()
   {
-    print("Decay");
+    if (!isOnCooldown)
+    {
+      print("Decay");
+      isOnCooldown = true;
+    }
   }
 
   public override void Initialize()
@@ -14,13 +18,4 @@ public class Decay : Ability {
   }
 
   //Lowers Defense, Applies a light disease.
-  // Use this for initialization
-  void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

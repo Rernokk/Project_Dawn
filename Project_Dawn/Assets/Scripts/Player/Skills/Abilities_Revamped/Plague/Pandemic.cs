@@ -6,7 +6,11 @@ public class Pandemic : Ability
 {
   public override void Activate()
   {
-    print("Pandemic");
+    if (!isOnCooldown)
+    {
+      print("Pandemic");
+      isOnCooldown = true;
+    }
   }
 
   public override void Initialize()
@@ -15,13 +19,4 @@ public class Pandemic : Ability
   }
 
   //Refreshes diseases, forces disease spread to nearby targets.
-  // Use this for initialization
-  void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -6,7 +6,11 @@ public class Viral : Ability
 {
   public override void Activate()
   {
-    print("Viral");
+    if (!isOnCooldown)
+    {
+      print("Viral");
+      isOnCooldown = true;
+    }
   }
 
   public override void Initialize()
@@ -15,13 +19,4 @@ public class Viral : Ability
   }
 
   //Leeches power and defense from targets afflicted, increasing in strength by target health lost.
-  // Use this for initialization
-  void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

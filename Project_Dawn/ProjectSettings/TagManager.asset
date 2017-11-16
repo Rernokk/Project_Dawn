@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - PlayerUI
   - Enemy
+  - Skill
   layers:
   - Default
   - TransparentFX

@@ -33,7 +33,7 @@ public class RendingGust : Ability
       {
         hit.AddDot("RendingGust", duration, ratio * playerController.power, 1, DamageType.BLEED, maxBleedStack);
       }
-      Destroy(anchor, 3f);
+      Destroy(anchor, 2f);
       isOnCooldown = true;
     }
   }

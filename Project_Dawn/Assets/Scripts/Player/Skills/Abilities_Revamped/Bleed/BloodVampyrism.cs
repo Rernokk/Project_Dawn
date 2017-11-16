@@ -15,7 +15,6 @@ public class BloodVampyrism : Ability
   {
     if (!isOnCooldown){
       List<Monster> BleedingTargetsInRange = MonsterManager.Instance.MonstersInRange(transform.position, range);
-      print(BleedingTargetsInRange.Count);
       foreach (Monster monster in BleedingTargetsInRange){
         float val = 0;
         foreach (DamageOverTime dot in monster.GetDamageOverTimeByType(DamageType.BLEED)){

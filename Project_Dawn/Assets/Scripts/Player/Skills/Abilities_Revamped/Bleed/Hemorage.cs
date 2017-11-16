@@ -51,6 +51,7 @@ public class Hemorage : Ability
         referenceScript.MaxStack = maxBleedStack;
         referenceScript.duration = dotDuration;
       }
+      print("Hemorage");
       isOnCooldown = true;
     }
   }

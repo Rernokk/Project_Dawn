@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class Player_Abilities_Controller : MonoBehaviour {
   public delegate void SpellCast();
-  public SpellCast firstSpell;
-  public SpellCast secondSpell;
-  public SpellCast thirdSpell;
-  public SpellCast fourthSpell;
-  public SpellCast primarySkill;
-  public SpellCast secondarySkill;
+  public SpellCast[] skillSet;
+  Ability[] abilityList;
 
   [SerializeField]
   GameObject target;
@@ -29,12 +25,9 @@ public class Player_Abilities_Controller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-    primarySkill = GetComponent<Hemorage>().Activate;
-    secondarySkill = GetComponent<RendingGust>().Activate;
-    firstSpell = GetComponent<AdrenalineRush>().Activate;
-    secondSpell = GetComponent<BloodVampyrism>().Activate;
-    thirdSpell = GetComponent<Terrify>().Activate;
-    fourthSpell = GetComponent<Exsanguinate>().Activate;
+    skillSet = new SpellCast[] { GetComponent<Hemorage>().Activate, GetComponent<RendingGust>().Activate, GetComponent<AdrenalineRush>().Activate,
+                                GetComponent<BloodVampyrism>().Activate, GetComponent<Terrify>().Activate, GetComponent<Exsanguinate>().Activate };
+    abilityList = GetComponents<Ability>();
   }
 	
 	// Update is called once per frame
@@ -42,32 +35,32 @@ public class Player_Abilities_Controller : MonoBehaviour {
     if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse0)){
       SelectTarget();
     } else if (Input.GetKeyDown(KeyCode.Mouse0) && !isGCD){
-      primarySkill.Invoke();
+      skillSet[0].Invoke();
       isGCD = true;
     }
     if (Input.GetKeyDown(KeyCode.Mouse1) && !isGCD)
     {
-      secondarySkill.Invoke();
+      skillSet[1].Invoke();
       isGCD = true;
     }
     if (Input.GetKeyDown(KeyCode.Alpha1) && !isGCD)
     {
-      firstSpell.Invoke();
+      skillSet[2].Invoke();
       isGCD = true;
     }
     if (Input.GetKeyDown(KeyCode.Alpha2) && !isGCD)
     {
-      secondSpell.Invoke();
+      skillSet[3].Invoke();
       isGCD = true;
     }
     if (Input.GetKeyDown(KeyCode.Alpha3) && !isGCD)
     {
-      thirdSpell.Invoke();
+      skillSet[4].Invoke();
       isGCD = true;
     }
     if (Input.GetKeyDown(KeyCode.Alpha4) && !isGCD)
     {
-      fourthSpell.Invoke();
+      skillSet[5].Invoke();
       isGCD = true;
     }
 
@@ -79,7 +72,23 @@ public class Player_Abilities_Controller : MonoBehaviour {
       }
     }
   }
-  
+
+  public void SetAbility(Ability skill){
+    skillSet[skill.Slot] = skill.Activate;
+    print("Skill is now " + skill.Name);
+  }
+
+  public Ability GetAbility(string name)
+  {
+    foreach(Ability a in abilityList){
+      if (a.Name == name){
+        return a;
+      }
+    }
+    print("Defaulting to Hemorage!");
+    return GetComponent<Hemorage>();
+  }
+
   public void SelectTarget()
   {
     RaycastHit2D info = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);

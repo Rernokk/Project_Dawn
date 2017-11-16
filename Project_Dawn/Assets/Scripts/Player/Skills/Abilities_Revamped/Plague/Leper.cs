@@ -6,7 +6,11 @@ public class Leper : Ability
 {
   public override void Activate()
   {
-    print("Leper");
+    if (!isOnCooldown)
+    {
+      print("Leper");
+      isOnCooldown = true;
+    }
   }
 
   public override void Initialize()
@@ -15,13 +19,4 @@ public class Leper : Ability
   }
 
   //Applies a strong disease to nearby enemies for a period of time, slows player.
-  // Use this for initialization
-  void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
