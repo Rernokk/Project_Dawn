@@ -114,7 +114,7 @@ public class Player_UI_Controller : MonoBehaviour
 
   public void UpdateExpValue()
   {
-    expUI.material.SetFloat("_Value", (float)playerDetails.currentExp / (float)playerDetails.TotalExp);
+    //expUI.material.SetFloat("_Value", (float)playerDetails.currentExp / (float)playerDetails.TotalExp);
   }
 
   public void Populate(string item)

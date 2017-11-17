@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: Rending Gust
-  description: 
+  description: Applies heavier bleed to an area (Max 3 stacks, 12s)
   requiredLevel: 3
   slot: 1
   isOnCooldown: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
     type: 2}
   range: 3
   duration: 12
-  ratio: 1
+  ratio: 1.25
   maxBleedStack: 3
 --- !u!114 &114139687669654372
 MonoBehaviour:
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: Terrify
-  description: 
+  description: Reduces power of nearby enemies (6s)
   requiredLevel: 7
   slot: 4
   isOnCooldown: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: Blood Vampyrism
-  description: 
+  description: Leeches health from bleeding targets within a close range.
   requiredLevel: 5
   slot: 3
   isOnCooldown: 0
@@ -559,7 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: Exsanguinate
-  description: 
+  description: Refreshes and amplifies bleeding effects in range.
   requiredLevel: 9
   slot: 5
   isOnCooldown: 0
@@ -577,13 +577,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: Hemorage
-  description: Ranged Attack - Causes the target Bleeding (Max 30 Stacks)
+  description: Ranged Attack, light-weight bleed effect (Max 30 Stacks, 8s)
   requiredLevel: 1
   slot: 0
   isOnCooldown: 0
   hemoragePrefab: {fileID: 1314844969211380, guid: 037d95630856a7c40ab00da7b78f8bb7,
     type: 2}
-  damageRatio: 0.75
+  damageRatio: 0.4
   maxBleedStack: 30
   dotDuration: 8
 --- !u!114 &114948729533884814
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: Adrenaline Rush
-  description: 
+  description: Accelerates movement and cooldown rate.
   requiredLevel: 8
   slot: 2
   isOnCooldown: 0
