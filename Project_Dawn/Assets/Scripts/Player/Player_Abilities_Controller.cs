@@ -115,4 +115,11 @@ public class Player_Abilities_Controller : MonoBehaviour {
       target = null;
     }
   }
+
+  public void AccelerateCooldownRate(float val){ 
+    foreach (Ability t in GetComponents<Ability>()){
+      print(t.Name);
+      t.cooldownRate += val;
+    }
+  }
 }

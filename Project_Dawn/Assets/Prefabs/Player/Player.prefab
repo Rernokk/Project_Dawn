@@ -292,6 +292,9 @@ MonoBehaviour:
   requiredLevel: 20
   slot: 5
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
 --- !u!114 &114060557087652558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,6 +311,9 @@ MonoBehaviour:
   requiredLevel: 14
   slot: 2
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
 --- !u!114 &114066158436178648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -324,6 +330,9 @@ MonoBehaviour:
   requiredLevel: 3
   slot: 1
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
   rendingAnchorPrefab: {fileID: 1118839853899918, guid: 2033a16cb6abb454aa837fea93245390,
     type: 2}
   range: 3
@@ -346,6 +355,9 @@ MonoBehaviour:
   requiredLevel: 10
   slot: 0
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
 --- !u!114 &114140355664160010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -362,6 +374,9 @@ MonoBehaviour:
   requiredLevel: 16
   slot: 3
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
 --- !u!114 &114242123870429198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -378,6 +393,9 @@ MonoBehaviour:
   requiredLevel: 12
   slot: 1
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
 --- !u!114 &114266665697671068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -428,6 +446,7 @@ MonoBehaviour:
   TotalHealth: 100
   currentMana: 0
   currentHealth: 0
+  isInUI: 0
   chainMode: 0
   stunned: 0
   immobile: 0
@@ -513,6 +532,9 @@ MonoBehaviour:
   requiredLevel: 18
   slot: 4
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
 --- !u!114 &114492597119430226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -529,6 +551,9 @@ MonoBehaviour:
   requiredLevel: 7
   slot: 4
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 6
+  cooldownRate: 1
 --- !u!114 &114494550804411440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -545,6 +570,9 @@ MonoBehaviour:
   requiredLevel: 5
   slot: 3
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 15
+  cooldownRate: 1
   range: 3
   healRatio: 0.25
 --- !u!114 &114508298961882474
@@ -563,6 +591,9 @@ MonoBehaviour:
   requiredLevel: 9
   slot: 5
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 30
+  cooldownRate: 1
   range: 0
   damageMult: 0
 --- !u!114 &114699429736667544
@@ -581,6 +612,9 @@ MonoBehaviour:
   requiredLevel: 1
   slot: 0
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
   hemoragePrefab: {fileID: 1314844969211380, guid: 037d95630856a7c40ab00da7b78f8bb7,
     type: 2}
   damageRatio: 0.4
@@ -602,6 +636,9 @@ MonoBehaviour:
   requiredLevel: 8
   slot: 2
   isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 12
+  cooldownRate: 1
 --- !u!124 &124810000814673422
 Behaviour:
   m_ObjectHideFlags: 1

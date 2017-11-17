@@ -15,7 +15,9 @@ public abstract class Ability : MonoBehaviour {
   
   [SerializeField]
   protected bool isOnCooldown = false;
-  protected float cooldownDuration, cooldown;
+  public float cooldownDuration, cooldown;
+  
+  public float cooldownRate = 1f;
 
   protected float Power
   {
@@ -69,7 +71,6 @@ public abstract class Ability : MonoBehaviour {
       return slot;
     }
   }
-
   private void Awake()
   {
     abilityController = GetComponent<Player_Abilities_Controller>();
@@ -79,7 +80,7 @@ public abstract class Ability : MonoBehaviour {
   {
     if (isOnCooldown)
     {
-      cooldownDuration += Time.deltaTime;
+      cooldownDuration += cooldownRate * Time.deltaTime;
       if (cooldownDuration > cooldown)
       {
         cooldownDuration = 0;

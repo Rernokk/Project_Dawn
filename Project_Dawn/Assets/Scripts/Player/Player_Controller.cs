@@ -17,9 +17,8 @@ public class Player_Controller : MonoBehaviour
   #region Floats
   public int power = 10, defense = 10, level = 1;
   public int currentExp, TotalExp;
-
-  [SerializeField]
-  float playerSpeed = 1f, verticalJump = 1f;
+  
+  public float playerSpeed = 1f, verticalJump = 1f;
 
   [HideInInspector]
   public float teleportRange = 1f;
@@ -260,6 +259,12 @@ public class Player_Controller : MonoBehaviour
     if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton10))
     {
       SceneManager.LoadScene("Instructions");
+    }
+
+    //Developer
+    if (Input.GetKeyDown(KeyCode.J)){
+      level = 10;
+      uiController.UpdateLevel();
     }
 
     if (!isInUI && !stunned)
