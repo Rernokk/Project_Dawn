@@ -66,6 +66,7 @@ public class Player_UI_Controller : MonoBehaviour
     s2 = new AbilityCooldown(playerDetails.GetComponent<BloodVampyrism>().GetCooldownRemaining);
     s3 = new AbilityCooldown(playerDetails.GetComponent<Terrify>().GetCooldownRemaining);
     s4 = new AbilityCooldown(playerDetails.GetComponent<Exsanguinate>().GetCooldownRemaining);
+    transform.Find("Player_HUD/Level").GetComponent<Canvas>().sortingLayerName = "HUD";
   }
 
   public void SetAbilityCooldown(int slot, AbilityCooldown task)
@@ -104,11 +105,17 @@ public class Player_UI_Controller : MonoBehaviour
 
   public void UpdateHealthValue()
   {
+    if (healthUI == null){
+      return;
+    }
     healthUI.material.SetFloat("_Value", playerDetails.HealthPercent);
   }
 
   public void UpdateManaValue()
   {
+    if (manaUI == null){
+      return;
+    }
     manaUI.material.SetFloat("_Value", playerDetails.ManaPercent);
   }
 
@@ -130,6 +137,10 @@ public class Player_UI_Controller : MonoBehaviour
     //Populate list by Item Type
     if (inventoryList != null)
     {
+      if (playerDetails == null){
+        return;
+      }
+
       IEnumerable<Item> q = from thisItem in playerDetails.myInventory where thisItem.itemSlot == item select thisItem;
 
       foreach (Item i in q)
@@ -246,6 +257,11 @@ public class Player_UI_Controller : MonoBehaviour
     s2Skill.fillAmount = s2.Invoke();
     s3Skill.fillAmount = s3.Invoke();
     s4Skill.fillAmount = s4.Invoke();
+  }
+
+  public void UpdateStats(int pow, int def){
+    transform.Find("Inventory/Power").GetComponent<Text>().text = "Power\n" + pow.ToString();
+    transform.Find("Inventory/Defense").GetComponent<Text>().text = "Defense\n" + def.ToString();
   }
 
   public void IfNull()

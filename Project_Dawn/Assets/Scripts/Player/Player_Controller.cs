@@ -38,7 +38,8 @@ public class Player_Controller : MonoBehaviour
   #region Bools
   bool grounded = true, isStealth = false;
   bool canStealth = true, canTeleport = true, canDash = true, canBolt = true, canHeal = true;
-  bool isInUI = false;
+  [HideInInspector]
+  public bool isInUI = false;
   public bool chainMode = false;
   public bool stunned = false, immobile = false;
   bool cont = false;
@@ -240,7 +241,8 @@ public class Player_Controller : MonoBehaviour
     };
     uiController.GetComponent<Player_UI_Controller>().Populate("Helmet");
     #endregion
-    power = 100;
+    power = myGear.GetTotalPower();
+    defense = myGear.GetTotalDefense();
     TotalExp = 100;
     currentExp = 0;
     currentHealth = TotalHealth;
@@ -332,10 +334,12 @@ public class Player_Controller : MonoBehaviour
         uiController.ToggleOffAllElements();
         uiController.ToggleUIElementOn("Inventory");
         isInUI = true;
+        Time.timeScale = 0;
       }
       else
       {
         isInUI = false;
+        Time.timeScale = 1;
         uiController.ToggleUIElementOff("Inventory");
       }
     }
@@ -345,8 +349,10 @@ public class Player_Controller : MonoBehaviour
         uiController.ToggleOffAllElements();
         uiController.ToggleUIElementOn("Skills");
         isInUI = true;
+        Time.timeScale = 0;
       } else {
         isInUI = false;
+        Time.timeScale = 1;
         uiController.ToggleUIElementOff("Skills");
       }
     }
@@ -427,6 +433,9 @@ public class Player_Controller : MonoBehaviour
     myInventory.Remove(newItem);
     Item temp = myGear.SwapItem(newItem);
     myInventory.Add(temp);
+    power = myGear.GetTotalPower();
+    defense = myGear.GetTotalDefense();
+    uiController.UpdateStats(power, defense);
     return temp;
   }
   public void AddBuff(IEnumerator buff, string buffName)

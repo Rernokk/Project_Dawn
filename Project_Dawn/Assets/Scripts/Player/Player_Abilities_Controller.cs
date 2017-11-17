@@ -10,6 +10,8 @@ public class Player_Abilities_Controller : MonoBehaviour {
   [SerializeField]
   GameObject target;
   float globalCooldownDuration, globalCooldown = .5f;
+  Player_Controller controller;
+  Player_UI_Controller uiController;
 
   [SerializeField]
   bool isGCD = false;
@@ -28,40 +30,48 @@ public class Player_Abilities_Controller : MonoBehaviour {
     skillSet = new SpellCast[] { GetComponent<Hemorage>().Activate, GetComponent<RendingGust>().Activate, GetComponent<AdrenalineRush>().Activate,
                                 GetComponent<BloodVampyrism>().Activate, GetComponent<Terrify>().Activate, GetComponent<Exsanguinate>().Activate };
     abilityList = GetComponents<Ability>();
+    uiController = GetComponent<Player_UI_Controller>();
+    controller = GetComponent<Player_Controller>();
   }
 	
 	// Update is called once per frame
 	void Update () {
-    if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse0)){
-      SelectTarget();
-    } else if (Input.GetKeyDown(KeyCode.Mouse0) && !isGCD){
-      skillSet[0].Invoke();
-      isGCD = true;
-    }
-    if (Input.GetKeyDown(KeyCode.Mouse1) && !isGCD)
+    if (!controller.isInUI)
     {
-      skillSet[1].Invoke();
-      isGCD = true;
-    }
-    if (Input.GetKeyDown(KeyCode.Alpha1) && !isGCD)
-    {
-      skillSet[2].Invoke();
-      isGCD = true;
-    }
-    if (Input.GetKeyDown(KeyCode.Alpha2) && !isGCD)
-    {
-      skillSet[3].Invoke();
-      isGCD = true;
-    }
-    if (Input.GetKeyDown(KeyCode.Alpha3) && !isGCD)
-    {
-      skillSet[4].Invoke();
-      isGCD = true;
-    }
-    if (Input.GetKeyDown(KeyCode.Alpha4) && !isGCD)
-    {
-      skillSet[5].Invoke();
-      isGCD = true;
+      if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse0))
+      {
+        SelectTarget();
+      }
+      else if (Input.GetKeyDown(KeyCode.Mouse0) && !isGCD)
+      {
+        skillSet[0].Invoke();
+        isGCD = true;
+      }
+      if (Input.GetKeyDown(KeyCode.Mouse1) && !isGCD)
+      {
+        skillSet[1].Invoke();
+        isGCD = true;
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha1) && !isGCD)
+      {
+        skillSet[2].Invoke();
+        isGCD = true;
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha2) && !isGCD)
+      {
+        skillSet[3].Invoke();
+        isGCD = true;
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha3) && !isGCD)
+      {
+        skillSet[4].Invoke();
+        isGCD = true;
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha4) && !isGCD)
+      {
+        skillSet[5].Invoke();
+        isGCD = true;
+      }
     }
 
     if (isGCD){
