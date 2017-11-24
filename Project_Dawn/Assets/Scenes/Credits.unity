@@ -607,7 +607,6 @@ MonoBehaviour:
     Buttons for the skills as well as the inventory now properly change colors to
     illustrate what tabs are currently selected.
 
-
     Revamped the navigational interface entirely for a better feel.
 
     Skill Interface now displays a description for the effect of each skill, as well

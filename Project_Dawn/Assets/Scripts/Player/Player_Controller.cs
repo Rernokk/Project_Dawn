@@ -295,6 +295,7 @@ public class Player_Controller : MonoBehaviour
           grounded = false;
         }
 
+        /*
         if (rgd.velocity.y < 0 && rgd.gravityScale == gravScale)
         {
           rgd.gravityScale *= 1.5f;
@@ -303,7 +304,7 @@ public class Player_Controller : MonoBehaviour
         if (rgd.velocity.y >= 0 && rgd.gravityScale != gravScale)
         {
           rgd.gravityScale = gravScale;
-        }
+        }*/
         #endregion
       }
       #endregion

@@ -134,6 +134,12 @@ public class Map_Manager : MonoBehaviour
 
     ////Spawning Tiles into worldspace.
     Transform LevelHolder = new GameObject("Level_Depth_" + texDepth).transform;
+    if (texDepth == 1){
+      CompositeCollider2D coll = LevelHolder.gameObject.AddComponent<CompositeCollider2D>();
+      Rigidbody2D rgd = coll.gameObject.GetComponent<Rigidbody2D>();
+      rgd.bodyType = RigidbodyType2D.Static;
+      coll.transform.tag = "Ground";
+    }
     for (int i = 0; i < myPixelMap.width; i++)
     {
       for (int j = 0; j < myPixelMap.height; j++)
