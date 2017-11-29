@@ -16,11 +16,6 @@ public class Skill_Specifier : MonoBehaviour
     skillNumber = number;
   }
 
-  public void ConnectToPlayerSkills()
-  {
-    GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Controller>().SetSkillActive(slotNumber, skillNumber);
-  }
-
   private void Start()
   {
     StartCoroutine(Delay());
@@ -28,7 +23,6 @@ public class Skill_Specifier : MonoBehaviour
 
   IEnumerator Delay(){
     yield return new WaitForSeconds(.1f);
-    levelReq = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Controller>().SetSkillActive(slotNumber, skillNumber).levelReq;
     UpdateInteractive(GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Controller>().level);
   }
 

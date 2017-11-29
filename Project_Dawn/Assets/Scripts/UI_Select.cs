@@ -20,6 +20,9 @@ public class UI_Select : MonoBehaviour {
 
   public void Sel()
   {
-    buttons[0].Select();
+    if (buttons != null && buttons.Count > 0)
+    {
+      buttons[0].Select();
+    }
   }
 }
