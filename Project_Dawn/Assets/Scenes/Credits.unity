@@ -592,7 +592,6 @@ MonoBehaviour:
     window. This alternates between the default bind set, a keyboard only set, and
     a left-handed set.
 
-
     Deaf players are informed of actions during the boss battle and their given location
     by using [Text] where appropriate.
 
@@ -607,6 +606,14 @@ MonoBehaviour:
 
     Buttons for the skills as well as the inventory now properly change colors to
     illustrate what tabs are currently selected.
+
+    Revamped the navigational interface entirely for a better feel.
+
+    Skill Interface now displays a description for the effect of each skill, as well
+    as other attributes or requriements.
+
+    ***Debug Feature (J) will set your level to 10 to access the first set of skills.
+    The second row is not yet implemented.***
 
 
     All art assets are my own.

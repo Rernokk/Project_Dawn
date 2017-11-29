@@ -17,13 +17,15 @@ public class Player_UI_Controller : MonoBehaviour
   List<Item> inventoryList = new List<Item>();
   Text levelText;
   Image s1Skill, s2Skill, s3Skill, s4Skill;
+  public delegate float AbilityCooldown();
+  private AbilityCooldown s1, s2, s3, s4;
 
   [HideInInspector]
   public int startVal = 0;
   [HideInInspector]
   public string currentType = "None";
   Button nextPage, prevPage;
-  // Use this for initialization
+
   void Start()
   {
     uiTable = new Dictionary<string, CanvasGroup>();
@@ -55,12 +57,35 @@ public class Player_UI_Controller : MonoBehaviour
 
     UpdateHealthValue();
     UpdateManaValue();
-    UpdateStats();
     //UpdateLevel();
     IfNull();
 
     nextPage = GameObject.Find("Inventory_Controller/Next_Page").GetComponent<Button>();
     prevPage = GameObject.Find("Inventory_Controller/Previous_Page").GetComponent<Button>();
+    s1 = new AbilityCooldown(playerDetails.GetComponent<AdrenalineRush>().GetCooldownRemaining);
+    s2 = new AbilityCooldown(playerDetails.GetComponent<BloodVampyrism>().GetCooldownRemaining);
+    s3 = new AbilityCooldown(playerDetails.GetComponent<Terrify>().GetCooldownRemaining);
+    s4 = new AbilityCooldown(playerDetails.GetComponent<Exsanguinate>().GetCooldownRemaining);
+    transform.Find("Player_HUD/Level").GetComponent<Canvas>().sortingLayerName = "HUD";
+  }
+
+  public void SetAbilityCooldown(int slot, AbilityCooldown task)
+  {
+    switch (slot)
+    {
+      case (0):
+        s1 = task;
+        break;
+      case (1):
+        s2 = task;
+        break;
+      case (2):
+        s3 = task;
+        break;
+      case (3):
+        s4 = task;
+        break;
+    }
   }
 
   // Update is called once per frame
@@ -71,7 +96,8 @@ public class Player_UI_Controller : MonoBehaviour
     UpdateSkillCooldowns();
   }
 
-  public void UpdateLevel(){
+  public void UpdateLevel()
+  {
     levelText.text = playerDetails.Level.ToString();
     UpdateSkills();
     //UpdateExpValue();
@@ -79,20 +105,29 @@ public class Player_UI_Controller : MonoBehaviour
 
   public void UpdateHealthValue()
   {
+    if (healthUI == null){
+      return;
+    }
     healthUI.material.SetFloat("_Value", playerDetails.HealthPercent);
   }
 
-  public void UpdateManaValue(){
+  public void UpdateManaValue()
+  {
+    if (manaUI == null){
+      return;
+    }
     manaUI.material.SetFloat("_Value", playerDetails.ManaPercent);
   }
 
-  public void UpdateExpValue(){
+  public void UpdateExpValue()
+  {
     //expUI.material.SetFloat("_Value", (float)playerDetails.currentExp / (float)playerDetails.TotalExp);
   }
 
   public void Populate(string item)
   {
-    if (inventoryList == null){
+    if (inventoryList == null)
+    {
       return;
     }
 
@@ -102,6 +137,10 @@ public class Player_UI_Controller : MonoBehaviour
     //Populate list by Item Type
     if (inventoryList != null)
     {
+      if (playerDetails == null){
+        return;
+      }
+
       IEnumerable<Item> q = from thisItem in playerDetails.myInventory where thisItem.itemSlot == item select thisItem;
 
       foreach (Item i in q)
@@ -204,31 +243,25 @@ public class Player_UI_Controller : MonoBehaviour
         inventoryList[startVal + 2].isNew = false;
       }
       IfNull();
-      UpdateStats();
     }
   }
 
-  public void UpdateStats()
+  public void UpdateSkills()
   {
-    transform.Find("Inventory/Power").GetComponent<Text>().text = "Power \n" + playerDetails.Power.ToString();
-    transform.Find("Inventory/Defense").GetComponent<Text>().text = "Defense \n" + playerDetails.Defense.ToString();
-  }
-  public void UpdateSkills(){
-    CanvasGroup skillTree;
-    uiTable.TryGetValue("Skills", out skillTree);
-    foreach (Transform t in skillTree.transform){
-      if (t.GetComponent<Skill_Specifier>())
-      {
-        t.GetComponent<Skill_Specifier>().UpdateInteractive(playerDetails.level);
-      }
-    }
+
   }
 
-  public void UpdateSkillCooldowns(){
-    s1Skill.fillAmount = playerDetails.FirstSkillCooldown;
-    s2Skill.fillAmount = playerDetails.SecondSkillCooldown;
-    s3Skill.fillAmount = playerDetails.ThirdSkillCooldown;
-    s4Skill.fillAmount = playerDetails.FourthSkillCooldown;
+  public void UpdateSkillCooldowns()
+  {
+    s1Skill.fillAmount = s1.Invoke();
+    s2Skill.fillAmount = s2.Invoke();
+    s3Skill.fillAmount = s3.Invoke();
+    s4Skill.fillAmount = s4.Invoke();
+  }
+
+  public void UpdateStats(int pow, int def){
+    transform.Find("Inventory/Power").GetComponent<Text>().text = "Power\n" + pow.ToString();
+    transform.Find("Inventory/Defense").GetComponent<Text>().text = "Defense\n" + def.ToString();
   }
 
   public void IfNull()

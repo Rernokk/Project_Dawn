@@ -44,6 +44,20 @@ GameObject:
   - component: {fileID: 58281974428587990}
   - component: {fileID: 114419411673618500}
   - component: {fileID: 70192477355382932}
+  - component: {fileID: 114266665697671068}
+  - component: {fileID: 114699429736667544}
+  - component: {fileID: 114066158436178648}
+  - component: {fileID: 114948729533884814}
+  - component: {fileID: 114494550804411440}
+  - component: {fileID: 114492597119430226}
+  - component: {fileID: 114508298961882474}
+  - component: {fileID: 114139687669654372}
+  - component: {fileID: 114242123870429198}
+  - component: {fileID: 114060557087652558}
+  - component: {fileID: 114140355664160010}
+  - component: {fileID: 114457733910659882}
+  - component: {fileID: 114023656762478128}
+  - component: {fileID: 61157181363400808}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -116,7 +130,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441395580844230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.33, y: 0.74, z: 0}
+  m_LocalPosition: {x: 2.620356, y: 5.5377703, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4574141957043292}
@@ -167,7 +181,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -186,9 +200,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 3
   m_AngularDrag: 0.05
-  m_GravityScale: 10
+  m_GravityScale: 8
   m_Material: {fileID: 6200000, guid: a8879218a2c9c2544af7f8a8b48a97e7, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -200,7 +214,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441395580844230}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -208,7 +222,32 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.05}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.47927818
+--- !u!61 &61157181363400808
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.019938469}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.95757705, y: 0.081718445}
+  m_EdgeRadius: 0
 --- !u!61 &61265942579234028
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -221,7 +260,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.875}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -232,7 +271,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.25}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!70 &70192477355382932
 CapsuleCollider2D:
@@ -240,7 +279,7 @@ CapsuleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441395580844230}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -263,6 +302,139 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340220346844034}
   m_Enabled: 1
+--- !u!114 &114023656762478128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964117209a9549b43b5c17b3de89c65d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Pandemic
+  description: 
+  requiredLevel: 20
+  slot: 5
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114060557087652558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b5cb32d29eac246ba9786035cf16f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Decay
+  description: 
+  requiredLevel: 14
+  slot: 2
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114066158436178648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac9a0cfdb30ea44aa84e1cd90c0d553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Rending Gust
+  description: Applies heavier bleed to an area (Max 3 stacks, 12s)
+  requiredLevel: 3
+  slot: 1
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+  rendingAnchorPrefab: {fileID: 1118839853899918, guid: 2033a16cb6abb454aa837fea93245390,
+    type: 2}
+  range: 3
+  duration: 12
+  ratio: 1.25
+  maxBleedStack: 3
+--- !u!114 &114139687669654372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8440e33db53ba45409c32cc7e3bb1a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Plague
+  description: 
+  requiredLevel: 10
+  slot: 0
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114140355664160010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddaf273afbf56647b5362f5212e26b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Dread
+  description: 
+  requiredLevel: 16
+  slot: 3
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114242123870429198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5f2c5eba4b0b44e98feb0c4601100e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Viral
+  description: 
+  requiredLevel: 12
+  slot: 1
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114266665697671068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c1af77c8a96619498bc93af7baf5ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  isGCD: 0
 --- !u!114 &114287163542715244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,29 +462,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 0
   defense: 0
-  level: 5
+  level: 1
   currentExp: 25
   TotalExp: 100
   playerSpeed: 75
-  verticalJump: 40
-  stealthDuration: 0.5
-  explosionRange: 5
-  lightningRange: 12
-  FlameWakeSpeed: 6
+  verticalJump: 30
   teleportRange: 8
-  flameRatio: 1
-  explosionRatio: 1.2
-  lightningRatio: 1.5
-  powerMult: 1
-  defenseMult: 1
-  dashCD: 1
-  stealthCD: 1
-  lightningCD: 1
-  FlameWakeCD: 1
   TotalMana: 100
   TotalHealth: 100
   currentMana: 0
   currentHealth: 0
+  isInUI: 0
   chainMode: 0
   stunned: 0
   immobile: 0
@@ -340,7 +500,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   Aggro: []
   uiController: {fileID: 0}
-  uiControllerRef: {fileID: 1383954546771782, guid: cf5f7b6d9fd36b84ab4ddc6e208112fb,
+  uiControllerRef: {fileID: 1448462723771358, guid: a645f79895c086145b21960c1505d8eb,
     type: 2}
   myGear:
     myHelmet:
@@ -380,14 +540,131 @@ MonoBehaviour:
       itemSlot: 
       isNew: 0
   myInventory: []
-  lmbSkill: {fileID: 0}
-  rmbSkill: {fileID: 0}
-  fourthSkill: {fileID: 0}
-  thirdSkill: {fileID: 0}
-  secondSkill: {fileID: 0}
-  firstSkill: {fileID: 0}
   dir: {x: 0, y: 0}
   BuffNames: []
+--- !u!114 &114457733910659882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0580c8f14dfb244aa253b0ba8b1e0a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Leper
+  description: 
+  requiredLevel: 18
+  slot: 4
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114492597119430226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06e9ea5d79420e4a863358416ef71bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Terrify
+  description: Reduces power of nearby enemies (6s)
+  requiredLevel: 7
+  slot: 4
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 6
+  cooldownRate: 1
+--- !u!114 &114494550804411440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc243d9eab82244bb7e978be4ce4a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Blood Vampyrism
+  description: Leeches health from bleeding targets within a close range.
+  requiredLevel: 5
+  slot: 3
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 15
+  cooldownRate: 1
+  range: 3
+  healRatio: 0.25
+--- !u!114 &114508298961882474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a49c9c09d0f71a4284baea875baccd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Exsanguinate
+  description: Refreshes and amplifies bleeding effects in range.
+  requiredLevel: 9
+  slot: 5
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 30
+  cooldownRate: 1
+  range: 0
+  damageMult: 0
+--- !u!114 &114699429736667544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfd4488b60e71e42bb115a8eddc306f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Hemorage
+  description: Ranged Attack, light-weight bleed effect (Max 30 Stacks, 8s)
+  requiredLevel: 1
+  slot: 0
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+  hemoragePrefab: {fileID: 1314844969211380, guid: 037d95630856a7c40ab00da7b78f8bb7,
+    type: 2}
+  damageRatio: 0.4
+  maxBleedStack: 30
+  dotDuration: 8
+--- !u!114 &114948729533884814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7270bdfccb478b4e8b7754585361432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Adrenaline Rush
+  description: Accelerates movement and cooldown rate.
+  requiredLevel: 8
+  slot: 2
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 12
+  cooldownRate: 1
 --- !u!124 &124810000814673422
 Behaviour:
   m_ObjectHideFlags: 1
@@ -424,8 +701,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 822273991
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b827374d7ca687548b9849f64920f637, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -466,9 +743,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 822273991
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8c0bc858b58a742419d118a080a9d0d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

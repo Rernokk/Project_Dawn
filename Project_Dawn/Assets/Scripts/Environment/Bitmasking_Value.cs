@@ -48,7 +48,7 @@ public class Bitmasking_Value : MonoBehaviour
         else
         {
           Vector3 checkPos = transform.position + new Vector3(j, k, 0);
-          neighborArray[i] = Map_Manager.Instance.IsTileOpen(checkPos);
+          neighborArray[i] = Map_Manager.Instance.DoesTileBitmask(checkPos);
           i++;
         }
       }
