@@ -139,6 +139,8 @@ MonoBehaviour:
   levelTex: {fileID: 2800000, guid: d1c914a38af88174d89dc597f9256153, type: 3}
   fgTex: {fileID: 2800000, guid: e137058b6ced6264ebd03d46a633b527, type: 3}
   bgPairs:
+  - col: {r: 0, g: 1, b: 0, a: 1}
+    obj: {fileID: 1853482466485460, guid: d96ebf010c35bff4bac620b7b945f412, type: 2}
   - col: {r: 0, g: 0, b: 0, a: 1}
     obj: {fileID: 1853482466485460, guid: 5500e81cf75162345906cdaf459b5fcf, type: 2}
   levelPairs:

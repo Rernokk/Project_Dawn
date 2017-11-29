@@ -7,7 +7,9 @@ public class Terrify : Ability
 {
   public override void Activate()
   {
-    if (!isOnCooldown){
+    if (!isOnCooldown)
+    {
+      print(skillName);
       isOnCooldown = true;
     }
   }

@@ -17,7 +17,8 @@ public class RendingGust : Ability
   {
     if (!isOnCooldown)
     {
-      print("Rending Gust");
+      print(skillName);
+
       GameObject anchor;
       if (abilityController.Target == null)
       {

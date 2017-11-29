@@ -17,7 +17,7 @@ public class Player_Controller : MonoBehaviour
   #region Floats
   public int power = 10, defense = 10, level = 1;
   public int currentExp, TotalExp;
-  
+
   public float playerSpeed = 1f, verticalJump = 1f;
 
   [HideInInspector]
@@ -205,7 +205,9 @@ public class Player_Controller : MonoBehaviour
     if (GameObject.Find("PlayerUI"))
     {
       uiController = GameObject.Find("PlayerUI").GetComponent<Player_UI_Controller>();
-    } else {
+    }
+    else
+    {
       uiController = Instantiate(uiControllerRef, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<Player_UI_Controller>();
     }
     uiController.GetComponent<Canvas>().worldCamera = myCam.GetComponent<Camera>();
@@ -256,13 +258,14 @@ public class Player_Controller : MonoBehaviour
   }
   void Update()
   {
-    if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton10))
+    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton10))
     {
       SceneManager.LoadScene("Instructions");
     }
 
     //Developer
-    if (Input.GetKeyDown(KeyCode.J)){
+    if (Input.GetKeyDown(KeyCode.J))
+    {
       level = 10;
       uiController.UpdateLevel();
     }
@@ -277,14 +280,24 @@ public class Player_Controller : MonoBehaviour
         {
           direction = -transform.right;
           dir = -transform.right;
-          rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+          //rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+          rgd.velocity += (Vector2)direction * playerSpeed * Time.deltaTime;
+          if (Mathf.Abs(rgd.velocity.x) > 75)
+          {
+            rgd.velocity = new Vector2(5 * Mathf.Sign(rgd.velocity.x), rgd.velocity.y);
+          }
           pointyHat.flipX = true;
         }
         if ((!PersistantVariables.isControllerConnected && Input.GetKey(right)) || (PersistantVariables.isControllerConnected && Input.GetAxis("Horizontal") > 0))
         {
           direction = transform.right;
           dir = transform.right;
-          rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+          //rgd.AddForce(direction * Time.deltaTime * playerSpeed, ForceMode2D.Impulse);
+          rgd.velocity += (Vector2)direction * playerSpeed * Time.deltaTime;
+          if (Mathf.Abs(rgd.velocity.x) > 75)
+          {
+            rgd.velocity = new Vector2(5 * Mathf.Sign(rgd.velocity.x), rgd.velocity.y);
+          }
           pointyHat.flipX = false;
         }
         #endregion
@@ -350,13 +363,17 @@ public class Player_Controller : MonoBehaviour
       }
     }
 
-    if (Input.GetKeyDown(skillsKey)){
-      if (uiController.IsElementActive("Skills") != 1){
+    if (Input.GetKeyDown(skillsKey))
+    {
+      if (uiController.IsElementActive("Skills") != 1)
+      {
         uiController.ToggleOffAllElements();
         uiController.ToggleUIElementOn("Skills");
         isInUI = true;
         Time.timeScale = 0;
-      } else {
+      }
+      else
+      {
         isInUI = false;
         Time.timeScale = 1;
         uiController.ToggleUIElementOff("Skills");
@@ -396,6 +413,13 @@ public class Player_Controller : MonoBehaviour
     if (collision.transform.tag == "Ground")
     {
       grounded = true;
+    }
+  }
+
+  private void OnTriggerExit2D(Collider2D collision)
+  {
+    if (collision.transform.tag == "Ground"){
+      grounded = false;
     }
   }
   public void Damage(float Damage)

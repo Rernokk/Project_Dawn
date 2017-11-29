@@ -26,6 +26,7 @@ public class Hemorage : Ability
   {
     if (!isOnCooldown)
     {
+      print(skillName);
       if (abilityController.Target == null)
       {
         abilityController.SelectTarget();
@@ -51,7 +52,6 @@ public class Hemorage : Ability
         referenceScript.MaxStack = maxBleedStack;
         referenceScript.duration = dotDuration;
       }
-      print("Hemorage");
       isOnCooldown = true;
     }
   }

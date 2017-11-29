@@ -14,6 +14,7 @@ public class BloodVampyrism : Ability
   public override void Activate()
   {
     if (!isOnCooldown){
+      print(skillName);
       List<Monster> BleedingTargetsInRange = MonsterManager.Instance.MonstersInRange(transform.position, range);
       foreach (Monster monster in BleedingTargetsInRange){
         float val = 0;

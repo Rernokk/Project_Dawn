@@ -100,6 +100,8 @@ public abstract class Monster : MonoBehaviour
     direction = transform.right * Mathf.Sign((player.transform.position - transform.position).x);
     transform.Find("Sprite").GetComponent<SpriteRenderer>().material = new Material(transform.Find("Sprite").GetComponent<SpriteRenderer>().material);
     DotsOnMe = new List<DamageOverTime>();
+    transform.Find("Sprite").GetComponent<SpriteRenderer>().sortingLayerName = "Primary";
+    transform.Find("Canvas").GetComponent<Canvas>().sortingLayerName = "Primary";
   }
   protected void Update()
   {

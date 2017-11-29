@@ -9,7 +9,7 @@ public class AdrenalineRush : Ability
   {
     if (!isOnCooldown)
     {
-      print("Adrenaline Rush");
+      print(skillName);
       StartCoroutine(BuffStats());
       isOnCooldown = true;
     }
