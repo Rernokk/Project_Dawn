@@ -8,6 +8,8 @@
 	}
 	SubShader
 	{
+    Tags {"RenderType" = "Transparent" "Queue" = "Transparent" }
+		Blend SrcAlpha OneMinusSrcAlpha
 		Pass
 		{
       //ZWrite Off
@@ -44,9 +46,15 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
-        col = 1 - col;
-        if (i.uv.x < _Threshold || i.uv.x > 1 - _Threshold || i.uv.y < _Threshold || i.uv.y > 1 - _Threshold){
+
+        /*if (i.uv.x < _Threshold || i.uv.x > 1 - _Threshold || i.uv.y < _Threshold || i.uv.y > 1 - _Threshold){
             col.rgb *= _Color;
+        }*/
+        if (col.a < 1 && col.a > 0 && _Threshold > 0){
+          col.a = 1;
+          col.rgb = _Color;
+        } else if (col.a < 1){
+            col.a = 0;
         }
 				return col;
 			}
