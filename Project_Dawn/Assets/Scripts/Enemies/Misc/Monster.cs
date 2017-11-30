@@ -70,6 +70,9 @@ public abstract class Monster : MonoBehaviour
   [SerializeField]
   protected List<DamageOverTime> DotsOnMe;
 
+  public delegate void MonsterKilledEvent();
+  public event MonsterKilledEvent OnTookLethalDamage;
+
   public List<DamageOverTime> DoTs {
     get {
       return DotsOnMe;
@@ -102,6 +105,8 @@ public abstract class Monster : MonoBehaviour
     DotsOnMe = new List<DamageOverTime>();
     transform.Find("Sprite").GetComponent<SpriteRenderer>().sortingLayerName = "Primary";
     transform.Find("Canvas").GetComponent<Canvas>().sortingLayerName = "Primary";
+    //QuestManager.Instance.PrintAllQuestNames();
+    QuestManager.Instance.UpdateKillQuests(this);
   }
   protected void Update()
   {
