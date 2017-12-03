@@ -1,0 +1,758 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1441395580844230}
+  m_IsPrefabParent: 1
+--- !u!1 &1340220346844034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4574141957043292}
+  - component: {fileID: 20991167429667230}
+  - component: {fileID: 92609286833562902}
+  - component: {fileID: 124810000814673422}
+  - component: {fileID: 81754210033320170}
+  - component: {fileID: 114287163542715244}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1441395580844230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4873842285399124}
+  - component: {fileID: 61265942579234028}
+  - component: {fileID: 50200554740355246}
+  - component: {fileID: 58281974428587990}
+  - component: {fileID: 114419411673618500}
+  - component: {fileID: 70192477355382932}
+  - component: {fileID: 114266665697671068}
+  - component: {fileID: 114699429736667544}
+  - component: {fileID: 114066158436178648}
+  - component: {fileID: 114948729533884814}
+  - component: {fileID: 114494550804411440}
+  - component: {fileID: 114492597119430226}
+  - component: {fileID: 114508298961882474}
+  - component: {fileID: 114139687669654372}
+  - component: {fileID: 114242123870429198}
+  - component: {fileID: 114060557087652558}
+  - component: {fileID: 114140355664160010}
+  - component: {fileID: 114457733910659882}
+  - component: {fileID: 114023656762478128}
+  - component: {fileID: 61157181363400808}
+  m_Layer: 8
+  m_Name: Player
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1516860517866090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4890767685549302}
+  - component: {fileID: 212607880915054874}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1961991788881080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4306382071614082}
+  - component: {fileID: 212734595812360770}
+  m_Layer: 8
+  m_Name: Pointy_Hat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4306382071614082
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1961991788881080}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.55, z: -0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4873842285399124}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4574141957043292
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340220346844034}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4873842285399124}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4873842285399124
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.620356, y: 5.5377703, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4574141957043292}
+  - {fileID: 4890767685549302}
+  - {fileID: 4306382071614082}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4890767685549302
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1516860517866090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4873842285399124}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &20991167429667230
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340220346844034}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.14705884, g: 0.14705884, b: 0.14705884, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
+--- !u!50 &50200554740355246
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 3
+  m_AngularDrag: 0.05
+  m_GravityScale: 8
+  m_Material: {fileID: 6200000, guid: a8879218a2c9c2544af7f8a8b48a97e7, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!58 &58281974428587990
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.05}
+  serializedVersion: 2
+  m_Radius: 0.47927818
+--- !u!61 &61157181363400808
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.019938469}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.95757705, y: 0.081718445}
+  m_EdgeRadius: 0
+--- !u!61 &61265942579234028
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!70 &70192477355382932
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  m_Size: {x: 1, y: 1}
+  m_Direction: 0
+--- !u!81 &81754210033320170
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340220346844034}
+  m_Enabled: 1
+--- !u!92 &92609286833562902
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340220346844034}
+  m_Enabled: 1
+--- !u!114 &114023656762478128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964117209a9549b43b5c17b3de89c65d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Pandemic
+  description: 
+  requiredLevel: 20
+  slot: 5
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114060557087652558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b5cb32d29eac246ba9786035cf16f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Decay
+  description: 
+  requiredLevel: 14
+  slot: 2
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114066158436178648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac9a0cfdb30ea44aa84e1cd90c0d553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Rending Gust
+  description: Applies heavier bleed to an area (Max 3 stacks, 12s)
+  requiredLevel: 3
+  slot: 1
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+  rendingAnchorPrefab: {fileID: 1118839853899918, guid: 2033a16cb6abb454aa837fea93245390,
+    type: 2}
+  range: 3
+  duration: 12
+  ratio: 1.25
+  maxBleedStack: 3
+--- !u!114 &114139687669654372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8440e33db53ba45409c32cc7e3bb1a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Plague
+  description: 
+  requiredLevel: 10
+  slot: 0
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114140355664160010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddaf273afbf56647b5362f5212e26b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Dread
+  description: 
+  requiredLevel: 16
+  slot: 3
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114242123870429198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5f2c5eba4b0b44e98feb0c4601100e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Viral
+  description: 
+  requiredLevel: 12
+  slot: 1
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114266665697671068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c1af77c8a96619498bc93af7baf5ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  isGCD: 0
+--- !u!114 &114287163542715244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340220346844034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364a13ef71f9b40e58990911b66a39cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlindMode: 4
+  BlindIntensity: 1
+  ColorBlindShader: {fileID: 4800000, guid: 88e723f30bf154fbe91c8f4fe29a7ee9, type: 3}
+--- !u!114 &114419411673618500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23dcf83dabaf09842a07f8c00163b9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 0
+  defense: 0
+  level: 1
+  currentExp: 25
+  TotalExp: 100
+  playerSpeed: 75
+  verticalJump: 30
+  teleportRange: 8
+  TotalMana: 100
+  TotalHealth: 100
+  currentMana: 0
+  currentHealth: 0
+  isInUI: 0
+  chainMode: 0
+  stunned: 0
+  immobile: 0
+  MyTelePrefab: {fileID: 1830700538700448, guid: e7f2cb743ac8685409b3b63c615910c4,
+    type: 2}
+  MyDetonatePrefab: {fileID: 1152893136603130, guid: a934f3de3d1653c46af9eb9adbc9e669,
+    type: 2}
+  LightningChain: {fileID: 1730512078321140, guid: 5bf4fba8d58e57a43bb3d94a966a1eb9,
+    type: 2}
+  HealFX: {fileID: 1279082950833190, guid: 24552a4a515f2b34c871929493a40283, type: 2}
+  FlameWakeFX: {fileID: 1630055650047204, guid: 754e623bcfdd67f4f85ae53fc4557383,
+    type: 2}
+  FireballProjectilePrefab: {fileID: 1867325836924286, guid: 0e6dbe3a98e8e3544b43eeeba1b236cb,
+    type: 2}
+  ChainPrefab: {fileID: 1765285394477314, guid: c596bab35fa30694a9bc63e3384fab1e,
+    type: 2}
+  SelectionPrefab: {fileID: 1966575712064728, guid: bfca13da9f4e75044b400dda9012c9e4,
+    type: 2}
+  PointPrefab: {fileID: 1879398865921536, guid: c9a77e12b131bfc449c12d057cdef939,
+    type: 2}
+  myLevelPrefab: {fileID: 1110254850299516, guid: 6675951cc14c76d4dacfecefea94d389,
+    type: 2}
+  flamePrefab: {fileID: 1743289007347700, guid: b841d218f983d63428088acc691c81fa,
+    type: 2}
+  direction: {x: 0, y: 0, z: 0}
+  Aggro: []
+  uiController: {fileID: 0}
+  uiControllerRef: {fileID: 1448462723771358, guid: a645f79895c086145b21960c1505d8eb,
+    type: 2}
+  myGear:
+    myHelmet:
+      myName: None
+      Power: 0
+      Defense: 0
+      itemSlot: 
+      isNew: 0
+    myShoulders:
+      myName: None
+      Power: 0
+      Defense: 0
+      itemSlot: 
+      isNew: 0
+    myTorso:
+      myName: None
+      Power: 0
+      Defense: 0
+      itemSlot: 
+      isNew: 0
+    myGloves:
+      myName: None
+      Power: 0
+      Defense: 0
+      itemSlot: 
+      isNew: 0
+    myLegs:
+      myName: None
+      Power: 0
+      Defense: 0
+      itemSlot: 
+      isNew: 0
+    myBoots:
+      myName: None
+      Power: 0
+      Defense: 0
+      itemSlot: 
+      isNew: 0
+  myInventory: []
+  dir: {x: 0, y: 0}
+  BuffNames: []
+--- !u!114 &114457733910659882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0580c8f14dfb244aa253b0ba8b1e0a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Leper
+  description: 
+  requiredLevel: 18
+  slot: 4
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+--- !u!114 &114492597119430226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06e9ea5d79420e4a863358416ef71bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Terrify
+  description: Reduces power of nearby enemies (6s)
+  requiredLevel: 7
+  slot: 4
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 6
+  cooldownRate: 1
+--- !u!114 &114494550804411440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc243d9eab82244bb7e978be4ce4a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Blood Vampyrism
+  description: Leeches health from bleeding targets within a close range.
+  requiredLevel: 5
+  slot: 3
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 15
+  cooldownRate: 1
+  range: 3
+  healRatio: 0.25
+--- !u!114 &114508298961882474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a49c9c09d0f71a4284baea875baccd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Exsanguinate
+  description: Refreshes and amplifies bleeding effects in range.
+  requiredLevel: 9
+  slot: 5
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 30
+  cooldownRate: 1
+  range: 0
+  damageMult: 0
+--- !u!114 &114699429736667544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfd4488b60e71e42bb115a8eddc306f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Hemorage
+  description: Ranged Attack, light-weight bleed effect (Max 30 Stacks, 8s)
+  requiredLevel: 1
+  slot: 0
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 0
+  cooldownRate: 1
+  hemoragePrefab: {fileID: 1314844969211380, guid: 037d95630856a7c40ab00da7b78f8bb7,
+    type: 2}
+  damageRatio: 125
+  maxBleedStack: 30
+  dotDuration: 8
+--- !u!114 &114948729533884814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441395580844230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7270bdfccb478b4e8b7754585361432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: Adrenaline Rush
+  description: Accelerates movement and cooldown rate.
+  requiredLevel: 8
+  slot: 2
+  isOnCooldown: 0
+  cooldownDuration: 0
+  cooldown: 12
+  cooldownRate: 1
+--- !u!124 &124810000814673422
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340220346844034}
+  m_Enabled: 1
+--- !u!212 &212607880915054874
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1516860517866090}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 822273991
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: b827374d7ca687548b9849f64920f637, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.34, y: 0.34}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!212 &212734595812360770
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1961991788881080}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 822273991
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 8c0bc858b58a742419d118a080a9d0d4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.32, y: 0.32}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0

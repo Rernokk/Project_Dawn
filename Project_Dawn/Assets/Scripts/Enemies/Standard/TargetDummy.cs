@@ -9,6 +9,7 @@ public class TargetDummy : Monster
   void Start()
   {
     base.Start();
+    MonsterName = "Target Dummy";
   }
 
   // Update is called once per frame

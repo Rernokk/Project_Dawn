@@ -255,6 +255,7 @@ public class Player_Controller : MonoBehaviour
     uiController.SetAbilityCooldown(1, GetComponent<AdrenalineRush>().GetCooldownRemaining);
     uiController.SetAbilityCooldown(2, GetComponent<AdrenalineRush>().GetCooldownRemaining);
     uiController.SetAbilityCooldown(3, GetComponent<AdrenalineRush>().GetCooldownRemaining);
+    QuestManager.Instance.UnlockQuest("Tutorial");
   }
   void Update()
   {

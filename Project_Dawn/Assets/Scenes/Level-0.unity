@@ -150,9 +150,14 @@ MonoBehaviour:
     obj: {fileID: 1441395580844230, guid: 9ddcda9c1a41a7a49af95f99d5519737, type: 2}
   - col: {r: 1, g: 0, b: 0, a: 1}
     obj: {fileID: 1262082487957188, guid: a8f53de4410fd3d41b770ce153a5f6f8, type: 2}
+  - col: {r: 0.10588236, g: 0.078431375, b: 0.3921569, a: 1}
+    obj: {fileID: 1466391915679116, guid: daa6a5efd5c9cb847892df52b207edd2, type: 2}
   fgPairs:
   - col: {r: 0, g: 0, b: 0, a: 1}
     obj: {fileID: 1853482466485460, guid: 1a490190948944d41a230cd106a579f4, type: 2}
+  foreground: 0
+  primary: 1
+  background: 0
 --- !u!4 &1444232884
 Transform:
   m_ObjectHideFlags: 0

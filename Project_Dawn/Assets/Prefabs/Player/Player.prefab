@@ -643,7 +643,7 @@ MonoBehaviour:
   cooldownRate: 1
   hemoragePrefab: {fileID: 1314844969211380, guid: 037d95630856a7c40ab00da7b78f8bb7,
     type: 2}
-  damageRatio: 0.4
+  damageRatio: 10
   maxBleedStack: 30
   dotDuration: 8
 --- !u!114 &114948729533884814

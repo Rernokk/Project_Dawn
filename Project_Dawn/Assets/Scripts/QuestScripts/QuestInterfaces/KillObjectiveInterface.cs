@@ -1,8 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface KillObjectiveInterface
+public interface IKillObjectiveInterface
 {
-  void AddEnemyToKillList(Monster monster);
+  Dictionary<Type, int> MonsterDictionary{
+    get;
+    set;
+  }
+  void AddEnemyToKillList(Type monster, int count);
 }

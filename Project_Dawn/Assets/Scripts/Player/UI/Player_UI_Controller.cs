@@ -42,9 +42,9 @@ public class Player_UI_Controller : MonoBehaviour
     uiTable.Add("HUD", transform.Find("Player_HUD").GetComponent<CanvasGroup>());
     uiTable.Add("Skills", transform.Find("Skill_Tree").GetComponent<CanvasGroup>());
 
-    firstRow = inventoryCanvas.transform.Find("Inventory_Controller/Top_Item");
-    secondRow = inventoryCanvas.transform.Find("Inventory_Controller/Middle_Item");
-    thirdRow = inventoryCanvas.transform.Find("Inventory_Controller/Bottom_Item");
+    firstRow = inventoryCanvas.transform.Find("Inventory_Controller/ButtonSet/Top_Item");
+    secondRow = inventoryCanvas.transform.Find("Inventory_Controller/ButtonSet/Middle_Item");
+    thirdRow = inventoryCanvas.transform.Find("Inventory_Controller/ButtonSet/Bottom_Item");
 
     healthUI.material = new Material(healthRefMat);
     manaUI.material = new Material(manaRefMat);
@@ -60,8 +60,8 @@ public class Player_UI_Controller : MonoBehaviour
     //UpdateLevel();
     IfNull();
 
-    nextPage = GameObject.Find("Inventory_Controller/Next_Page").GetComponent<Button>();
-    prevPage = GameObject.Find("Inventory_Controller/Previous_Page").GetComponent<Button>();
+    nextPage = GameObject.Find("Inventory_Controller/ButtonSet/Next_Page").GetComponent<Button>();
+    prevPage = GameObject.Find("Inventory_Controller/ButtonSet/Previous_Page").GetComponent<Button>();
     s1 = new AbilityCooldown(playerDetails.GetComponent<AdrenalineRush>().GetCooldownRemaining);
     s2 = new AbilityCooldown(playerDetails.GetComponent<BloodVampyrism>().GetCooldownRemaining);
     s3 = new AbilityCooldown(playerDetails.GetComponent<Terrify>().GetCooldownRemaining);
@@ -181,51 +181,51 @@ public class Player_UI_Controller : MonoBehaviour
       {
         firstRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal].myName;
         firstRow.Find("power").GetComponent<Text>().text = inventoryList[startVal].Power.ToString();
-        firstRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal].Defense.ToString();
+        firstRow.Find("defense").GetComponent<Text>().text = inventoryList[startVal].Defense.ToString();
         firstRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal];
       }
       else
       {
         firstRow.Find("myText").GetComponent<Text>().text = "None";
         firstRow.Find("power").GetComponent<Text>().text = "";
-        firstRow.Find("power/defense").GetComponent<Text>().text = "";
+        firstRow.Find("defense").GetComponent<Text>().text = "";
         secondRow.Find("myText").GetComponent<Text>().text = "None";
         secondRow.Find("power").GetComponent<Text>().text = "";
-        secondRow.Find("power/defense").GetComponent<Text>().text = "";
+        secondRow.Find("defense").GetComponent<Text>().text = "";
         thirdRow.Find("myText").GetComponent<Text>().text = "None";
         thirdRow.Find("power").GetComponent<Text>().text = "";
-        thirdRow.Find("power/defense").GetComponent<Text>().text = "";
+        thirdRow.Find("defense").GetComponent<Text>().text = "";
       }
 
       if (inventoryList.Count > startVal + 1)
       {
         secondRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal + 1].myName;
         secondRow.Find("power").GetComponent<Text>().text = inventoryList[startVal + 1].Power.ToString();
-        secondRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal + 1].Defense.ToString();
+        secondRow.Find("defense").GetComponent<Text>().text = inventoryList[startVal + 1].Defense.ToString();
         secondRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal + 1];
       }
       else
       {
         secondRow.Find("myText").GetComponent<Text>().text = "None";
         secondRow.Find("power").GetComponent<Text>().text = "";
-        secondRow.Find("power/defense").GetComponent<Text>().text = "";
+        secondRow.Find("defense").GetComponent<Text>().text = "";
         thirdRow.Find("myText").GetComponent<Text>().text = "None";
         thirdRow.Find("power").GetComponent<Text>().text = "";
-        thirdRow.Find("power/defense").GetComponent<Text>().text = "";
+        thirdRow.Find("defense").GetComponent<Text>().text = "";
       }
 
       if (inventoryList.Count > startVal + 2)
       {
         thirdRow.Find("myText").GetComponent<Text>().text = inventoryList[startVal + 2].myName;
         thirdRow.Find("power").GetComponent<Text>().text = inventoryList[startVal + 2].Power.ToString();
-        thirdRow.Find("power/defense").GetComponent<Text>().text = inventoryList[startVal + 2].Defense.ToString();
+        thirdRow.Find("defense").GetComponent<Text>().text = inventoryList[startVal + 2].Defense.ToString();
         thirdRow.GetComponent<Equipment_Item_Slot>().myItem = inventoryList[startVal + 2];
       }
       else
       {
         thirdRow.Find("myText").GetComponent<Text>().text = "None";
         thirdRow.Find("power").GetComponent<Text>().text = "";
-        thirdRow.Find("power/defense").GetComponent<Text>().text = "";
+        thirdRow.Find("defense").GetComponent<Text>().text = "";
       }
       if (inventoryList.Count > startVal && inventoryList[startVal].isNew)
       {
@@ -260,8 +260,8 @@ public class Player_UI_Controller : MonoBehaviour
   }
 
   public void UpdateStats(int pow, int def){
-    transform.Find("Inventory/Power").GetComponent<Text>().text = "Power\n" + pow.ToString();
-    transform.Find("Inventory/Defense").GetComponent<Text>().text = "Defense\n" + def.ToString();
+    transform.Find("Inventory/Stats/Power").GetComponent<Text>().text = "Power\n" + pow.ToString();
+    transform.Find("Inventory/Stats/Defense").GetComponent<Text>().text = "Defense\n" + def.ToString();
   }
 
   public void IfNull()

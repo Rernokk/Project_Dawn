@@ -43,7 +43,6 @@ public class DamageOverTime
   {
     timeRemaining -= Time.deltaTime;
   }
-
   public DamageType GetDamageType(){
     return dmgType;
   }
@@ -58,6 +57,9 @@ public abstract class Monster : MonoBehaviour
   [SerializeField]
   protected float Health, TotalHealth = 100;
 
+  [SerializeField]
+  protected string monsterName;
+
   protected int xpValue;
   public Color MyHealthColor;
   public Material HealthRefMat;
@@ -70,15 +72,21 @@ public abstract class Monster : MonoBehaviour
   [SerializeField]
   protected List<DamageOverTime> DotsOnMe;
 
-  public delegate void MonsterKilledEvent();
-  public event MonsterKilledEvent OnTookLethalDamage;
-
+  public string MonsterName
+  {
+    get
+    {
+      return monsterName;
+    }
+    protected set {
+      monsterName = value;
+    }
+  }
   public List<DamageOverTime> DoTs {
     get {
       return DotsOnMe;
     }
   }
-
   public List<DamageOverTime> GetDamageOverTimeByType(DamageType type){
     List<DamageOverTime> dots = new List<DamageOverTime>();
     foreach (DamageOverTime dot in DotsOnMe){
@@ -88,7 +96,6 @@ public abstract class Monster : MonoBehaviour
     }
     return dots;
   }
-
   protected void Start()
   {
     player = GameObject.FindGameObjectWithTag("Player");
@@ -105,8 +112,6 @@ public abstract class Monster : MonoBehaviour
     DotsOnMe = new List<DamageOverTime>();
     transform.Find("Sprite").GetComponent<SpriteRenderer>().sortingLayerName = "Primary";
     transform.Find("Canvas").GetComponent<Canvas>().sortingLayerName = "Primary";
-    //QuestManager.Instance.PrintAllQuestNames();
-    QuestManager.Instance.UpdateKillQuests(this);
   }
   protected void Update()
   {
@@ -146,6 +151,7 @@ public abstract class Monster : MonoBehaviour
       playerController.uiController.UpdateExpValue();
       playerController.myInventory.Add(Item.GenerateItem());
       MonsterManager.Instance.CullMonster(this);
+      QuestManager.Instance.UpdateKillQuests(this);
       Destroy(gameObject);
     }
   }

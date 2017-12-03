@@ -60,6 +60,9 @@ public class Bitmasking_Value : MonoBehaviour
     foreach (BitmaskPairValue pair in IndexLookup){
       if (pair.spriteIndex == bitmaskValue){
         GetComponent<SpriteRenderer>().sprite = tileSet[pair.index];
+        PolygonCollider2D col = gameObject.AddComponent<PolygonCollider2D>();
+        col.usedByComposite = true;
+        break;
       }
     }
   }

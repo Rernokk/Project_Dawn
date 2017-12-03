@@ -1,0 +1,657 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1853482466485460}
+  m_IsPrefabParent: 1
+--- !u!1 &1853482466485460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4628233108781072}
+  - component: {fileID: 212258438123873646}
+  - component: {fileID: 114785618593057994}
+  m_Layer: 0
+  m_Name: FG_Tile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4628233108781072
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853482466485460}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114785618593057994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853482466485460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3fd16b8cea70d142b815e7c7bc685fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSet:
+  - {fileID: 21300000, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300002, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300004, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300006, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300008, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300010, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300012, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300014, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300016, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300018, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300020, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300022, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300024, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300026, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300028, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300030, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300032, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300034, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300036, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300038, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300040, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300042, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300044, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300046, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300048, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300050, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300052, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300054, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300056, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300058, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300060, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300062, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300064, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300066, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300068, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300070, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300072, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300074, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300076, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300078, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300080, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300082, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300084, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300086, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300088, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300090, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300092, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  - {fileID: 21300094, guid: d5bbcf676f3d8fe4a90853b066f41404, type: 3}
+  IndexLookup:
+  - index: 19
+    spriteIndex: 0
+  - index: 19
+    spriteIndex: 1
+  - index: 2
+    spriteIndex: 2
+  - index: 2
+    spriteIndex: 3
+  - index: 19
+    spriteIndex: 4
+  - index: 19
+    spriteIndex: 5
+  - index: 2
+    spriteIndex: 6
+  - index: 2
+    spriteIndex: 7
+  - index: 3
+    spriteIndex: 8
+  - index: 3
+    spriteIndex: 9
+  - index: 23
+    spriteIndex: 10
+  - index: 6
+    spriteIndex: 11
+  - index: 3
+    spriteIndex: 12
+  - index: 3
+    spriteIndex: 13
+  - index: 23
+    spriteIndex: 14
+  - index: 6
+    spriteIndex: 15
+  - index: 1
+    spriteIndex: 16
+  - index: 1
+    spriteIndex: 17
+  - index: 21
+    spriteIndex: 18
+  - index: 21
+    spriteIndex: 19
+  - index: 1
+    spriteIndex: 20
+  - index: 1
+    spriteIndex: 21
+  - index: 7
+    spriteIndex: 22
+  - index: 7
+    spriteIndex: 23
+  - index: 17
+    spriteIndex: 24
+  - index: 17
+    spriteIndex: 25
+  - index: 39
+    spriteIndex: 26
+  - index: 34
+    spriteIndex: 27
+  - index: 17
+    spriteIndex: 28
+  - index: 17
+    spriteIndex: 29
+  - index: 30
+    spriteIndex: 30
+  - index: 14
+    spriteIndex: 31
+  - index: 19
+    spriteIndex: 32
+  - index: 19
+    spriteIndex: 33
+  - index: 2
+    spriteIndex: 34
+  - index: 2
+    spriteIndex: 35
+  - index: 19
+    spriteIndex: 36
+  - index: 19
+    spriteIndex: 37
+  - index: 2
+    spriteIndex: 38
+  - index: 2
+    spriteIndex: 39
+  - index: 3
+    spriteIndex: 40
+  - index: 3
+    spriteIndex: 41
+  - index: 23
+    spriteIndex: 42
+  - index: 6
+    spriteIndex: 43
+  - index: 3
+    spriteIndex: 44
+  - index: 3
+    spriteIndex: 45
+  - index: 23
+    spriteIndex: 46
+  - index: 6
+    spriteIndex: 47
+  - index: 1
+    spriteIndex: 48
+  - index: 1
+    spriteIndex: 49
+  - index: 21
+    spriteIndex: 50
+  - index: 21
+    spriteIndex: 51
+  - index: 1
+    spriteIndex: 52
+  - index: 1
+    spriteIndex: 53
+  - index: 7
+    spriteIndex: 54
+  - index: 7
+    spriteIndex: 55
+  - index: 17
+    spriteIndex: 56
+  - index: 17
+    spriteIndex: 57
+  - index: 39
+    spriteIndex: 58
+  - index: 34
+    spriteIndex: 59
+  - index: 17
+    spriteIndex: 60
+  - index: 17
+    spriteIndex: 61
+  - index: 30
+    spriteIndex: 62
+  - index: 14
+    spriteIndex: 63
+  - index: 0
+    spriteIndex: 64
+  - index: 0
+    spriteIndex: 65
+  - index: 16
+    spriteIndex: 66
+  - index: 16
+    spriteIndex: 67
+  - index: 0
+    spriteIndex: 68
+  - index: 0
+    spriteIndex: 69
+  - index: 16
+    spriteIndex: 70
+  - index: 16
+    spriteIndex: 71
+  - index: 22
+    spriteIndex: 72
+  - index: 22
+    spriteIndex: 73
+  - index: 36
+    spriteIndex: 74
+  - index: 29
+    spriteIndex: 75
+  - index: 22
+    spriteIndex: 76
+  - index: 22
+    spriteIndex: 77
+  - index: 36
+    spriteIndex: 78
+  - index: 29
+    spriteIndex: 79
+  - index: 20
+    spriteIndex: 80
+  - index: 20
+    spriteIndex: 81
+  - index: 38
+    spriteIndex: 82
+  - index: 38
+    spriteIndex: 83
+  - index: 20
+    spriteIndex: 84
+  - index: 20
+    spriteIndex: 85
+  - index: 35
+    spriteIndex: 86
+  - index: 35
+    spriteIndex: 87
+  - index: 37
+    spriteIndex: 88
+  - index: 37
+    spriteIndex: 89
+  - index: 46
+    spriteIndex: 90
+  - index: 44
+    spriteIndex: 91
+  - index: 37
+    spriteIndex: 92
+  - index: 37
+    spriteIndex: 93
+  - index: 41
+    spriteIndex: 94
+  - index: 27
+    spriteIndex: 95
+  - index: 0
+    spriteIndex: 96
+  - index: 0
+    spriteIndex: 97
+  - index: 16
+    spriteIndex: 98
+  - index: 16
+    spriteIndex: 99
+  - index: 0
+    spriteIndex: 100
+  - index: 0
+    spriteIndex: 101
+  - index: 16
+    spriteIndex: 102
+  - index: 16
+    spriteIndex: 103
+  - index: 5
+    spriteIndex: 104
+  - index: 5
+    spriteIndex: 105
+  - index: 33
+    spriteIndex: 106
+  - index: 15
+    spriteIndex: 107
+  - index: 5
+    spriteIndex: 108
+  - index: 5
+    spriteIndex: 109
+  - index: 33
+    spriteIndex: 110
+  - index: 15
+    spriteIndex: 111
+  - index: 20
+    spriteIndex: 112
+  - index: 20
+    spriteIndex: 113
+  - index: 38
+    spriteIndex: 114
+  - index: 38
+    spriteIndex: 115
+  - index: 20
+    spriteIndex: 116
+  - index: 20
+    spriteIndex: 117
+  - index: 13
+    spriteIndex: 118
+  - index: 35
+    spriteIndex: 119
+  - index: 28
+    spriteIndex: 120
+  - index: 28
+    spriteIndex: 121
+  - index: 43
+    spriteIndex: 122
+  - index: 26
+    spriteIndex: 123
+  - index: 28
+    spriteIndex: 124
+  - index: 28
+    spriteIndex: 125
+  - index: 45
+    spriteIndex: 126
+  - index: 11
+    spriteIndex: 127
+  - index: 19
+    spriteIndex: 128
+  - index: 19
+    spriteIndex: 129
+  - index: 2
+    spriteIndex: 130
+  - index: 2
+    spriteIndex: 131
+  - index: 19
+    spriteIndex: 132
+  - index: 19
+    spriteIndex: 133
+  - index: 2
+    spriteIndex: 134
+  - index: 2
+    spriteIndex: 135
+  - index: 3
+    spriteIndex: 136
+  - index: 3
+    spriteIndex: 137
+  - index: 23
+    spriteIndex: 138
+  - index: 6
+    spriteIndex: 139
+  - index: 3
+    spriteIndex: 141
+  - index: 23
+    spriteIndex: 142
+  - index: 6
+    spriteIndex: 143
+  - index: 1
+    spriteIndex: 144
+  - index: 1
+    spriteIndex: 145
+  - index: 21
+    spriteIndex: 146
+  - index: 21
+    spriteIndex: 147
+  - index: 1
+    spriteIndex: 148
+  - index: 1
+    spriteIndex: 149
+  - index: 7
+    spriteIndex: 150
+  - index: 7
+    spriteIndex: 151
+  - index: 17
+    spriteIndex: 152
+  - index: 17
+    spriteIndex: 153
+  - index: 39
+    spriteIndex: 154
+  - index: 34
+    spriteIndex: 155
+  - index: 17
+    spriteIndex: 156
+  - index: 17
+    spriteIndex: 157
+  - index: 30
+    spriteIndex: 158
+  - index: 14
+    spriteIndex: 159
+  - index: 19
+    spriteIndex: 160
+  - index: 19
+    spriteIndex: 161
+  - index: 2
+    spriteIndex: 162
+  - index: 2
+    spriteIndex: 163
+  - index: 19
+    spriteIndex: 164
+  - index: 19
+    spriteIndex: 165
+  - index: 2
+    spriteIndex: 166
+  - index: 2
+    spriteIndex: 167
+  - index: 3
+    spriteIndex: 168
+  - index: 3
+    spriteIndex: 169
+  - index: 6
+    spriteIndex: 170
+  - index: 6
+    spriteIndex: 171
+  - index: 3
+    spriteIndex: 172
+  - index: 3
+    spriteIndex: 173
+  - index: 23
+    spriteIndex: 174
+  - index: 6
+    spriteIndex: 175
+  - index: 17
+    spriteIndex: 176
+  - index: 1
+    spriteIndex: 177
+  - index: 21
+    spriteIndex: 178
+  - index: 21
+    spriteIndex: 179
+  - index: 1
+    spriteIndex: 180
+  - index: 1
+    spriteIndex: 181
+  - index: 7
+    spriteIndex: 182
+  - index: 7
+    spriteIndex: 183
+  - index: 17
+    spriteIndex: 184
+  - index: 17
+    spriteIndex: 185
+  - index: 39
+    spriteIndex: 186
+  - index: 34
+    spriteIndex: 187
+  - index: 17
+    spriteIndex: 188
+  - index: 17
+    spriteIndex: 189
+  - index: 30
+    spriteIndex: 190
+  - index: 14
+    spriteIndex: 191
+  - index: 0
+    spriteIndex: 192
+  - index: 0
+    spriteIndex: 193
+  - index: 16
+    spriteIndex: 194
+  - index: 16
+    spriteIndex: 195
+  - index: 0
+    spriteIndex: 196
+  - index: 0
+    spriteIndex: 197
+  - index: 16
+    spriteIndex: 198
+  - index: 16
+    spriteIndex: 199
+  - index: 22
+    spriteIndex: 200
+  - index: 22
+    spriteIndex: 201
+  - index: 23
+    spriteIndex: 202
+  - index: 29
+    spriteIndex: 203
+  - index: 3
+    spriteIndex: 204
+  - index: 3
+    spriteIndex: 205
+  - index: 36
+    spriteIndex: 206
+  - index: 29
+    spriteIndex: 207
+  - index: 4
+    spriteIndex: 208
+  - index: 4
+    spriteIndex: 209
+  - index: 31
+    spriteIndex: 210
+  - index: 31
+    spriteIndex: 211
+  - index: 4
+    spriteIndex: 212
+  - index: 4
+    spriteIndex: 213
+  - index: 13
+    spriteIndex: 214
+  - index: 13
+    spriteIndex: 215
+  - index: 32
+    spriteIndex: 216
+  - index: 32
+    spriteIndex: 217
+  - index: 40
+    spriteIndex: 218
+  - index: 44
+    spriteIndex: 219
+  - index: 32
+    spriteIndex: 220
+  - index: 32
+    spriteIndex: 221
+  - index: 24
+    spriteIndex: 222
+  - index: 9
+    spriteIndex: 223
+  - index: 0
+    spriteIndex: 224
+  - index: 0
+    spriteIndex: 225
+  - index: 16
+    spriteIndex: 226
+  - index: 16
+    spriteIndex: 227
+  - index: 0
+    spriteIndex: 228
+  - index: 0
+    spriteIndex: 229
+  - index: 16
+    spriteIndex: 230
+  - index: 16
+    spriteIndex: 231
+  - index: 5
+    spriteIndex: 232
+  - index: 5
+    spriteIndex: 233
+  - index: 33
+    spriteIndex: 234
+  - index: 15
+    spriteIndex: 235
+  - index: 5
+    spriteIndex: 236
+  - index: 5
+    spriteIndex: 237
+  - index: 33
+    spriteIndex: 238
+  - index: 15
+    spriteIndex: 239
+  - index: 4
+    spriteIndex: 240
+  - index: 4
+    spriteIndex: 241
+  - index: 31
+    spriteIndex: 242
+  - index: 31
+    spriteIndex: 243
+  - index: 4
+    spriteIndex: 244
+  - index: 4
+    spriteIndex: 245
+  - index: 13
+    spriteIndex: 246
+  - index: 13
+    spriteIndex: 247
+  - index: 12
+    spriteIndex: 248
+  - index: 12
+    spriteIndex: 249
+  - index: 25
+    spriteIndex: 250
+  - index: 10
+    spriteIndex: 251
+  - index: 12
+    spriteIndex: 252
+  - index: 12
+    spriteIndex: 253
+  - index: 8
+    spriteIndex: 254
+  - index: 18
+    spriteIndex: 255
+  bitmaskValue: 0
+--- !u!212 &212258438123873646
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853482466485460}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -445022805
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 723cc80bb3724b9469201c247df4a40d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.528}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.16}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0

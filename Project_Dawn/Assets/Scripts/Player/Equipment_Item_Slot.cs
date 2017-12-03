@@ -33,7 +33,7 @@ public class Equipment_Item_Slot : MonoBehaviour
       myItem = temp;
       transform.Find("myText").GetComponent<Text>().text = myItem.myName;
       transform.Find("power").GetComponent<Text>().text = myItem.Power.ToString();
-      transform.Find("power/defense").GetComponent<Text>().text = myItem.Defense.ToString();
+      transform.Find("defense").GetComponent<Text>().text = myItem.Defense.ToString();
       transform.GetComponent<Image>().color = Color.white;
     }
   }
