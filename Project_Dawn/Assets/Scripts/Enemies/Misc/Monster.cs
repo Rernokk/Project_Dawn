@@ -13,7 +13,7 @@ public class DamageOverTime
   public float timeRemaining;
   public float totalTime;
   public float damageValue;
-  public float stack;
+  public float stacks;
   public int maxStacks;
   public DamageType dmgType;
 
@@ -23,7 +23,7 @@ public class DamageOverTime
     timeRemaining = duration;
     totalTime = duration;
     damageValue = dmg;
-    stack = count;
+    stacks = count;
     maxStacks = max;
     dmgType = type;
   }
@@ -33,15 +33,18 @@ public class DamageOverTime
   }
   public void AddStack()
   {
-    stack++;
+    stacks++;
   }
   public void RemoveStack()
   {
-    stack--;
+    stacks--;
   }
   public void ReduceDuration()
   {
     timeRemaining -= Time.deltaTime;
+    if (timeRemaining <= 0){
+      stacks = 0;
+    }
   }
   public DamageType GetDamageType(){
     return dmgType;
@@ -59,6 +62,10 @@ public abstract class Monster : MonoBehaviour
 
   [SerializeField]
   protected string monsterName;
+
+  [SerializeField]
+  protected GameObject BleedObj;
+  protected ParticleSystem BleedSystem;
 
   protected int xpValue;
   public Color MyHealthColor;
@@ -112,6 +119,8 @@ public abstract class Monster : MonoBehaviour
     DotsOnMe = new List<DamageOverTime>();
     transform.Find("Sprite").GetComponent<SpriteRenderer>().sortingLayerName = "Primary";
     transform.Find("Canvas").GetComponent<Canvas>().sortingLayerName = "Primary";
+    BleedObj = Instantiate(BleedObj, transform, false);
+    BleedSystem = BleedObj.transform.Find("Particle System").GetComponent<ParticleSystem>();
   }
   protected void Update()
   {
@@ -119,7 +128,7 @@ public abstract class Monster : MonoBehaviour
     for (int i = 0; i < DotsOnMe.Count; i++)
     {
       DotsOnMe[i].ReduceDuration();
-      Damage(DotsOnMe[i].damageValue * DotsOnMe[i].stack * Time.deltaTime);
+      Damage(DotsOnMe[i].damageValue * DotsOnMe[i].stacks * Time.deltaTime, true);
     }
 
     //Culling any DoTs that are expiring.
@@ -127,7 +136,7 @@ public abstract class Monster : MonoBehaviour
     {
       if (DotsOnMe[i].timeRemaining <= 0)
       {
-        if (DotsOnMe[i].stack <= 1)
+        if (DotsOnMe[i].stacks <= 1)
         {
           DotsOnMe.RemoveAt(i);
           i--;
@@ -141,10 +150,17 @@ public abstract class Monster : MonoBehaviour
     }
   }
   protected abstract void Aggro();
-  public virtual void Damage(float damageValue)
+  public virtual void Damage(float damageValue, bool isDoT = false)
   {
     Health -= damageValue;
     myHealthMaterial.SetFloat("_Value", Health / TotalHealth);
+
+    if (isDoT){
+      if (DotsOnMe.Count == 0){
+        BleedSystem.Play();
+      }
+    }
+
     if (Health <= 0)
     {
       playerController.currentExp += 25;
@@ -188,14 +204,30 @@ public abstract class Monster : MonoBehaviour
     {
       if (dot.source == src)
       {
-        if (dot.stack < dot.maxStacks)
+        if (dot.stacks < dot.maxStacks)
         {
           dot.AddStack();
+          ModifyBleedRate();
         }
         dot.RefreshDuration();
         return;
       }
     }
     DotsOnMe.Add(new DamageOverTime(src, dur, dmg, count, dmgType, size));
+    ModifyBleedRate();
+  }
+
+  protected void ModifyBleedRate(){
+    float counter = 0;
+    foreach (DamageOverTime dot in DotsOnMe)
+    {
+      counter += dot.stacks;
+    }
+    ParticleSystem.EmissionModule mod = BleedSystem.emission;
+    mod.rateOverTime = Mathf.Clamp(counter * 4, 0, 20);
+    if (counter > 0)
+    {
+      BleedSystem.Play();
+    }
   }
 }

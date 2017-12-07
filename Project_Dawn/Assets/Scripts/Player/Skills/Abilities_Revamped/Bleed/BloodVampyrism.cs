@@ -11,6 +11,9 @@ public class BloodVampyrism : Ability
   [SerializeField]
   float healRatio = 1;
 
+  [SerializeField]
+  GameObject prefab;
+
   public override void Activate()
   {
     if (!isOnCooldown){
@@ -19,17 +22,23 @@ public class BloodVampyrism : Ability
       foreach (Monster monster in BleedingTargetsInRange){
         float val = 0;
         foreach (DamageOverTime dot in monster.GetDamageOverTimeByType(DamageType.BLEED)){
-          val += dot.damageValue * dot.stack;
+          val += dot.damageValue * dot.stacks;
         }
         print(monster.transform.name + " is bleeding for " + val);
       }
       isOnCooldown = true;
+      prefab.transform.Find("Particle System").GetComponent<ParticleSystem>().Play();
     }
   }
 
   public override void Initialize()
   {
     throw new System.NotImplementedException();
+  }
+
+  void Start()
+  {
+    prefab = Instantiate(prefab, transform, false);
   }
 
 }

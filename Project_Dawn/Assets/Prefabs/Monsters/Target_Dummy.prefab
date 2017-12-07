@@ -196,6 +196,7 @@ MonoBehaviour:
   Health: 0
   TotalHealth: 100
   monsterName: 
+  BleedObj: {fileID: 1368690006677954, guid: 51d62ddea4ea3bd43a5b11959303c736, type: 2}
   MyHealthColor: {r: 1, g: 0, b: 0, a: 1}
   HealthRefMat: {fileID: 2100000, guid: 0bf470aa76059364595209189f171288, type: 2}
   DotsOnMe: []

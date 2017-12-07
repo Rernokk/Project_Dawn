@@ -205,8 +205,11 @@ MonoBehaviour:
   burning: 0
   Health: 0
   TotalHealth: 500
+  monsterName: 
+  BleedObj: {fileID: 1368690006677954, guid: 51d62ddea4ea3bd43a5b11959303c736, type: 2}
   MyHealthColor: {r: 1, g: 0, b: 0, a: 1}
   HealthRefMat: {fileID: 2100000, guid: 0bf470aa76059364595209189f171288, type: 2}
+  DotsOnMe: []
   fireProjectile: {fileID: 1501704653051306, guid: 50f443af6e625fe40b2d5460fb4cefc9,
     type: 2}
   currentProjectile: {fileID: 0}

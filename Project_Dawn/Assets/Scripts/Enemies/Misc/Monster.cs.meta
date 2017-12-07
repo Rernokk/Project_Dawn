@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: ecd2d75a2284c654ea6eb5f59f5842a5
-timeCreated: 1505548048
+timeCreated: 1512630485
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - HealthRefMat: {fileID: 2100000, guid: 0bf470aa76059364595209189f171288, type: 2}
+  - BleedObj: {fileID: 1368690006677954, guid: 51d62ddea4ea3bd43a5b11959303c736, type: 2}
+  - HealthRefMat: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

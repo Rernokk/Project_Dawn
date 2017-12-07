@@ -90,7 +90,7 @@ public class Ifrit_FSM : Monster
     }
   }
 
-  public override void Damage(float dmg)
+  public override void Damage(float dmg, bool isDot = false)
   {
     Health -= dmg;
     myHealthMaterial.SetFloat("_Value", Health / TotalHealth);
@@ -101,11 +101,6 @@ public class Ifrit_FSM : Monster
       GameObject.Find("BossRank").GetComponent<Boss_Ranking>().DetermineScore(fightTime);
       Destroy(gameObject);
     }
-  }
-
-  private void OnTriggerEnter2D(Collider2D collision)
-  {
-    base.OnTriggerEnter2D(collision);
   }
 
   IEnumerator Stall()
